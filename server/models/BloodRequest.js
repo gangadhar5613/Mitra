@@ -23,12 +23,19 @@ const bloodRequestSchema = new Schema({
         }
     },
     images:[{type:String}],
-    medicalReports:[{type:String}],
-    requiredBloodGroup:{type:String},
+    medicalReports:[{type:String,required:true}],
+    requestedFor:{
+        bloodGroup:{type:String,required:true},
+        requestedType:{type:String,required:true}
+    },
     deadline:{type:String},
-    acceptedUser:{type:Schema.Types.ObjectId},
+    acceptedDonor:[{type:Schema.Types.ObjectId,ref:"User"}],
     updates:[{type:Schema.Types.ObjectId,ref:"Update"}],
-    isRequstedFulfilled:{type:Boolean,default:false}
+    isRequstedFulfilled:{type:Boolean,default:false},
+    reopenRequests:[{
+        reason:{type:String},
+        medicalReports:{type:String}
+    }]
    
 },{timestamps:true})
 

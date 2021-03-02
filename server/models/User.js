@@ -39,6 +39,7 @@ const userSchema = new Schema({
             trim: true,
         },
     },
+    lastDonated:{type:String}
 },{timestamps:true})
 
 

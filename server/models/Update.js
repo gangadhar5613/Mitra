@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const updateSchema = new Schema({
     requestedUpdate:{type:String,required:true},
     requestedUser:{type:Schema.Types.ObjectId,ref:"User"},
-    requestedEvent:{type:Schema.Types.ObjectId,ref:'BloodRequest'},
+    event:{type:Schema.Types.ObjectId,ref:'BloodRequest'}, //have to give multile reference BloodRequest & FundRaising Event
 
 },{timestamps:true})
 

@@ -12,6 +12,9 @@ const organizationSchema = new Schema({
     volunteers:[{type:Schema.Types.ObjectId,ref:'User'}],
     bloodRequestsRaised:[{type:Schema.Types.ObjectId,ref:'BloodRequest'}],
     organizationLogo:{type:String},
+    pincode:{type:String},
+    city:{type:String},
+    state:{type:String}
     
 
 },{timestamps:true})
