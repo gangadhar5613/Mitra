@@ -3,7 +3,17 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const bloodRequestSchema = new Schema({
-    requestedUser:{type:Schema.Types.ObjectId,ref:'User',required:true},
+    requestedBy:{
+         user:{
+             type:Schema.Types.ObjectId,
+             ref:"User"
+         },
+         organization:{
+             type:Schema.Types.ObjectId,
+             ref:"Organization"
+         }
+    },
+    
     title:{type:String,required:true},
     location: {
         state: {
