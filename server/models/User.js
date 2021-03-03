@@ -13,30 +13,40 @@ const userSchema = new Schema({
     location: {
         state: {
             type: String,
+            required:true
         },
         city: {
             type: String,
+            required:true
         },
         lat: {
             type: Number,
+            required:true
         },
         lng: {
             type: Number,
+            required:true
         },
         address: {
             type: String,
+            required:true
+        },
+        pincode:{
+            type:String,
+            required:true
         }
     },
     raisedRequests:[{type:Schema.Types.ObjectId,ref:"BloodRequest"}],
     isMailVerified:{type:Boolean,default:false},
     isProfileVerified:{type:Boolean,default:false},
     fundsDonated:[{type:Schema.Types.ObjectId,ref:'Donation'}],
-    address:{type:String},
+    medicalReport:{type:String,required:true},
     local: {
         password: {
             type: String,
             minlength: 6,
             trim: true,
+            required:true
         },
     },
     lastDonated:{type:String}
