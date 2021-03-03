@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ErrorOverlayPlugin = require("error-overlay-webpack-plugin");
 
 module.exports = {
 	mode: "development",
@@ -7,7 +8,7 @@ module.exports = {
 	entry: "./src/index.js",
 	output: {
 		path: path.resolve(__dirname, "dist"),
-		filename: "bundler.js"
+		filename: "bundler.js",
 	},
 	module: {
 		rules: [
@@ -36,7 +37,9 @@ module.exports = {
 			title: "ERB",
 			template: "./index.html",
 		}),
+		new ErrorOverlayPlugin(),
 	],
+	devtool: 'cheap-module-source-map',
 	devServer: {
 		contentBase: path.join(__dirname, "dist"),
 		compress: true,
