@@ -1,23 +1,28 @@
 import React from "react";
+import Header from "./Header";
 
 class App extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      title: null
-    }
+      title: null,
+    };
   }
 
-  async componentDidMount () {
+  async componentDidMount() {
     const response = await fetch("/api");
-    const {title} = await response.json()
+    const { title } = await response.json();
     this.setState({
-      title
-    })
+      title,
+    });
   }
 
-  render () {
-    return <h1 className="text-2xl">{this.state.title}</h1>
+  render() {
+    return (
+      <div>
+        <Header />
+      </div>
+    );
   }
 }
 
