@@ -17,7 +17,11 @@ class App extends React.Component {
   }
 
   render () {
-    return <h1 className="text-2xl">{this.state.title}</h1>
+    return (
+      <>
+        <h1 className="text-3xl">{this.state.title}</h1>
+      </>
+    )
   }
 }
 
