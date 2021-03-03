@@ -3,6 +3,16 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const mongoose = require('mongoose')
+
+require('dotenv').config()
+//connecting to mongodb
+mongoose.connect('mongodb://localhost/mitra',{ useNewUrlParser:true, useUnifiedTopology:true},
+  (err) => {
+    console.log(err ? err : 'db connected')
+  }
+)
+
 
 var indexRouter = require('./server/routes/index');
 
@@ -32,7 +42,9 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.json({
+    "error":err
+  });
 });
 
 module.exports = app;
