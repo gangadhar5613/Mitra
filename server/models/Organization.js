@@ -15,8 +15,6 @@ const organizationSchema = new Schema({
     pincode:{type:String},
     city:{type:String},
     state:{type:String}
-    
-
 },{timestamps:true})
 
 
