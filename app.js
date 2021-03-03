@@ -13,7 +13,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/api', indexRouter);
+
+//routes
+app.use('/api/v1', indexRouter);
+app.use('/api/v1/user', require('./server/routes/user') )
+app.use('/api/v1/organization',require('./server/routes/organization'))
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
