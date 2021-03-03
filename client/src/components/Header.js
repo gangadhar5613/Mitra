@@ -4,14 +4,14 @@ class Header extends React.Component {
   render() {
     return (
       <div className="shadow-lg bg-white">
-        <div className="flex p-8 items-center  container mx-24">
+        <header className="flex p-8 items-center  container mx-24">
           <div>
             <h2 className="  font-sans text-5xl font-semibold">Mitra</h2>
           </div>
           <nav className="flex  justify-between w-full items-center ml-16">
             <ul className="flex flex-wrap">
               <li>
-                <a className="text-xl  font-sans font-bold tracking-wider border-b-4 border-red-700 hover:border-blue-900 ">
+                <a className="text-xl font-sans font-bold tracking-wider border-b-4 border-red-700 hover:border-blue-900 ">
                   Home
                 </a>
               </li>
@@ -39,7 +39,7 @@ class Header extends React.Component {
               </li>
             </ul>
           </nav>
-        </div>
+        </header>
       </div>
     );
   }
