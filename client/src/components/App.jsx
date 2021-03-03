@@ -19,7 +19,6 @@ class App extends React.Component {
   render () {
     return (
       <>
-        <img src="/favicon.png" alt="favicon"/>
         <h1 className="text-3xl">{this.state.title}</h1>
       </>
     )

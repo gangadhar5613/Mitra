@@ -39,7 +39,7 @@ module.exports = {
 		}),
 		new ErrorOverlayPlugin(),
 	],
-	devtool: 'cheap-module-source-map',
+	devtool: "cheap-module-source-map",
 	devServer: {
 		contentBase: path.join(__dirname, "dist"),
 		compress: true,
