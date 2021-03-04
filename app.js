@@ -8,6 +8,7 @@ var db = require("./server/db/config")
 var indexRouter = require('./server/routes/index');
 var userRouter = require('./server/routes/user');
 var organizationRouter = require("./server/routes/organization");
+var locationRouter = require("./server/routes/location");
 
 // env
 require('dotenv').config();
@@ -25,8 +26,9 @@ app.use(cookieParser());
 
 //routes
 app.use('/api/v1', indexRouter);
-app.use('/api/v1', userRouter);
+app.use('/api/v1/user', userRouter);
 app.use('/api/v1/org', organizationRouter);
+app.use('/api/v1/location', locationRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
