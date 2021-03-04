@@ -8,10 +8,11 @@ const client = new Client({});
 // GET /api/v1/location
 
 router.get("/", async (req, res, next) => {
+	const { lat, lng } = req.body.location;
 	try {
 		const response = await client.reverseGeocode({
 			params: {
-				latlng: [req.body.location.lat, req.body.location.lng],
+				latlng: [lat, lng],
 				key: process.env.GOOGLE_API_KEY,
 			},
 			timeout: 1000,
@@ -33,6 +34,7 @@ router.get("/", async (req, res, next) => {
 // GET Location Based on PINCODE
 
 router.get("/pincode", async (req, res, next) => {
+	const { pincode } = req.body.location;
 	try {
 		var options = {
 			method: "POST",
@@ -42,7 +44,7 @@ router.get("/pincode", async (req, res, next) => {
 				"x-rapidapi-key": "f2dece19eamsh425942dea7dada4p114aaajsna64562343caa",
 				"x-rapidapi-host": "pincode.p.rapidapi.com",
 			},
-			data: { searchBy: "pincode", value: req.body.location.pincode },
+			data: { searchBy: "pincode", value: pincode },
 		};
 
 		const response = await axios.request(options);
@@ -57,6 +59,29 @@ router.get("/pincode", async (req, res, next) => {
 	}
 });
 
+// GET /api/v1/location/search
+
+router.get("/search", async (req, res, next) => {
+	const { place, lat, lng } = req.body.location;
+	try {
+		const response = await client.placeAutocomplete({
+			params: {
+				key: process.env.GOOGLE_API_KEY,
+				location: [lat, lng],
+				input: place,
+				radius: 10000,
+				types: "establishment",
+			},
+			timeout: 2000,
+		});
+		const { predictions } = await response.data;
+		res.json({ predictions: filterHospital(predictions) });
+	} catch (error) {
+		console.log(error)
+		next(error)
+	}
+})
+
 function pincodeMap(locations) {
 	const { pin, district, circle } = locations[0];
 	const postOffices = locations.map((location) => location.office);
@@ -68,6 +93,10 @@ function pincodeMap(locations) {
 		postOffices,
 		country: "India",
 	};
+}
+
+function filterHospital(predictions = []) {
+	return predictions.filter((query) => query.types.includes("hospital"));
 }
 
 module.exports = router;
