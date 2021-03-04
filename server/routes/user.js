@@ -45,28 +45,28 @@ router.post('/location', async function(req,res,next){
     try {
         const client = new Client({});
         await client
-             .reverseGeocode({
-                 params: {
-                     latlng: [req.body.location.lat, req.body.location.lng],
-                     key: process.env.GOOGLE_API_KEY,
-                 },
-                 timeout: 1000,
-             })
-             .then( async (r) => {
-                 res.json({
-                     location:{
-                         state:r.data.results[0].address_components[3].long_name,
-                         district:r.data.results[0].address_components[2].long_name,
-                         locality:r.data.results[0].address_components[1].long_name,
-                         street:r.data.results[0].address_components[0].long_name,
-                         country:r.data.results[0].address_components[4].long_name,
-                         pincode:r.data.results[0].address_components[5].long_name,
-                     }
-                 })
-             })
-             .catch((e) => {
-                 console.log(e);
-             });
+            .reverseGeocode({
+                params: {
+                    latlng: [req.body.location.lat, req.body.location.lng],
+                    key: process.env.GOOGLE_API_KEY,
+                },
+                timeout: 1000,
+            })
+            .then( async (r) => {
+                res.json({
+                    location:{
+                        state:r.data.results[0].address_components[3].long_name,
+                        district:r.data.results[0].address_components[2].long_name,
+                        locality:r.data.results[0].address_components[1].long_name,
+                        street:r.data.results[0].address_components[0].long_name,
+                        country:r.data.results[0].address_components[4].long_name,
+                        pincode:r.data.results[0].address_components[5].long_name,
+                    }
+                })
+            })
+            .catch((e) => {
+                console.log(e);
+            });
     } catch (error) {
         next(error)
     }

@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 
 const organizationSchema = new Schema({
     organizationName:{type:String,required:true},
-    email:{type:String,required:true},
-    contactNumbers:[{type:Number,required}],
+    email:{type:String,required:true,unique: true},
+    contactNumbers:[{type:Number,required: true}],
     location: {
         state: {
             type: String,
