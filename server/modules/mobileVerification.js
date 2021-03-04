@@ -1,5 +1,3 @@
-
-
 const config = {
     serviceID:"VA628c01c4c269309cc27d8be047992b4f",
     acountSID:"AC57dabed9a226523831f59c0247be6f15",
@@ -7,4 +5,3 @@ const config = {
 }
 
 module.exports = config
-

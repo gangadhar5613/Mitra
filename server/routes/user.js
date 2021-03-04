@@ -77,11 +77,11 @@ router.post('/location', async function(req,res,next){
 //User registration after successfull mobile verification : POST
 
 router.post('/register', async function(req,res,next){
-    
+
     try {
         const registeredUser = await User.create(req.body.user);
         res.json({
-                user:registeredUser,             
+                user:registeredUser,
         })
     } catch (error) {
         next(error)
@@ -90,7 +90,7 @@ router.post('/register', async function(req,res,next){
 
 })
 
-//User login 
+//User login
 router.post('/login',async function(req,res,next){
     try {
         const { email, password } = req.body
