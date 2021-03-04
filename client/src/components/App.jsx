@@ -1,5 +1,5 @@
 import React from "react";
-
+import Register from './auth/Register'
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -9,17 +9,17 @@ class App extends React.Component {
   }
 
   async componentDidMount () {
-    const response = await fetch("/api");
-    const {title} = await response.json()
+    // const response = await fetch("/api");
+    // const {title} = await response.json()
     this.setState({
-      title
+      title:''
     })
   }
 
   render () {
     return (
       <>
-        <h1 className="text-3xl">{this.state.title}</h1>
+        <Register />
       </>
     )
   }

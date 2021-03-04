@@ -25,7 +25,7 @@ app.use(cookieParser());
 
 //routes
 app.use('/api/v1', indexRouter);
-app.use('/api/v1', userRouter);
+app.use('/api/v1/user', userRouter);
 app.use('/api/v1/org', organizationRouter);
 
 // catch 404 and forward to error handler
