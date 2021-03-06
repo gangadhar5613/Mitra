@@ -1,26 +1,32 @@
 import React from "react";
 import Register from './auth/Register';
 import Auth from './auth/Auth'
+import Header from "./Header";
+import Footer from "./Footer";
+
 class App extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      title: null
-    }
+      title: null,
+    };
   }
 
-  async componentDidMount () {
+  async componentDidMount() {
+    const response = await fetch("/api");
+    const { title } = await response.json();
     this.setState({
-      title:''
-    })
+      title,
+    });
   }
 
-  render () {
+  render() {
     return (
-      <>
-            <Register />
-      </>
-    )
+      <div>
+        <Header />
+        <Footer />
+      </div>
+    );
   }
 }
 

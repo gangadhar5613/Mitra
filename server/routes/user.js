@@ -2,8 +2,7 @@ var express = require('express');
 require('dotenv').config()
 var router = express.Router();
 const config = require('../modules/mobileVerification')
-const twilio = require('twilio')(config.acountSID,config.authToken)
-const { Client } = require('@googlemaps/google-maps-services-js');
+const twilio = require("twilio")(config.acountSID, config.authToken);
 const User = require('../models/User')
 
 //To send the OTP to user mobile : POST
@@ -43,57 +42,18 @@ router.post('/mobile/verify',function(req,res,next){
     })
 })
 
-
-//To get the user location : POST
-
-router.post('/location', async function(req,res,next){
-    try {
-        const client = new Client({});
-        await client
-            .reverseGeocode({
-                params: {
-                    latlng: [req.body.location.lat, req.body.location.lng],
-                    key: process.env.GOOGLE_API_KEY,
-                },
-                timeout: 1000,
-            })
-            .then( async (r) => {
-                res.json({
-                    location:{
-                        state:r.data.results[0].address_components[3].long_name,
-                        district:r.data.results[0].address_components[2].long_name,
-                        locality:r.data.results[0].address_components[1].long_name,
-                        street:r.data.results[0].address_components[0].long_name,
-                        country:r.data.results[0].address_components[4].long_name,
-                        pincode:r.data.results[0].address_components[5].long_name,
-                    }
-                })
-            })
-            .catch((e) => {
-                console.log(e);
-            });
-    } catch (error) {
-        next(error)
-    }
-
-})
-
-
 //User registration after successfull mobile verification : POST
 
-router.post('/register', async function(req,res,next){
-
-    try {
-        const registeredUser = await User.create(req.body.user);
-        res.json({
-                user:registeredUser,
-        })
-    } catch (error) {
-        next(error)
-    }
-
-
-})
+router.post("/register", async function (req, res, next) {
+	try {
+		const registeredUser = await User.create(req.body.user);
+		res.json({
+			user: registeredUser,
+		});
+	} catch (error) {
+		next(error);
+	}
+});
 
 //User login
 router.post('/login',async function(req,res,next){
@@ -103,7 +63,7 @@ router.post('/login',async function(req,res,next){
         const passwordCheck = await user.verifyPassword(password);
         if (passwordCheck) {
            res.json({
-                 user:user
+                user:user
            })
         } else {
           res.json({
