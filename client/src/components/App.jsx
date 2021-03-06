@@ -2,6 +2,7 @@ import React from "react";
 import {BrowserRouter,Route,Switch} from 'react-router-dom'
 import Home from './Home';
 import Register from './auth/Register'
+import Login from './auth/Login'
 
 
 
@@ -25,10 +26,12 @@ class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
-          <Route path='/' exact>
+          {/* <Route path='/' exact>
                <Home />
+          </Route> */}
+          <Route path='/' exact >
+              <Home />
           </Route>
-          <Route path='/register' exact component={Register} />
       </BrowserRouter>
     );
   }
