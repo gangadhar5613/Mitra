@@ -4,7 +4,7 @@ function Form(props){
    function handleChangingForm (step) {
          switch (step) {
             case 1:
-                 return <StepForm1 handleInput={props.handleInput} otpSent={props.otpSent} />
+                 return <StepForm1 handleInput={props.handleInput} handleVerifyOtp={props.handleVerifyOtp} handleOtpInput={props.handleOtpInput} state={props.state} otpSent={props.otpSent} />
                 break;
             case 2:
                 return <StepForm2  handleInput={props.handleInput} />
@@ -22,12 +22,12 @@ function Form(props){
     return(
         <div className='flex items-center justify-center h-full' >
         <div className='flex justify-center flex-col relative'>
-           <h3 className='text-center mt-2 text-2xl text-red-500 font-bold'>Verify your mobile</h3>
              {handleChangingForm(props.step)}
             <div className='mt-4 flex items-end w-full justify-between '>
               <button onClick={props.handlePrevForm} id={props.step} className={props.step >= 2 ? 'bg-red-700 text-white px-6 py-2' : 'hidden'}>Back</button>
-              <button onClick={(props.step === 1 ) ? props.handleOtp : props.handleChangingForm} id={props.step} className={props.otpSent ? 'hidden' : 'bg-red-700 text-white px-6 py-2'}>{props.step == 1 ? 'Send OTP' : 'Next'}</button>
-              <button onClick={ props.otpSent ?   props.handleForm : null} id={props.step} className={props.otpSent ? 'bg-red-700 text-white px-6 py-2' : 'hidden'}>{props.otpSent ? 'Next' : ''}</button>
+              <button disabled={props.state.errors.mobile} onClick={(props.step == 1 && !props.otpSent ) ? props.handleOtp : props.handleVerifyOtp} id={props.step} className={props.otpSent ? 'bg-red-700 text-white px-6 py-2' : (props.state.errors.mobile ? 'bg-gray-700 text-black px-6 py-2' : 'bg-red-700 text-white px-6 py-2') }>{(props.step == 1 && !props.otpSent) ? 'Send OTP' : 'Verify Otp'}</button>
+              <button  onClick={ props.handleChangingForm} id={props.step} className={ (! props.state.otpVerified) ? 'hidden' : 'bg-red-700 text-white px-6 py-2' }>Next</button>
+              {/* <button onClick={ props.otpSent ?   props.handleForm : null} id={props.step} className={props.otpSent ? 'bg-red-700 text-white px-6 py-2' : 'hidden'}>{props.otpSent ? 'Next' : ''}</button> */}
             </div>
         </div>
         </div>
@@ -40,16 +40,20 @@ function StepForm1(props){
             <div className='flex flex-col'>
                 <div>
                    <label htmlFor='mobile' className='text-2xl font-bold text-shadow-md'>Mobile</label>
-                   <input onChange={props.handleInput} required='true' type='tel' id='mobile' name='mobile' className='mobile w-96 mt-1 block   outline-none border-2 border-red-800  h-11  text-white shadow-lg hover:bg-red-700 focus:bg-black focus:ring-0' value={props.mobile} placeholder='Enter your mobile number'></input>
+                   <input onChange={props.handleInput} required={true}  type='tel' id='mobile' name='mobile' className='mobile w-96 mt-1 block   outline-none border-2 border-red-800  h-11  text-black shadow-lg hover:bg-red-700 focus:bg-white focus:ring-0' value={props.mobile} placeholder='Enter your 10digits mobile number'></input>
+                  <span className='text-white text-md'>{props.state.errors.mobile ? props.state.errors.mobile : '' }</span>
                 </div>
                 <div className={(props.otpSent) ? 'mt-3' : 'hidden'}>
-                    <h3 className='text-center text-green-600 text-md'>Otp send successfully</h3>
+                    <h3 className='text-center text-shadow-md text-green-600 text-md'>{!props.state.otp ? 'Otp sent successfull' : 'Invalid Otp'}</h3>
+                    <h3 className='text-center text-shadow-md text-green-600 text-md'>{(props.state.otpResponse && props.state.mobileVerifiedSuccessfull) ? 'OTP Verified Successfully': 'OTP Not Verified'}</h3>
                    <label htmlFor='code' className='text-xl font-bold text-shadow-md'>Enter OTP</label>
                    <div>
-                       <input className='w-10 border-2 mr-2  text-center border-red-600' type='tel' maxLength="1"></input>
-                       <input className='w-10 border-2 mr-2 text-center border-red-600' type='tel' maxLength="1" ></input>
-                       <input className='w-10 border-2 mr-2 text-center border-red-600' type='tel' maxLength="1" ></input>
-                       <input className='w-10 border-2 mr-2 text-center border-red-600' type='tel' maxLength="1" ></input>
+                       <input onChange={props.handleOtpInput} name='first' className='w-10 border-2 mr-2  text-center border-red-600' type='tel' maxLength="1"></input>
+                       <input onChange={props.handleOtpInput} name='second' className='w-10 border-2 mr-2 text-center border-red-600' type='tel' maxLength="1" ></input>
+                       <input onChange={props.handleOtpInput} name='third'  className='w-10 border-2 mr-2 text-center border-red-600' type='tel' maxLength="1" ></input>
+                       <input onChange={props.handleOtpInput} name='fourth'  className='w-10 border-2 mr-2 text-center border-red-600' type='tel' maxLength="1" ></input>
+                       <input onChange={props.handleOtpInput} name='fifth'   className='w-10 border-2 mr-2 text-center border-red-600' type='tel' maxLength="1" ></input>
+                       <input onChange={props.handleOtpInput} name='sixth' className='w-10 border-2 mr-2 text-center border-red-600' type='tel' maxLength="1" ></input>
                    </div>
                 </div>
             </div>

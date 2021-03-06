@@ -1,5 +1,6 @@
 import React from "react";
-import Register from './auth/Register'
+import Register from './auth/Register';
+import Auth from './auth/Auth'
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -9,8 +10,6 @@ class App extends React.Component {
   }
 
   async componentDidMount () {
-    // const response = await fetch("/api");
-    // const {title} = await response.json()
     this.setState({
       title:''
     })
@@ -19,7 +18,7 @@ class App extends React.Component {
   render () {
     return (
       <>
-        <Register />
+            <Register />
       </>
     )
   }
