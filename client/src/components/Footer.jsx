@@ -4,7 +4,7 @@ class Footer extends React.Component {
   render() {
     return (
       <div>
-        <div className="w-full overflow-hidden h-48">
+        <div className="w-full overflow-hidden   h-52">
           <svg
             className="absolute -top-2"
             xmlns="http://www.w3.org/2000/svg"

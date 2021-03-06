@@ -3,8 +3,8 @@ import React from "react";
 class Header extends React.Component {
   render() {
     return (
-      <div className="shadow-lg bg-white">
-        <header className="flex p-8 items-center  container mx-24">
+      <div className="shadow-lg bg-white container">
+        <header className="flex p-8 items-center   mx-24">
           <div>
             <h2 className="  font-sans text-5xl font-semibold">Mitra</h2>
           </div>

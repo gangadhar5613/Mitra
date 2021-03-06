@@ -1,6 +1,5 @@
 import React from "react";
 import Register from './auth/Register';
-import Auth from './auth/Auth'
 import Header from "./Header";
 import Footer from "./Footer";
 
