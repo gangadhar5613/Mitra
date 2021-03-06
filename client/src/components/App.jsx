@@ -1,7 +1,10 @@
 import React from "react";
-import Register from './auth/Register';
-import Header from "./Header";
-import Footer from "./Footer";
+import {BrowserRouter,Route,Switch} from 'react-router-dom'
+import Home from './Home';
+import Register from './auth/Register'
+
+
+
 
 class App extends React.Component {
   constructor(props) {
@@ -21,10 +24,12 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <Header />
-        <Footer />
-      </div>
+      <BrowserRouter>
+          <Route path='/' exact>
+               <Home />
+          </Route>
+          <Route path='/register' exact component={Register} />
+      </BrowserRouter>
     );
   }
 }
