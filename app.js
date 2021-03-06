@@ -3,7 +3,9 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var db = require("./server/db/config")
+var session = require("express-session");
+const MongoStore = require("connect-mongo").default;
+var db = require("./server/db/config");
 
 var indexRouter = require('./server/routes/index');
 var userRouter = require('./server/routes/user');
@@ -22,7 +24,19 @@ var app = express();
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(
+	session({
+		secret: process.env.SECRET_KEY,
+		resave: false,
+		saveUninitialized: false,
+		cookie: {
+			maxAge: 604800, // 7 days
+		},
+		store: MongoStore.create({
+			mongoUrl: process.env.DB_URL,
+		}),
+	})
+);
 
 //routes
 app.use('/api/v1', indexRouter);
