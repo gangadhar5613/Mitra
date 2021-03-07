@@ -1,4 +1,6 @@
 import React from "react";
+import Header from "./Header";
+import Footer from "./Footer";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import Home from './Home';
