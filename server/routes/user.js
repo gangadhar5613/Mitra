@@ -1,4 +1,5 @@
 var express = require('express');
+require('dotenv').config()
 var router = express.Router();
 const config = require('../modules/mobileVerification')
 const twilio = require("twilio")(config.acountSID, config.authToken);
@@ -6,10 +7,12 @@ const User = require('../models/User')
 
 //To send the OTP to user mobile : POST
 router.post('/mobile', function(req, res, next) {
+    console.log('hello')
     twilio.verify.services(config.serviceID).verifications.create({
-        to:`${req.body.mobile}`,
+        to:`+91${req.body.mobile}`,
         channel:"sms"
     }).then((data) => {
+        console.log(data)
         res.json({
             mobile:data.to,
             status:data.status
@@ -26,11 +29,13 @@ router.post('/mobile/verify',function(req,res,next){
         if(data.valid){
             res.json({
                 mobile:data.to,
+                verified:true,
                 status:"Your mobile verification is successfull"
             })
         }else{
             res.json({
                 mobile:data.to,
+                verified:false,
                 status:'Not a valid OTP'
             })
         }
