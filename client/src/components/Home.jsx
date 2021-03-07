@@ -9,11 +9,9 @@ import FundRaisingEvents from './FundRaisingEvents'
 function Home(props){
     return(
         <>
-           <Header />
-           <Hero />
-           <BloodRequests />
-           <FundRaisingEvents />
-           <Footer />
+          <Hero />
+          <BloodRequests />
+          <FundRaisingEvents />
         </>
     )
 }

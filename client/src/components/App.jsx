@@ -1,11 +1,11 @@
 import React from "react";
-import {BrowserRouter,Route,Switch} from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+
 import Home from './Home';
-import Register from './auth/Register'
-import Login from './auth/Login'
-
-
-
+import Register from './auth/Register';
+import Login from './auth/Login';
+import Header from "./Header";
+import Footer from "./Footer";
 
 class App extends React.Component {
   constructor(props) {
@@ -26,12 +26,13 @@ class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
-          {/* <Route path='/' exact>
-               <Home />
-          </Route> */}
-          <Route path='/' exact >
-              <Home />
-          </Route>
+        <Header />
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/register" component={Register} />
+          <Route path="/login" component={Login} />
+        </Switch>
+        <Footer />
       </BrowserRouter>
     );
   }
