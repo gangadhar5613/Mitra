@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
+import FunRaising from "./FunRaising";
 
 class App extends React.Component {
   constructor(props) {
@@ -22,7 +23,8 @@ class App extends React.Component {
     return (
       <div>
         <Header />
-        <Footer />
+        <FunRaising />
+        {/* <Footer /> */}
       </div>
     );
   }
