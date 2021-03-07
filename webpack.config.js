@@ -35,7 +35,7 @@ module.exports = {
 	plugins: [
 		new HtmlWebpackPlugin({
 			title: "ERB",
-			template: "./index.html",
+			template: "./public/index.html",
 		}),
 		new ErrorOverlayPlugin(),
 	],
