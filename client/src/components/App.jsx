@@ -4,8 +4,8 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from './Home';
 import Register from './auth/Register';
 import Login from './auth/Login';
-import Header from "./Header";
-import Footer from "./Footer";
+import BloodRequestFeed from './bloodRequestFeed/BloodRequestFeed'
+
 
 class App extends React.Component {
   constructor(props) {
@@ -31,6 +31,7 @@ class App extends React.Component {
           <Route path="/" exact component={Home} />
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
+          <Route path="/bloodrequest-feed" component={BloodRequestFeed} />
         </Switch>
 
       </BrowserRouter>
