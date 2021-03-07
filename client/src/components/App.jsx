@@ -4,7 +4,8 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from './Home';
 import Register from './auth/Register';
 import Login from './auth/Login';
-import BloodRequestFeed from './bloodRequestFeed/BloodRequestFeed'
+import BloodRequestFeed from './bloodRequestFeed/BloodRequestFeed';
+import FundRaisingEvents from './fundRaisingFeed/FundRaisingFeed';
 
 
 class App extends React.Component {
@@ -26,14 +27,13 @@ class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
-
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
           <Route path="/bloodrequest-feed" component={BloodRequestFeed} />
+          <Route path="/fundraising-feed" component={FundRaisingEvents} />
         </Switch>
-
       </BrowserRouter>
     );
   }
