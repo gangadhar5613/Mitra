@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-{
-  "presets": [
-    ["@babel/preset-env", {
-      "targets": {
-        "chrome": "58"
-      }
-    }
-  ], "@babel/preset-react"]
-=======
 {
   "presets": [
     ["@babel/preset-env", {
@@ -17,5 +7,4 @@
     }
   ], "@babel/preset-react"],
   "plugins": ["@babel/plugin-proposal-class-properties"]
->>>>>>> 9b178a01dd66ee7a2051a9dfd71f1c12216ce76f
 }
