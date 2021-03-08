@@ -1,5 +1,5 @@
 const path = require("path");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ErrorOverlayPlugin = require("error-overlay-webpack-plugin");
 
 module.exports = {
@@ -8,7 +8,7 @@ module.exports = {
 	entry: "./src/index.js",
 	output: {
 		path: path.resolve(__dirname, "dist"),
-		filename: "bundler.js",
+		filename: "[name].bundler.js",
 	},
 	module: {
 		rules: [
@@ -25,7 +25,7 @@ module.exports = {
 			},
 			{
 				test: /\.(png|svg|jpg|jpeg|gif)$/i,
-				type: "asset/resource",
+				type: "asset",
 			},
 		],
 	},
@@ -34,18 +34,28 @@ module.exports = {
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
-			title: "ERB",
-			template: "./public/index.html",
+			title: "Mitra",
+			template: "./index.html",
 		}),
 		new ErrorOverlayPlugin(),
 	],
+	optimization: {
+		splitChunks: {
+			// include all types of chunks
+			chunks: "all",
+		},
+	},
 	devtool: "cheap-module-source-map",
 	devServer: {
 		contentBase: path.join(__dirname, "dist"),
 		compress: true,
 		port: 9000,
+		historyApiFallback: true,
 		proxy: {
 			"/api": "http://localhost:3000",
 		},
 	},
+	externals: {
+      moment: 'moment'
+  }
 };
