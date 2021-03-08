@@ -9,6 +9,7 @@ import Login from "./auth/Login";
 import BloodRequestFeed from "./bloodRequestFeed/BloodRequestFeed";
 import FundRaisingEvents from "./fundRaisingFeed/FundRaisingFeed";
 import UserDashboard from "./userDashboard/UserDashboard";
+import FunRaising from "./FunRaising";
 
 class App extends React.Component {
   constructor(props) {
@@ -28,6 +29,7 @@ class App extends React.Component {
 
   render() {
     return (
+<<<<<<< HEAD
       <BrowserRouter>
         <Switch>
           <Route path="/" exact component={Home} />
@@ -40,6 +42,13 @@ class App extends React.Component {
           </Route>
         </Switch>
       </BrowserRouter>
+=======
+      <div>
+        <Header />
+        <FunRaising />
+        {/* <Footer /> */}
+      </div>
+>>>>>>> fund-raising-page
     );
   }
 }
