@@ -1,11 +1,10 @@
 import React from "react";
-
 class Gallery extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       index: 0,
-      picList: [],
+      picList: ["blood.jpg"],
     };
   }
   onClickNext = () => {

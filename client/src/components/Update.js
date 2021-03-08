@@ -48,18 +48,19 @@ class Update extends React.Component {
             </div>
           </div>
           <div className=" mt-7 bg-white border-white rounded-2xl shadow-md border-2 p-8">
-            <h4 className="font-sans text-2xl font-semibold my-7">Donate</h4>
-            <img
-              className="w-full"
-              src="https://www.svgrepo.com/show/54587/donate.svg"
-            />
-            <div class="inline-block mr-2 mt-2 w-full">
-              <button
-                type="button"
-                class=" mx-auto block focus:outline-none text-white text-lg py-2.5 px-5 rounded-md bg-red-700 hover:bg-blue-600 hover:shadow-lg"
-              >
-                Donate Now
-              </button>
+            {/* <h4 className="font-sans text-2xl font-semibold my-7 mx-auto">
+              Donation
+            </h4> */}
+            <div className="flex">
+              <img
+                className="donor-image"
+                src="https://pbs.twimg.com/profile_images/1355996031658323969/y18eVQix_400x400.jpg"
+              />
+              <p className="text-xl mx-auto my-4">Kushal Dave just Donated !</p>
+            </div>
+
+            <div class="mt-2 mx-auto w-full text-center">
+              <p className="text-xl">Rs. 10,000</p>
             </div>
           </div>
         </div>

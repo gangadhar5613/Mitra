@@ -6,14 +6,17 @@ class EventSection extends React.Component {
       <div className="flex w-1/2">
         <div className=" w-1/12 border-black mr-6">
           <div className="mx-auto my-8">
-            <a className="text-4xl mr-8">
-              <i class="fab fa-twitter"></i>
+            <a className="">
+              <i class="fab fa-twitter text-4xl text-white ml-8 my-6"></i>
             </a>
-            <a className="text-4xl mr-8">
-              <i class="fab fa-instagram"></i>
+            <a className="text-4xl ">
+              <i class="fab fa-instagram ml-8 mb-6  text-4xl text-white"></i>
             </a>
-            <a className="text-4xl mr-8">
-              <i class="fab fa-facebook-f"></i>
+            <a className="text-4xl ">
+              <i class="fab fa-facebook-f ml-8 mb-6  text-4xl text-white"></i>
+            </a>
+            <a className="text-4xl ">
+              <i class="fab fa-linkedin-in ml-8 mb-6  text-4xl text-white"></i>
             </a>
           </div>
         </div>
