@@ -3,41 +3,35 @@ import React from "react";
 class Header extends React.Component {
   render() {
     return (
-      <div className="shadow-lg bg-gradient-to-r from-red-500 via-red-400 to-yellow-500 container">
-        <header className="flex p-8 items-center   mx-24">
-          <div>
-            <h2 className="  font-sans text-5xl font-semibold bg-gradient-to-l text-white text-shadow-xl from-red-500">Mitra</h2>
+      <div className="shadow-xl bg-white header">
+        <header className="flex items-center justify-between py-4">
+          <div className="ml-16">
+            <h1 className="text-4xl text-red-700 font-bold ">Mitra</h1>
           </div>
-          <nav className="flex  justify-between w-full items-center ml-16">
-            <ul className="flex flex-wrap">
-              <li>
-                <a className="text-xl font-sans font-bold tracking-wider border-b-4 border-red-700 hover:border-yellow-500 ">
-                  Home
-                </a>
-              </li>
-              <li className="ml-8">
-                <a className="text-xl font-sans font-bold tracking-wider border-b-4 border-red-700 hover:border-yellow-500">
-                  About
-                </a>
-              </li>
-              <li className="ml-8">
-                <a className="text-xl font-sans font-bold tracking-wider border-b-4 border-red-700 hover:border-yellow-500">
-                  FAQs
-                </a>
-              </li>
-            </ul>
-            <ul className="flex flex-wrap self-end">
-              <li className="ml-6">
-                <button className="font-sans font-bold text-xl p-3 hover:bg-red-500 border-2 border-black rounded-xl">
+          <nav className="mr-16 flex justify-around items-center">
+            <div className="mr-6">
+              <a className="mx-4 text-xl font-bold text-white">Home</a>
+              <a className="mx-4 text-xl font-bold text-white">About</a>
+              <a className="mx-4 text-xl font-bold text-white">FAQs</a>
+            </div>
+            <div className="flex items-center">
+              <div class="inline-block mx-2">
+                <button
+                  type="button"
+                  class="focus:outline-none text-red-700 text-xl py-2.5 px-5 rounded-md bg-gradient-to-r from-white to-white transform hover:scale-110"
+                >
                   Sign In
                 </button>
-              </li>
-              <li className="ml-6  ">
-                <button className="font-sans font-bold p-3 text-xl hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50 border-2 border-black rounded-xl">
+              </div>
+              <div class="inline-block mx-2">
+                <button
+                  type="button"
+                  class="focus:outline-none text-red-700 text-xl py-2.5 px-5 rounded-md bg-white to-red-600 transform hover:scale-110"
+                >
                   Sign Up
                 </button>
-              </li>
-            </ul>
+              </div>
+            </div>
           </nav>
         </header>
       </div>
