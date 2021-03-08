@@ -2,8 +2,8 @@ import React from "react";
 
 function Hero(props) {
   return (
-    <section className="h-screen hero hero-section">
-      <div className="flex flex-col items-center justify-center h-full">
+    <section className="h-screen flex hero hero-section">
+      <div className="flex flex-col w-1/2 items-center justify-center h-full">
         <div className="mb-20">
           <h2 className="text-3xl text-white">
             A online platform to raise blood request and to raise medical
@@ -19,6 +19,7 @@ function Hero(props) {
           </button>
         </div>
       </div>
+      <div></div>
     </section>
   );
 }
