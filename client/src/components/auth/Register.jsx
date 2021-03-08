@@ -2,17 +2,18 @@ import React from 'react'
 import Steps from './Steps'
 import Form from './Form'
 import Loader from '../Loader'
+import Header from '../Header'
 
 
 class Register extends React.Component{
     constructor(props){
         super(props)
         this.state= {
-            step:1,
+            step:3,
             mobileVerify:false,
             otpVerified:false,
             otpSent:false,
-            mobileVerifiedSuccessfull:null,
+            mobileVerifiedSuccessfull:true,
             mobile:'',
             mobileResponse:null,
             authForm:'register',
@@ -22,25 +23,13 @@ class Register extends React.Component{
             mobileOtp:[],
             otp:null,
             otpResponse:null,
-            userData:{
-                mobile:'',
-                email:'',
-                fullname:'',
-                profileImage:'',
-                dateofbirth:'',
-                medicalReport:'',
-                location: {
-                    "state":"andhrapradesh",
-                    "city":"kadapa",
-                    "lat":"12315655",
-                    "long":"124002255",
-                    "address":"kadapa,andhrapradesh",
-                     "pincode":"516247"
-                    },
-                "local": {
-                        "password":"dhsaasfvashbhjfaabfa"
-                    },
-            }
+           fullname:'',
+           email:'',
+           bloodgroup:'',
+           dateofbirth:'',
+           pincode:null,
+           locationFetching:'',
+           location:null
 
             
 
@@ -67,13 +56,15 @@ class Register extends React.Component{
         })
 
         let body = {
-            mobile:this.state.mobileResponse.mobile,
-            code:this.state.otp
+            "user":{
+                "mobile":this.state.mobileResponse.to,
+                "code":this.state.otp
+            }
         }
         await  fetch(`/api/v1/user/mobile/verify`,{method:'POST',headers:{"Content-Type": "application/json"},body:JSON.stringify(body)})
                 .then((res) => res.json())
                 .then((data) => 
-                   (data.verified ? this.setState({mobileVerifiedSuccessfull:true}) : this.setState({mobileVerifiedSuccessfull:false}))
+                   ((data.status == 'approved') ? this.setState({mobileVerifiedSuccessfull:true}) : this.setState({mobileVerifiedSuccessfull:false}))
                 )
         await (this.state.mobileVerifiedSuccessfull ? this.setState((prevState) => {
             return{
@@ -144,61 +135,96 @@ class Register extends React.Component{
             return count;     
     }
 
+    handleChangingForm = () => {
+
+    }
+
     handleInput = (event) => {
        let {name,value} = event.target
        let errors = this.state.errors
-       value = Number(value)
+
+       if(name == 'pincode'){
+           console.log(value)
+           if(value.length > 6){
+               return
+           }
+           this.setState({
+               locationFetching:'yes'
+           })
+           let body = {
+               "location":{
+                   "pincode":value
+               }
+           }
+            if(this.countDigits(value) == 6){
+                 fetch(`/api/v1/location/pincode`,{method:'POST',headers:{"Content-Type": "application/json"},body:JSON.stringify(body)})
+                 .then((res) => res.json())
+                 .then((data) => this.setState({
+                     location:data,
+                     locationFetching:'no'
+                 }))
+            }
+       }
+       
        switch (name) {
            case 'mobile':
            errors.mobile = ( this.countDigits(value) >=10 ) ? '' : 'Please enter valid 10 digit mobile number'
                   this.setState({
-                      mobile:value
+                      mobile:Number(value)
                   })
                break;
            case 'email':
-            errors.mobile = ( this.countDigits(value) >=10 ) ? '' : 'Please enter valid 10 digit mobile number'
+            // errors.mobile = ( this.countDigits(value) >=10 ) ? '' : 'Please enter valid 10 digit mobile number'
                        this.setState({
                            mobile:value
                        })
             break;
-             case 'firstname':
-                errors.mobile = ( this.countDigits(value) >=10 ) ? '' : 'Please enter valid 10 digit mobile number'
+             case 'fullname':
+                // errors.mobile = ( this.countDigits(value) >=10 ) ? '' : 'Please enter valid 10 digit mobile number'
                        this.setState({
-                           mobile:value
+                           fullname:value
                        })
             break;
-            case 'secondname':
-           errors.mobile = ( this.countDigits(value) >=10 ) ? '' : 'Please enter valid 10 digit mobile number'
-                  this.setState({
-                      mobile:value
-                  })
-               break;
            case 'bloodgroup':
-            errors.mobile = ( this.countDigits(value) >=10 ) ? '' : 'Please enter valid 10 digit mobile number'
+            // errors.mobile = ( this.countDigits(value) >=10 ) ? '' : 'Please enter valid 10 digit mobile number'
                        this.setState({
-                           mobile:value
+                           bloodgroup:value
                        })
             break;
+            case 'dateofbirth':
+                // errors.mobile = ( this.countDigits(value) >=10 ) ? '' : 'Please enter valid 10 digit mobile number'
+                           this.setState({
+                               dateofbirth:value
+                           })
+                break;
              case 'profileimage':
-                errors.mobile = ( this.countDigits(value) >=10 ) ? '' : 'Please enter valid 10 digit mobile number'
+                // errors.mobile = ( this.countDigits(value) >=10 ) ? '' : 'Please enter valid 10 digit mobile number'
                        this.setState({
                            mobile:value
                        })
             break;
             case 'medicalReport':
-           errors.mobile = ( this.countDigits(value) >=10 ) ? '' : 'Please enter valid 10 digit mobile number'
+        //    errors.mobile = ( this.countDigits(value) >=10 ) ? '' : 'Please enter valid 10 digit mobile number'
                   this.setState({
                       mobile:value
                   })
                break;
+            case 'pincode':
+                    this.setState({
+                        pincode:value
+                    })
+
+                    
+
+                       break;
            case 'location':
-            errors.mobile = ( this.countDigits(value) >=10 ) ? '' : 'Please enter valid 10 digit mobile number'
+            // errors.mobile = ( this.countDigits(value) >=10 ) ? '' : 'Please enter valid 10 digit mobile number'
                        this.setState({
                            mobile:value
                        })
             break;
              case 'password':
-                errors.mobile = ( this.countDigits(value) >=10 ) ? '' : 'Please enter valid 10 digit mobile number'
+                // errors.mobile = ( this.countDigits(value) >=10 ) ? '' : 'Please enter valid 10 digit mobile number'
                        this.setState({
                            mobile:value
                        })
@@ -210,10 +236,12 @@ class Register extends React.Component{
     }
 
   async  sendOtp(){
-        let mobile = {
-            "mobile":this.state.mobile
+        let user = {
+            "user":{
+                "mobile":this.state.mobile
+            }
         }
-     await   fetch(`/api/v1/user/mobile`,{method:'POST',headers:{"Content-Type": "application/json"},body:JSON.stringify(mobile)})
+     await   fetch(`/api/v1/user/mobile`,{method:'POST',headers:{"Content-Type": "application/json"},body:JSON.stringify(user)})
         .then((res) => res.json())
         .then((data) => this.setState({mobileResponse:data}) )
     }
@@ -227,6 +255,32 @@ class Register extends React.Component{
         })
        
 
+    }
+
+    fetchingLocation = () =>{
+    
+        // if (navigator.geolocation) {
+        //     navigator.geolocation.getCurrentPosition(locationSuccess.bind(e), locationFailure)
+        // }
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(() => console.log('succes'), console.log('failed'))
+    }
+    
+    }
+
+    handleUserSubmit = () => {
+        let user ={
+            "user":{
+                fullname:this.state.fullname,
+                email:this.state.email,
+                mobile:this.state.mobile,
+                bloodgroup:this.state.bloodgroup,
+                dob:this.state.dateofbirth,
+               isVerified:true,
+               medicalReport:'/localhost',
+
+            }
+        }
     }
 
     handlePrevForm = (event) => {
@@ -249,6 +303,10 @@ class Register extends React.Component{
             this.handleMobileVerify()
 
         }else if(event.target.id >= 2){
+            console.log(event.target.id)
+            if(event.target.id == 3){
+                this.fetchingLocation()
+            }
             this.setState((prevState) => {
                 return{
                     step:prevState.step+1
@@ -274,8 +332,8 @@ class Register extends React.Component{
     render(){
         return(
            <>
-             <section className='flex items-center relative flex-row w-screen container mx-auto  h-screen'>
-                <section className='w-full bg-yellow-500    shadow-md mx-40 md:w-full   '>
+             <section className='flex items-center register relative flex-row w-screen container mx-auto  h-screen'>
+                <section className='w-full bg-white    shadow-xl mx-40 md:w-full   '>
                     <div className='heading flex  flex-row justify-between'>
                         <div className='flex  bg-red-500 cursor-pointer  shadow-md py-2 border-r border-gray-300 w-full items-center justify-center'>
                           <button onClick={this.handleForm} id='register' className='text-xl'>Register</button>

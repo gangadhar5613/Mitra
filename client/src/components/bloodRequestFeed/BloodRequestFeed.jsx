@@ -9,9 +9,9 @@ class BloodRequestFeed extends React.Component{
 
     render(){
         return(
-            <article class="w-full bg-feed transform   duration-1000 delay-300" id="dashboard">
-                <section class="heading-section text-center my-10">
-                    <h2 class="text-3xl font-bold my-2 text-red-600">Live Feed of Blood Request</h2>
+            <article class="w-full feed bg-feed transform pt-20   duration-1000 delay-300" id="dashboard">
+                <section class="heading-section text-center ">
+                    <h2 class="text-3xl font-bold py-2 text-white">Live Feed of Blood Request</h2>
                     <h3 class="text-1xl font-medium">Our Realtime Network Activity Feed</h3>
                 </section>
                 <section class="flex flex-row justify-evenly  ">
@@ -19,14 +19,14 @@ class BloodRequestFeed extends React.Component{
                         <BloodRequestCard />
                         <BloodRequestCard />
                    </section>
-                   <section class="filters  ">
-                       <h2 class="text-3xl underline my-2 font-bold text-red-700">Filters</h2>
+                   <section class="filters shadow-lg bg-white h-full mt-5 p-4  ">
+                       <h2 class="text-3xl underline  my-2 font-bold text-yellow-300">Filters</h2>
                        <div class="Activity">
                              <ul class="text-1xl">
-                                 <li class="my-2 hover:text-red-700 font-medium text-red-600"><a href="">All Activity</a> </li>
-                                 <li class="my-2 hover:text-red-700 font-medium"><a href="">Pending Requests</a></li>
-                                 <li class="my-2 hover:text-red-700 font-medium"><a href="">Fulfilled Requests</a></li>
-                                 <li class="my-2 hover:text-red-700 font-medium"><a href="">Near Me</a></li>
+                                 <li class="my-2 hover:text-red-700 font-medium text-red-700"><a href="">All Activity</a> </li>
+                                 <li class="my-2 hover:text-red-700  font-medium"><a href="">Pending Requests</a></li>
+                                 <li class="my-2 hover:text-red-700  font-medium"><a href="">Fulfilled Requests</a></li>
+                                 <li class="my-2 hover:text-red-700  font-medium"><a href="">Near Me</a></li>
                              </ul>
                        </div>
                    </section>
@@ -41,7 +41,7 @@ class BloodRequestFeed extends React.Component{
 
 function BloodRequestCard(props){
     return(
-        <div class="blood-request-card mx-1 px-5 my-5 shadow-2xl p-2 w-full">
+        <div class="blood-request-card bg-white mx-1 px-5 my-5 shadow-2xl p-2 w-full">
         <a href="">
             <div class="flex flex-row items-center part-1">
                 <div class="blood-drop-img bg-red-700 text-center mx-2 flex items-center justify-center w-10 h-10 rounded-full">
@@ -49,7 +49,7 @@ function BloodRequestCard(props){
                 </div>
                   <div class="flex flex-row items-center justify-between">
                        <div class="flex flex-col">
-                           <h3 class="my-2 font-bold">Blood Request</h3>
+                           <h3 class="my-2  font-bold">Blood Request</h3>
                            <div class="flex flex-col">
                                <span class="animate-bounce w-5 h-5 text-red-700">URGENT:</span>
                                <address class="text-gray-500">Thehr,Himachal Pradesh,India</address>

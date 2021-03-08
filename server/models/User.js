@@ -4,9 +4,7 @@ const bcrypt = require('bcrypt');
 
 const userSchema = new Schema(
 	{
-		firstName: { type: String, required: true, trim: true, minlength: 2 },
-		lastName: { type: String, required: true, trim: true, minlength: 2 },
-		middleName: { type: String, trim: true, minlength: 1, default: "" },
+		fullname: { type: String, required: true, trim: true, minlength: 2 },
 		email: { type: String, match: /@/ },
 		mobile: { type: String, required: true, unique: true },
 		bloodGroup: { type: String, required: true },
