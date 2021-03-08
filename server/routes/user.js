@@ -46,6 +46,7 @@ router.post("/mobile", async (req, res, next) => {
 //To verify the mobile OTP : POST
 router.post("/mobile/verify", async (req, res, next) => {
 	const { sid } = req.session;
+	console.log(req.body)
   const { mobile, code } = req.body.user;
   const twilio = require("twilio")();
   try {
@@ -56,7 +57,7 @@ router.post("/mobile/verify", async (req, res, next) => {
 		if (!isVerificationAvailable) throw new Error("invalid-02");
 
 		const {to, status, valid} = await twilio.verify.services(process.env.TWILIO_SERVICE_ID).verificationChecks.create({
-			to: "+91" + mobile,
+			to: mobile,
 			code,
 		});
 

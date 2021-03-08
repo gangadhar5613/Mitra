@@ -29,8 +29,8 @@ class App extends React.Component {
 
   render() {
     return (
-<<<<<<< HEAD
       <BrowserRouter>
+        <Header />
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/register" component={Register} />
@@ -42,13 +42,6 @@ class App extends React.Component {
           </Route>
         </Switch>
       </BrowserRouter>
-=======
-      <div>
-        <Header />
-        <FunRaising />
-        {/* <Footer /> */}
-      </div>
->>>>>>> fund-raising-page
     );
   }
 }

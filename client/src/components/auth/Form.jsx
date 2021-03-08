@@ -1,4 +1,5 @@
 import React from 'react'
+import Loader from '../Loader';
 
 function Form(props){
    function handleChangingForm (step) {
@@ -13,7 +14,7 @@ function Form(props){
                 return <StepForm3 handleInput={props.handleInput} />
                 break;
             case 4:
-                return <StepForm4 handleInput={props.handleInput} />
+                return <StepForm4 state={props.state} handleInput={props.handleInput} />
                 break;
              default:
                  break;
@@ -25,8 +26,8 @@ function Form(props){
              {handleChangingForm(props.step)}
             <div className='mt-4 flex items-end w-full justify-between '>
               <button onClick={props.handlePrevForm} id={props.step} className={props.step >= 2 ? 'bg-red-700 text-white px-6 py-2' : 'hidden'}>Back</button>
-              <button disabled={props.state.errors.mobile} onClick={(props.step == 1 && !props.otpSent ) ? props.handleOtp : props.handleVerifyOtp} id={props.step} className={props.otpSent ? 'bg-red-700 text-white px-6 py-2' : (props.state.errors.mobile ? 'bg-gray-700 text-black px-6 py-2' : 'bg-red-700 text-white px-6 py-2') }>{(props.step == 1 && !props.otpSent) ? 'Send OTP' : 'Verify Otp'}</button>
-              <button  onClick={ props.handleChangingForm} id={props.step} className={ (! props.state.otpVerified) ? 'hidden' : 'bg-red-700 text-white px-6 py-2' }>Next</button>
+              <button disabled={props.state.errors.mobile} onClick={(props.step == 1 && !props.otpSent ) ? props.handleOtp : props.handleVerifyOtp} id={props.step} className={props.otpSent ? 'bg-red-700 text-white px-6 py-2' : ((props.state.errors.mobile || props.state.otpSent) ? 'bg-gray-700 text-black px-6 py-2' : (( props.state.mobileVerifiedSuccessfull) ? 'hidden' : 'bg-red-700 text-white px-6 py-2')) }>{(props.step == 1 && !props.otpSent) ? 'Send OTP' : 'Verify Otp'}</button>
+              <button  onClick={ props.state.step == 4 ? props.handleUserSubmit : props.handleForm} id={props.step} className={ (props.state.otpVerified || !props.state.mobileVerifiedSuccessfull  ) ? 'hidden' : 'bg-red-700 text-white px-6 py-2' }>{props.state.step == 4 ? 'Submit':'Next'}</button>
               {/* <button onClick={ props.otpSent ?   props.handleForm : null} id={props.step} className={props.otpSent ? 'bg-red-700 text-white px-6 py-2' : 'hidden'}>{props.otpSent ? 'Next' : ''}</button> */}
             </div>
         </div>
@@ -66,33 +67,23 @@ function StepForm2(props){
     return(
           <form>
                <div className='flex flex-row mt-2'>
-                    <div className='flex flex-col mr-2'>
-                        <label htmlFor='firstname' className='text-md font-semibold text-shadow-md'>First Name</label>
-                        <input type='text' id='firstname' name='firstname' className='firstname w-96 mt-1 block   outline-none border-2 border-red-800  h-8  text-white shadow-lg hover:bg-red-700 focus:bg-black focus:ring-0' placeholder='Enter your firstname number'></input>
-                    </div>
                     <div className='flex flex-col ml-2'>
-                        <label htmlFor='lastname' className='text-md font-semibold text-shadow-md'>Last Name</label>
-                        <input type='text' id='lastname' name='lastname' className='lastname w-96 mt-1 block   outline-none border-2 border-red-800  h-8  text-white shadow-lg hover:bg-red-700 focus:bg-black focus:ring-0' placeholder='Enter your lastname number'></input>
-                    </div>
-               </div>
-               <div className='flex flex-row mt-2'>
-                    <div className='flex flex-col mr-2'>
-                        <label htmlFor='mobile' className='text-md font-semibold text-shadow-md'>Mobile</label>
-                        <input type='tel' id='mobile' name='mobile' className='mobile w-96 mt-1 block   outline-none border-2 border-red-800  h-8  text-white shadow-lg hover:bg-red-700 focus:bg-black focus:ring-0' placeholder='Enter your mobile number'></input>
+                        <label htmlFor='fullname' className='text-md font-semibold text-shadow-md'>Full Name</label>
+                        <input required onChange={props.handleInput} type='text' id='fullname' name='fullname' className='fullname w-96 mt-1 block   outline-none border-2 border-red-800  h-8  text-white shadow-lg hover:bg-red-700 focus:bg-black focus:ring-0' placeholder='Enter your fullname '></input>
                     </div>
                     <div className='flex flex-col ml-2'>
                         <label htmlFor='email' className='text-md font-semibold text-shadow-md'>Email</label>
-                        <input type='email' id='email' name='email' className='email w-96 mt-1 block   outline-none border-2 border-red-800  h-8  text-white shadow-lg hover:bg-red-700 focus:bg-black focus:ring-0' placeholder='Enter your email number'></input>
+                        <input onChange={props.handleInput} type='email' id='email' name='email' className='email w-96 mt-1 block   outline-none border-2 border-red-800  h-8  text-white shadow-lg hover:bg-red-700 focus:bg-black focus:ring-0' placeholder='Enter your email number'></input>
                     </div>
                </div>
                <div className='flex flex-row mt-2'>
                     <div className='flex flex-col mr-2'>
                         <label htmlFor='bloodgroup' className='text-md font-semibold text-shadow-md'>Blood Group</label>
-                        <input type='text' id='bloodgroup' name='bloodgroup' className='bloodgroup w-96 mt-1 block   outline-none border-2 border-red-800  h-8  text-white shadow-lg hover:bg-red-700 focus:bg-black focus:ring-0' placeholder='Enter your bloodgroup number'></input>
+                        <input onChange={props.handleInput} type='text' id='bloodgroup' name='bloodgroup' className='bloodgroup w-96 mt-1 block   outline-none border-2 border-red-800  h-8  text-white shadow-lg hover:bg-red-700 focus:bg-black focus:ring-0' placeholder='Enter your bloodgroup number'></input>
                     </div>
                     <div className='flex flex-col ml-2'>
                         <label htmlFor='dateofbirth' className='text-md font-semibold text-shadow-md'>Date Of Birth</label>
-                        <input type='date' id='dateofbirth' name='dateofbirth' className='dateofbirth w-96 mt-1 block   outline-none border-2 border-red-800  h-8  shadow-lg hover:bg-red-700 focus:bg-black focus:ring-0' placeholder='Enter your dateofbirth number'></input>
+                        <input onChange={props.handleInput} type='date' id='dateofbirth' name='dateofbirth' className='dateofbirth w-96 mt-1 block   outline-none border-2 border-red-800  h-8  shadow-lg hover:bg-red-700 focus:bg-black focus:ring-0' placeholder='Enter your dateofbirth number'></input>
                     </div>
                </div>
           </form>
@@ -108,12 +99,12 @@ function StepForm3(props){
           <form>
                <div className='flex flex-row mt-2'>
                     <div className='flex flex-col mr-2'>
-                        <label htmlFor='mobile' className='text-md font-semibold text-shadow-md'>First Name</label>
-                        <input type='file' id='mobile' name='mobile' className='mobile  mt-1 block   outline-none py-1   h-10  text-black border-2 border-red-500 hover:bg-red-700 focus:bg-black focus:ring-0' placeholder='Enter your mobile number'></input>
+                        <label htmlFor='mobile' className='text-md font-semibold text-shadow-md'>Profile Image</label>
+                        <input onChange={props.handleInput} type='file' id='mobile' name='mobile' className='mobile  mt-1 block   outline-none py-1   h-10  text-black border-2 border-red-500 hover:bg-red-700 focus:bg-black focus:ring-0' placeholder='Enter your mobile number'></input>
                     </div>
                     <div className='flex flex-col ml-2'>
-                        <label htmlFor='mobile' className='text-md font-semibold text-shadow-md'>Last Name</label>
-                        <input type='file' id='mobile' name='mobile' className='mobile  mt-1 block   outline-none py-1   h-10    border-2 border-red-500  hover:bg-red-700 focus:bg-black focus:ring-0' placeholder='Enter your mobile number'></input>
+                        <label htmlFor='mobile' className='text-md font-semibold text-shadow-md'>Medical / Blood Report</label>
+                        <input onChange={props.handleInput} type='file' id='mobile' name='mobile' className='mobile  mt-1 block   outline-none py-1   h-10    border-2 border-red-500  hover:bg-red-700 focus:bg-black focus:ring-0' placeholder='Enter your mobile number'></input>
                     </div>
                </div>
           </form>
@@ -128,33 +119,45 @@ function StepForm4(props){
           <form>
                <div className='flex flex-row mt-2'>
                     <div className='flex flex-col mr-2'>
-                        <label htmlFor='mobile' className='text-sm font-semibold text-shadow-md'>Click here to get the location</label>
-                        <button className='w-96 bg-black text-white outline-none h-8 mt-2'>Current location</button>
+                        <label htmlFor='pincode' className='text-md font-semibold text-shadow-md'>Pincode</label>
+                        <input onChange={props.handleInput} type='number' id='pincode' name='pincode'  className='pincode w-96 mt-1 block text-white   outline-none border-2 border-red-800  h-8   shadow-lg hover:bg-red-700 focus:bg-black focus:ring-0' placeholder='Enter your pincode '></input>
                     </div>
                     <div className='flex flex-col ml-2'>
                         <label htmlFor='state' className='text-md font-semibold text-shadow-md'>State</label>
-                        <input type='text' id='state' name='state' className='state w-96 mt-1 block   outline-none border-2 border-red-800  h-8  text-white shadow-lg hover:bg-red-700 focus:bg-black focus:ring-0' placeholder='Enter your state'></input>
+                        <input readOnly={true} onChange={props.handleInput} type='text' id='state' name='state' value={props.state.location ? props.state.location.state : ''} className='state w-96 mt-1 block   outline-none border-2 border-red-800  h-8   shadow-lg hover:bg-red-700 focus:bg-black focus:ring-0' placeholder='Enter your state'></input>
                     </div>
                </div>
                <div className='flex flex-row mt-2'>
                     <div className='flex flex-col mr-2'>
                         <label htmlFor='district' className='text-md font-semibold text-shadow-md'>District</label>
-                        <input type='text' id='district' name='district' className='district w-96 mt-1 block   outline-none border-2 border-red-800  h-8  text-white shadow-lg hover:bg-red-700 focus:bg-black focus:ring-0' placeholder='Enter your district'></input>
+                        <input onChange={props.handleInput} type='text' id='district' name='district' value={props.state.location ? props.state.location.district : ''} className='district w-96 mt-1 block   outline-none border-2 border-red-800  h-8  shadow-lg hover:bg-red-700 focus:bg-black focus:ring-0' placeholder='Enter your district'></input>
                     </div>
                     <div className='flex flex-col ml-2'>
                         <label htmlFor='address' className='text-md font-semibold text-shadow-md'>Address</label>
-                        <input type='text' id='address' name='address' className='address w-96 mt-1 block   outline-none border-2 border-red-800  h-8  text-white shadow-lg hover:bg-red-700 focus:bg-black focus:ring-0' placeholder='Enter your address'></input>
+                        <select onChange={props.handleInput}>
+                            {
+                                (!props.state.location ? 
+                                    <option value='select'>select</option>
+                                    :
+                                    (
+                                        props.state.location.postOffices.map((val) => {
+                                            return <option value={val}>{val}</option>
+                                        })
+                                    )
+                                )
+                            }
+                        </select>
                     </div>
                </div>
                <div className='flex flex-row mt-2'>
-                    <div className='flex flex-col mr-2'>
-                        <label htmlFor='pincode' className='text-md font-semibold text-shadow-md'>Pincode</label>
-                        <input type='tel' id='pincode' name='pincode' className='pincode w-96 mt-1 block   outline-none border-2 border-red-800  h-8  text-white shadow-lg hover:bg-red-700 focus:bg-black focus:ring-0' placeholder='Enter your pincode '></input>
-                    </div>
+
                     <div className='flex flex-col ml-2'>
                         <label htmlFor='password' className='text-md font-semibold text-shadow-md'>Password</label>
-                        <input type='password' id='password' name='password' className='password w-96 mt-1 block   outline-none border-2 border-red-800  h-8  text-white shadow-lg hover:bg-red-700 focus:bg-black focus:ring-0' placeholder='Enter your Password'></input>
+                        <input onChange={props.handleInput} type='password' id='password' name='password' className='password w-96 mt-1 block   outline-none border-2 border-red-800  h-8  shadow-lg hover:bg-red-700 focus:bg-black focus:ring-0' placeholder='Enter your Password'></input>
                     </div>
+               </div>
+               <div className={((props.state.locationFetching == null) || (props.state.locationFetching == 'yes')) ? '' : 'hidden'}>
+                  <Loader />
                </div>
           </form>
     )
