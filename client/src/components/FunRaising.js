@@ -4,9 +4,12 @@ import Update from "./Update";
 
 function FunRaising() {
   return (
-    <div className="flex">
-      <EventSection />
-      <Update />
+    <div>
+      <div className="flex">
+        <EventSection />
+        <Update />
+      </div>
+      <div>{/* <FundsGallery /> */}</div>
     </div>
   );
 }
