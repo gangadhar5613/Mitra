@@ -3,24 +3,11 @@ import React from "react";
 class Footer extends React.Component {
   render() {
     return (
-      <div>
-        <div className="w-full overflow-hidden h-48">
-          <svg
-            className="absolute -top-2"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 1440 320"
-          >
-            <path
-              fill="#991B1B"
-              fill-opacity="1"
-              d="M0,96L48,85.3C96,75,192,53,288,74.7C384,96,480,160,576,186.7C672,213,768,203,864,176C960,149,1056,107,1152,96C1248,85,1344,107,1392,117.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-            ></path>
-          </svg>
-        </div>
-        <footer className="p-15 bg-red-800 text-white flex items-center justify-around ">
-          <div className="2/12">
+      <div className="footer">
+        <footer className="p-15 text-white flex items-center justify-around ">
+          <div className="2/12 h-1/2">
             <h6 className="w-min text-3xl font-sans border-b-4 mb-6 ">About</h6>
-            <ul>
+            <ul className="about-footer">
               <li>
                 <a>Contact Us</a>
               </li>
@@ -54,7 +41,7 @@ class Footer extends React.Component {
             </ul>
           </div>
           {/*  */}
-          <div className="2/12">
+          <div className="2/12 h-1/2">
             <h6 className=" w-min text-3xl font-sans border-b-4 mb-6 ">
               Mitra
             </h6>
@@ -64,19 +51,18 @@ class Footer extends React.Component {
               to raise medical emergency <br /> fundings.
             </p>
           </div>
-          {/*  */}
-          {/*  */}
-          <div className=" 2/12 items-center">
-            <h6 className="w-96 text-3xl font-sans border-b-4 mb-6 ">
+          <div className="2/12 items-center">
+            <h6 className=" text-3xl font-sans mb-6 ">
               Registered Office Address
             </h6>
-            <i class="fas fa-map-marker-alt"></i>
+
             <p>
-              Dharamshala <br /> Himachal Pradesh, India
+              <i class="fas fa-map-marker-alt mr-3"></i> Dharamshala, Himachal
+              Pradesh, India
             </p>
           </div>
           <div className=" 2/12 items-center">
-            <h6 className=" w-full text-3xl font-sans border-b-4 mb-6 ">
+            <h6 className=" w-full text-3xl font-sans  mb-4 ">
               Connect with us on :
             </h6>
             <a className="text-4xl mr-8">
@@ -90,7 +76,7 @@ class Footer extends React.Component {
             </a>
           </div>
         </footer>
-        <div className="bg-red-900 p-6 flex items-center justify-center">
+        <div className=" p-6 flex items-center justify-center">
           <p className="text-white text-xl ">
             All Rights reserved to <a>Mitra</a>
           </p>
@@ -99,7 +85,7 @@ class Footer extends React.Component {
               <i class=" text-black text-2xl fab fa-google-play"></i>
             </a>
             <a>
-              <i class="text-black text-2xl ml-4 fab fa-app-store-ios"></i>{" "}
+              <i class="text-black text-2xl ml-4 fab fa-app-store-ios"></i>
             </a>
           </div>
         </div>
