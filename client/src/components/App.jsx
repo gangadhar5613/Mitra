@@ -8,6 +8,7 @@ import Register from './auth/Register';
 import Login from './auth/Login';
 import BloodRequestFeed from './bloodRequestFeed/BloodRequestFeed';
 import FundRaisingEvents from './fundRaisingFeed/FundRaisingFeed';
+import UserDashboard from './userDashboard/UserDashboard'
 
 
 class App extends React.Component {
@@ -35,6 +36,9 @@ class App extends React.Component {
           <Route path="/login" component={Login} />
           <Route path="/bloodrequest-feed" component={BloodRequestFeed} />
           <Route path="/fundraising-feed" component={FundRaisingEvents} />
+          <Route path="/user-dashboard" exact  >
+                <UserDashboard />
+          </Route>
         </Switch>
       </BrowserRouter>
     );
