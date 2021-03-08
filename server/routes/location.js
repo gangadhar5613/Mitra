@@ -33,7 +33,7 @@ router.get("/", async (req, res, next) => {
 
 // GET Location Based on PINCODE
 
-router.get("/pincode", async (req, res, next) => {
+router.post("/pincode", async (req, res, next) => {
 	const { pincode } = req.body.location;
 	try {
 		var options = {
