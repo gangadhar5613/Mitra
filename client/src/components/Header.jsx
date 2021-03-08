@@ -6,7 +6,7 @@ class Header extends React.Component {
       <div className="shadow-xl bg-white header">
         <header className="flex items-center justify-between py-4">
           <div className="ml-16">
-            <h1 className="text-4xl text-red-700 font-bold ">Mitra</h1>
+            <h1 className="text-4xl text-yellow-300  font-semibold ml-20  ">Mitra</h1>
           </div>
           <nav className="mr-16 flex justify-around items-center">
             <div className="mr-6">

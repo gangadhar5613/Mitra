@@ -7,7 +7,7 @@ class FundRaisingEvents extends React.Component{
 
     render(){
         return(
-            <article className='mt-4'>
+            <article className='mt-8'>
                 <section>
                     <div className='text-center'>
                         <h3 className='text-3xl mb-2 font-bold text-shadow-md text-red-500'>Fund Raising</h3>

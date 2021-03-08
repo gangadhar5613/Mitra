@@ -7,14 +7,14 @@ class BloodRequests extends React.Component{
 
     render(){
         return(
-            <article className='mt-4'>
+            <article className='mt-8'>
                 <section>
                     <div className='text-center'>
                         <h3 className='text-3xl mb-2 font-bold text-shadow-md text-red-500'>Blood Requests</h3>
                         <p className='text-xl text-gray-400 text-shadow-sm'>Accept the following blood requests and become a life savior</p>
                     </div>
                 </section>
-                <section class=" text-gray-700  ">
+                <section class=" text-gray-700 scroll ">
                         <div class="container px-5 py-10 mx-auto">
                             <div class="flex scroll  md:flex-shrink-0    flex-row mx-6 overflow-x-scroll sm:-m-4  bg-scroll -mb-10 -mt-4">
                                <BloodRequestCard />  
