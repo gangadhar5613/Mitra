@@ -10,6 +10,7 @@ import BloodRequestFeed from "./bloodRequestFeed/BloodRequestFeed";
 import FundRaisingEvents from "./fundRaisingFeed/FundRaisingFeed";
 import UserDashboard from "./userDashboard/UserDashboard";
 import FunRaising from "./FunRaising";
+import BloodRequestForm from './BloodRequestForm'
 
 class App extends React.Component {
   constructor(props) {
@@ -39,6 +40,9 @@ class App extends React.Component {
           <Route path="/fundraising-feed" component={FundRaisingEvents} />
           <Route path="/user-dashboard" exact>
             <UserDashboard />
+          </Route>
+          <Route path='/request' >
+             <BloodRequestForm />
           </Route>
         </Switch>
       </BrowserRouter>
