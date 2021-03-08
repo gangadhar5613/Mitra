@@ -3,7 +3,7 @@ import React from "react";
 class Header extends React.Component {
   render() {
     return (
-      <div className="shadow-lg bg-white header">
+      <div className="shadow-xl bg-white header">
         <header className="flex items-center justify-between py-4">
           <div className="ml-16">
             <h1 className="text-4xl text-red-700 font-bold ">Mitra</h1>
