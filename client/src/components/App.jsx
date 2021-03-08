@@ -29,6 +29,7 @@ class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
+       <Header />
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/register" component={Register} />

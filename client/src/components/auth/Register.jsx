@@ -2,6 +2,7 @@ import React from 'react'
 import Steps from './Steps'
 import Form from './Form'
 import Loader from '../Loader'
+import Header from '../Header'
 
 
 class Register extends React.Component{
@@ -262,7 +263,7 @@ class Register extends React.Component{
         //     navigator.geolocation.getCurrentPosition(locationSuccess.bind(e), locationFailure)
         // }
     if(navigator.geolocation){
-        navigator.geolocation.getCurrentPosition(() => console.log('success'), console.log('failed'))
+        navigator.geolocation.getCurrentPosition(() => console.log('succes'), console.log('failed'))
     }
     
     }
@@ -331,8 +332,8 @@ class Register extends React.Component{
     render(){
         return(
            <>
-             <section className='flex items-center relative flex-row w-screen container mx-auto  h-screen'>
-                <section className='w-full bg-yellow-500    shadow-md mx-40 md:w-full   '>
+             <section className='flex items-center register relative flex-row w-screen container mx-auto  h-screen'>
+                <section className='w-full bg-white    shadow-xl mx-40 md:w-full   '>
                     <div className='heading flex  flex-row justify-between'>
                         <div className='flex  bg-red-500 cursor-pointer  shadow-md py-2 border-r border-gray-300 w-full items-center justify-center'>
                           <button onClick={this.handleForm} id='register' className='text-xl'>Register</button>
