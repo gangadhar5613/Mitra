@@ -3,13 +3,12 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import Home from './Home';
-import Register from './auth/Register';
-import Login from './auth/Login';
-import BloodRequestFeed from './bloodRequestFeed/BloodRequestFeed';
-import FundRaisingEvents from './fundRaisingFeed/FundRaisingFeed';
-import UserDashboard from './userDashboard/UserDashboard'
-
+import Home from "./Home";
+import Register from "./auth/Register";
+import Login from "./auth/Login";
+import BloodRequestFeed from "./bloodRequestFeed/BloodRequestFeed";
+import FundRaisingEvents from "./fundRaisingFeed/FundRaisingFeed";
+import UserDashboard from "./userDashboard/UserDashboard";
 
 class App extends React.Component {
   constructor(props) {
@@ -36,8 +35,8 @@ class App extends React.Component {
           <Route path="/login" component={Login} />
           <Route path="/bloodrequest-feed" component={BloodRequestFeed} />
           <Route path="/fundraising-feed" component={FundRaisingEvents} />
-          <Route path="/user-dashboard" exact  >
-                <UserDashboard />
+          <Route path="/user-dashboard" exact>
+            <UserDashboard />
           </Route>
         </Switch>
       </BrowserRouter>
