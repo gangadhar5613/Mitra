@@ -9,7 +9,7 @@ import Login from "./auth/Login";
 import BloodRequestFeed from "./bloodRequestFeed/BloodRequestFeed";
 import FundRaisingEvents from "./fundRaisingFeed/FundRaisingFeed";
 import UserDashboard from "./userDashboard/UserDashboard";
-import FunRaising from "./FunRaising";
+import FundRaising from './FunRaising'
 import BloodRequestForm from './BloodRequestForm'
 
 class App extends React.Component {
@@ -43,6 +43,9 @@ class App extends React.Component {
           </Route>
           <Route path='/request' >
              <BloodRequestForm />
+          </Route>
+          <Route path='/bloodrequest' >
+            <FundRaising />
           </Route>
         </Switch>
       </BrowserRouter>
