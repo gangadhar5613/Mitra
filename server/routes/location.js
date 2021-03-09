@@ -5,9 +5,9 @@ const axios = require("axios");
 const { Client } = require("@googlemaps/google-maps-services-js");
 const client = new Client({});
 
-// GET /api/v1/location
+// post /api/v1/location
 
-router.get("/", async (req, res, next) => {
+router.post("/", async (req, res, next) => {
 	const { lat, lng } = req.body.location;
 	try {
 		const response = await client.reverseGeocode({
@@ -17,7 +17,7 @@ router.get("/", async (req, res, next) => {
 			},
 			timeout: 1000,
 		});
-		const { results } = response.data;
+		const { results } = await response.data;
 		res.json({
 			address: {
 				district: results[2].long_name,
@@ -31,7 +31,7 @@ router.get("/", async (req, res, next) => {
 	}
 });
 
-// GET Location Based on PINCODE
+// post Location Based on PINCODE
 
 router.post("/pincode", async (req, res, next) => {
 	const { pincode } = req.body.location;
@@ -59,9 +59,9 @@ router.post("/pincode", async (req, res, next) => {
 	}
 });
 
-// GET /api/v1/location/search
+// post /api/v1/location/search
 
-router.get("/search", async (req, res, next) => {
+router.post("/search", async (req, res, next) => {
 	const { place, lat, lng } = req.body.location;
 	try {
 		const response = await client.placeAutocomplete({
@@ -77,10 +77,10 @@ router.get("/search", async (req, res, next) => {
 		const { predictions } = await response.data;
 		res.json({ predictions: filterHospital(predictions) });
 	} catch (error) {
-		console.log(error)
-		next(error)
+		console.log(error);
+		next(error);
 	}
-})
+});
 
 function pincodeMap(locations) {
 	const { pin, district, circle } = locations[0];
