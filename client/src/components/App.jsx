@@ -21,7 +21,11 @@ class App extends React.Component {
   }
 
   async componentDidMount() {
-  
+    const response = await fetch("/api/v1");
+    const { title } = await response.json();
+    this.setState({
+      title,
+    });
   }
 
   render() {
@@ -38,7 +42,7 @@ class App extends React.Component {
             <UserDashboard />
           </Route>
           <Route path='/request' >
-             <BloodRequestForm />
+            <BloodRequestForm />
           </Route>
           <Route path='/bloodrequest' >
             <FundRaising />

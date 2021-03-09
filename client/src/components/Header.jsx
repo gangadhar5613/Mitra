@@ -15,18 +15,18 @@ class Header extends React.Component {
               <a className="mx-4 text-xl font-bold text-white">FAQs</a>
             </div>
             <div className="flex items-center">
-              <div class="inline-block mx-2">
+              <div className="inline-block mx-2">
                 <button
                   type="button"
-                  class="focus:outline-none text-red-700 text-xl py-2.5 px-5 rounded-md bg-gradient-to-r from-white to-white transform hover:scale-110"
+                  className="focus:outline-none text-red-700 text-xl py-2.5 px-5 rounded-md bg-gradient-to-r from-white to-white transform hover:scale-110"
                 >
                   Sign In
                 </button>
               </div>
-              <div class="inline-block mx-2">
+              <div className="inline-block mx-2">
                 <button
                   type="button"
-                  class="focus:outline-none text-red-700 text-xl py-2.5 px-5 rounded-md bg-white to-red-600 transform hover:scale-110"
+                  className="focus:outline-none text-red-700 text-xl py-2.5 px-5 rounded-md bg-white to-red-600 transform hover:scale-110"
                 >
                   Sign Up
                 </button>
