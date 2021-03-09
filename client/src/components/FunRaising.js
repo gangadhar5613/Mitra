@@ -4,7 +4,7 @@ import Update from "./Update";
 
 function FunRaising() {
   return (
-    <div>
+    <div className='py-20'>
       <div className="flex">
         <EventSection />
         <Update />
