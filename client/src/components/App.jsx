@@ -21,11 +21,7 @@ class App extends React.Component {
   }
 
   async componentDidMount() {
-    const response = await fetch("/api");
-    const { title } = await response.json();
-    this.setState({
-      title,
-    });
+  
   }
 
   render() {
