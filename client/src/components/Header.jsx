@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 class Header extends React.Component {
   render() {
     return (
-      <div className="shadow-xl bg-white header">
+      <div className="shadow-xl font-family bg-white header">
         <header className="flex items-center justify-between py-4">
           <div className="ml-16">
             <h1 className="text-4xl text-yellow-300  font-semibold ml-20  ">Mitra</h1>
@@ -26,7 +26,7 @@ class Header extends React.Component {
                  <Link to='/login'>
                  <button
                   type="button"
-                  className="focus:outline-none text-red-700 text-xl py-2.5 px-5 rounded-md bg-gradient-to-r from-white to-white transform hover:scale-110"
+                  className="focus:outline-none text-red-700 text-xl py-2 px-4 rounded-md bg-gradient-to-r from-white to-white transform hover:scale-110"
                 >
                   Sign In
                 </button>
@@ -36,7 +36,7 @@ class Header extends React.Component {
                  <Link to='/register'>
                  <button
                   type="button"
-                  className="focus:outline-none text-red-700 text-xl py-2.5 px-5 rounded-md bg-white to-red-600 transform hover:scale-110"
+                  className="focus:outline-none text-red-700 text-xl py-2 px-4 rounded-md bg-white to-red-600 transform hover:scale-110"
                 >
                   Sign Up
                 </button>

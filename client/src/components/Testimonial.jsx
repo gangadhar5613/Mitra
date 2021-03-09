@@ -6,8 +6,8 @@ export default class Testimonial extends Component {
   render() {
     return (
     <>
-         <div className='text-center text-3xl font-semibold'>
-            <h2 className='text-red-700'>Listen from receptors</h2>
+         <div className='text-center text-5xl mb-5 font-semibold'>
+            <h2 className='text-red-700 font-light'>Those who benifited through <span className='text-red-700 font-bold'>Mitra</span></h2>
         </div>
       <Carousel
         className="justify-center my-5 px-96 mx-40 items-center flex "
