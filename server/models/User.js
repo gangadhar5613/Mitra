@@ -11,18 +11,18 @@ const userSchema = new Schema(
 		mobile: { type: String, required: true, unique: true },
 		bloodGroup: { type: String, required: true },
 		dob: { type: String, required: true },
-		acceptedRequests: [{ type: Schema.Types.ObjectId, ref: "BloodRequest" }],
+		requestAccepted: [{ type: Schema.Types.ObjectId, ref: "BloodRequest" }],
 		profileImage: { type: String, default: null },
 		location: {
 			state: {
 				type: String,
 				required: true,
-        lowercase: true
+				lowercase: true,
 			},
 			city: {
 				type: String,
 				required: true,
-        lowercase: true
+				lowercase: true,
 			},
 			lat: {
 				type: Number,
@@ -35,13 +35,13 @@ const userSchema = new Schema(
 			address: {
 				type: String,
 				required: true,
-        lowercase: true,
-        minlength: 10
+				lowercase: true,
+				minlength: 10,
 			},
 			pincode: {
 				type: String,
 				required: true,
-        lowercase: true,
+				lowercase: true,
 			},
 		},
 		raisedRequests: [{ type: Schema.Types.ObjectId, ref: "BloodRequest" }],
@@ -58,6 +58,7 @@ const userSchema = new Schema(
 			},
 		},
 		lastDonated: { type: String },
+		accountType: { type: String, required: true, default: "user" },
 	},
 	{ timestamps: true }
 );

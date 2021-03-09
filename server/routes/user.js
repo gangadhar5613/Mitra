@@ -114,7 +114,6 @@ router.post("/login", async (req, res, next) => {
 	}
 });
 
-
 // PUT /api/v1/user/update
 
 router.put("/update", auth.verifyUserLoggedIn, async (req, res, next) => {
