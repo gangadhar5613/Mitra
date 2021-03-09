@@ -26,9 +26,9 @@ function Form (props) {
         {handleChangingForm(props.step)}
         <div className='mt-4 flex items-end w-full justify-between '>
           <button onClick={props.handlePrevForm} id={props.step} className={props.step >= 2 ? 'bg-red-700 text-white px-6 py-2' : 'hidden'}>Back</button>
-          <button disabled={props.state.errors.mobile} onClick={(props.step == 1 && !props.otpSent) ? props.handleOtp : props.handleVerifyOtp} id={props.step} className={props.otpSent ? 'bg-red-700 text-white px-6 py-2' : ((props.state.errors.mobile || props.state.otpSent) ? 'bg-gray-700 text-black px-6 py-2' : ((props.state.mobileVerifiedSuccessfull) ? 'hidden' : 'bg-red-700 text-white px-6 py-2'))}>{(props.step == 1 && !props.otpSent) ? 'Send OTP' : 'Verify Otp'}</button>
+          <button hidden={props.state.step >=2} disabled={props.state.errors.mobile} onClick={(props.step == 1 && !props.otpSent) ? props.handleOtp : props.handleVerifyOtp} id={props.step} className={props.otpSent ? 'bg-red-700 text-white px-6 py-2' : ((props.state.errors.mobile || props.state.otpSent) ? 'bg-gray-700 text-black px-6 py-2' : ((props.state.mobileVerifiedSuccessfull && props.state.otpResponse) ? 'hidden' : 'bg-red-700 text-white px-6 py-2'))}>{(props.step == 1 && !props.otpSent) ? 'Send OTP' : 'Verify Otp'}</button>
           <button onClick={props.state.step == 4 ? props.handleUserSubmit : props.handleForm} id={props.step} className={(props.state.otpVerified || !props.state.mobileVerifiedSuccessfull) ? 'hidden' : 'bg-red-700 text-white px-6 py-2'}>{props.state.step == 4 ? 'Submit' : 'Next'}</button>
-          {/* <button onClick={ props.otpSent ?   props.handleForm : null} id={props.step} className={props.otpSent ? 'bg-red-700 text-white px-6 py-2' : 'hidden'}>{props.otpSent ? 'Next' : ''}</button> */}
+          {/* <button onClick={props.state.step == 4 ? props.handleUserSubmit : props.handleForm} id={props.step} className={(props.state.otpVerified || !props.state.mobileVerifiedSuccessfull) ? 'hidden' : 'bg-red-700 text-white px-6 py-2'}>{props.state.step == 4 ? 'Submit' : 'Next'}</button> */}
         </div>
       </div>
     </div>
@@ -45,7 +45,7 @@ function StepForm1 (props) {
           <span className='text-white text-md'>{props.state.errors.mobile ? props.state.errors.mobile : ''}</span>
         </div>
         <div className={(props.otpSent) ? 'mt-3' : 'hidden'}>
-          <h3 className='text-center text-shadow-md text-green-600 text-md'>{!props.state.otp ? 'Otp sent successfull' : 'Invalid Otp'}</h3>
+          <h3 className='text-center text-shadow-md text-green-600 text-md'>{(props.state.otpSent && !props.state.mobileVerifiedSuccessfull ) ? 'Otp sent successfull' : 'Invalid Otp'}</h3>
           <h3 className='text-center text-shadow-md text-green-600 text-md'>{(props.state.otpResponse && props.state.mobileVerifiedSuccessfull) ? 'OTP Verified Successfully' : 'OTP Not Verified'}</h3>
           <label htmlFor='code' className='text-xl font-bold text-shadow-md'>Enter OTP</label>
           <div>
@@ -112,7 +112,7 @@ function StepForm4 (props) {
       <div className='flex flex-row mt-2'>
         <div className='flex flex-col mr-2'>
           <label htmlFor='pincode' className='text-md font-semibold text-shadow-md'>Pincode</label>
-          <input onChange={props.handleInput} type='number' id='pincode' name='pincode' className='pincode w-96 mt-1 block text-white   outline-none border-2 border-red-800  h-8   shadow-lg hover:bg-red-700 focus:bg-black focus:ring-0' placeholder='Enter your pincode '></input>
+          <input onChange={props.handleInput} type='number' id='pincode' name='pincode' className='pincode w-96 mt-1 block    outline-none border-2 border-red-800  h-8   shadow-lg hover:bg-red-700 focus:bg-black focus:ring-0' placeholder='Enter your pincode '></input>
         </div>
         <div className='flex flex-col ml-2'>
           <label htmlFor='state' className='text-md font-semibold text-shadow-md'>State</label>

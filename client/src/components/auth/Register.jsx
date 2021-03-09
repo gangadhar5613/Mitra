@@ -12,7 +12,7 @@ class Register extends React.Component {
       mobileVerify: false,
       otpVerified: false,
       otpSent: false,
-      mobileVerifiedSuccessfull: true,
+      mobileVerifiedSuccessfull:false,
       mobile: '',
       mobileResponse: null,
       authForm: 'register',
@@ -28,7 +28,7 @@ class Register extends React.Component {
       dateofbirth: '',
       pincode: null,
       locationFetching: '',
-      location: {}
+      location:null
     };
   }
 
@@ -255,12 +255,8 @@ class Register extends React.Component {
 
   fetchingLocation = () => {
     if (navigator.geolocation) {
-      console.log("hey")
       navigator.geolocation.getCurrentPosition((position) => {
-        console.log(position);
-        this.setState({
-			location,
-		});
+        console.log('location')
       }, () => {
         console.log("not supported")
       })
@@ -329,15 +325,15 @@ class Register extends React.Component {
 
   };
 
-  componentDidMount() {
-    this.fetchingLocation();
-  }
+  // componentDidMount() {
+  //   this.fetchingLocation();
+  // }
 
   render () {
     return (
       <>
         <section className='flex items-center register relative flex-row w-screen container mx-auto  h-screen'>
-          <section className='w-full bg-white    shadow-xl mx-40 md:w-full   '>
+          <section className='w-full bg-yellow-400    shadow-xl mx-40 md:w-full   '>
             <div className='heading flex  flex-row justify-between'>
               <div className='flex  bg-red-500 cursor-pointer  shadow-md py-2 border-r border-gray-300 w-full items-center justify-center'>
                 <button onClick={this.handleForm} id='register' className='text-xl'>Register</button>
@@ -354,7 +350,7 @@ class Register extends React.Component {
                 <Form handleOtp={this.handleOtp} handleVerifyOtp={this.handleVerifyOtp} handleOtpInput={this.handleOtpInput} state={this.state} mobile={this.state.mobile} handleInput={this.handleInput} otpSent={this.state.otpSent} handleForm={this.handleForm} handlePrevForm={this.handlePrevForm} step={this.state.step} />
               </div>
             </div>
-            <div className={(this.state.otpSent && !this.state.mobileResponse || this.state.otpResponse) ? 'absolute  left-96 top-96' : 'hidden'}>
+            <div className={(this.state.otpSent && !this.state.mobileResponse || this.state.otpResponse ) ? 'absolute  left-96 top-96' : 'hidden'}>
               <Loader />
             </div>
           </section>

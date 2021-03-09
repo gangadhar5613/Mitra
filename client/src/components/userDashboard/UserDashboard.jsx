@@ -23,9 +23,9 @@ class UserDashboard extends React.Component{
                                             <h3 className='text-md font-semibold '>Blood Requests Raised</h3>
                                             <span className='text-5xl  font-semibold text-shadow-md'>10</span>
                                         </div>
-                                        {/* <div>
+                                        <div>
                                             <Chart />
-                                        </div> */}
+                                        </div>
                                     </div>
                                 </section>
                                 <section className='mt-5'>
