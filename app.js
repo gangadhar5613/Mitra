@@ -6,11 +6,13 @@ var logger = require('morgan');
 var session = require("express-session");
 const MongoStore = require("connect-mongo").default;
 var db = require("./server/db/config");
+var auth = require("./server/middleware/auth");
 
 var indexRouter = require('./server/routes/index');
 var userRouter = require('./server/routes/user');
 var organizationRouter = require("./server/routes/organization");
 var locationRouter = require("./server/routes/location");
+var bloodRequestRouter = require("./server/routes/bloodRequest");
 
 // env
 require("dotenv").config();
@@ -43,6 +45,7 @@ app.use("/api/v1", indexRouter);
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/org", organizationRouter);
 app.use("/api/v1/location", locationRouter);
+app.use("/api/v1/blood", auth.verifyUserLoggedIn, bloodRequestRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -51,6 +54,7 @@ app.use(function (req, res, next) {
 
 // error handler
 app.use(function (err, req, res, next) {
+	console.log(err);
   res.json({ err });
 });
 

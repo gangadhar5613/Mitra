@@ -4,6 +4,7 @@ const User = require("../models/User");
 const Verification = require("../models/PhoneVerification");
 var jwt = require("../config/jwt");
 var auth = require("../middleware/auth");
+var hash = require("../utils/hash");
 var multer = require("multer");
 var upload = multer({
 	dest: "uploads/",
@@ -114,12 +115,12 @@ router.post("/login", async (req, res, next) => {
 	}
 });
 
-
 // PUT /api/v1/user/update
 
 router.put("/update", auth.verifyUserLoggedIn, async (req, res, next) => {
+	const token = req.headers.authorization;
 	const { sid } = req.session;
-	const { location, email, mobile, password } = req.body.user;
+	let { location, email, mobile, password } = req.body.user;
 	const { userID } = req;
 	try {
 		const user = await User.findById(userID);
@@ -131,9 +132,9 @@ router.put("/update", auth.verifyUserLoggedIn, async (req, res, next) => {
 			req.session.destroy();
 		}
 		if (password) {
-
+			password = await hash(password);
 		}
-		const updatedUser = await User.findByIdAndUpdate(userID, { location: location ?? user.location, email: email ?? user.email, mobile: mobile ?? user.mobile}, { new: true });
+		const updatedUser = await User.findByIdAndUpdate(userID, { location: location ?? user.location, email: email ?? user.email, mobile: mobile ?? user.mobile, local: { password: password ?? user.local?.password } }, { new: true });
 		res.json({ user: profileInfo(updatedUser, token) });
 	} catch (error) {
 		console.log(error);
@@ -143,7 +144,8 @@ router.put("/update", auth.verifyUserLoggedIn, async (req, res, next) => {
 
 // PUT /api/v1/user/update/profile - profile uploading
 
-router.put("/update/profile", auth.verifyUserLoggedIn, upload.fields([{name: "profileImage", maxCount: 1}]), async (req, res, next) => {
+router.put("/update/profile", auth.verifyUserLoggedIn, upload.fields([{ name: "profileImage", maxCount: 1 }]), async (req, res, next) => {
+	const token = req.headers.authorization;
 	const { profileImage } = req.body.user;
 	const { userID } = req;
 	try {
@@ -157,8 +159,8 @@ router.put("/update/profile", auth.verifyUserLoggedIn, upload.fields([{name: "pr
 	}
 });
 
-function profileInfo (user, token) {
-	const { firstName, lastName, middleName, email, mobile, bloodGroup, dob, profileImage, location} = user
+function profileInfo(user, token) {
+	const { firstName, lastName, middleName, email, mobile, bloodGroup, dob, profileImage, location } = user;
 	return {
 		fullName: `${firstName} ${lastName}`,
 		email,
@@ -167,8 +169,8 @@ function profileInfo (user, token) {
 		dob,
 		profileImage,
 		...location,
-		token
-	}
+		token,
+	};
 }
 
 module.exports = router;

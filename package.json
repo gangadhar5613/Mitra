@@ -12,6 +12,7 @@
     "@googlemaps/google-maps-services-js": "^3.1.16",
     "@reactchartjs/react-chart.js": "^1.0.0-rc.3",
     "autoprefixer": "^10.2.4",
+    "aws-sdk": "^2.859.0",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.1",
     "chart.js": "^2.9.4",

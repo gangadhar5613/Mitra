@@ -6,13 +6,14 @@ export default class Testimonial extends Component {
   render() {
     return (
       <Carousel
-        className="justify-center bg-white"
+        className="justify-center my-20 px-96 mx-40 items-center flex "
         showArrows={true}
         infiniteLoop={true}
         showThumbs={false}
         showStatus={false}
         autoPlay={true}
         interval={6100}
+        position='center '
       >
         <div class="max-w-md items-center justify-center w-full lg:flex ">
           <div

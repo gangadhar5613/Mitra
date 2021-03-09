@@ -23,21 +23,22 @@ class Update extends React.Component {
             </div>
           </div>
 
-          <p className="my-7 text-lg text-gray-700 leading-8">
+        <div className='flex flex-col mt-4 bg-gray-100 shadow p-1 '>
+          <span className='underline'>Update:</span>  
+          <p className=" text-sm text-gray-700 leading-8">
             The standard chunk of Lorem Ipsum used since the 1500s is reproduced
-            below for those interested. Sections 1.10.32 and 1.10.33 from "de
-            Finibus Bonorum et Malorum" by Cicero are also reproduced in their
-            exact original form, accompanied by English versions from the 1914
-            translation by H. Rackham.
+            below for those interested. 
           </p>
+        </div>
         </div>
         <div className="w-2/5 my-8">
           <div className=" bg-white border-white rounded-2xl shadow-md border-2 p-8">
-            <h4 className="font-sans text-2xl font-semibold my-7">Donate</h4>
-            <img
-              className="w-full"
-              src="https://www.svgrepo.com/show/54587/donate.svg"
-            />
+            <h4 className="font-sans text-2xl text-center font-semibold my-7">Donate</h4>
+            <div className='my-2'>
+              <span><i className="fab mx-2 text-5xl  cursor-pointer text-yellow-700 fa-cc-visa"></i></span>
+              <i className="fab mx-2 text-5xl cursor-pointer text-yellow-700 fa-cc-paypal"></i>
+              <i className="fab mx-2 text-5xl cursor-pointer text-yellow-700 fa-google-pay"></i>
+            </div>
             <div class="inline-block mr-2 mt-2 w-full">
               <button
                 type="button"
@@ -51,16 +52,25 @@ class Update extends React.Component {
             {/* <h4 className="font-sans text-2xl font-semibold my-7 mx-auto">
               Donation
             </h4> */}
-            <div className="flex">
-              <img
-                className="donor-image"
-                src="https://pbs.twimg.com/profile_images/1355996031658323969/y18eVQix_400x400.jpg"
-              />
-              <p className="text-xl mx-auto my-4">Kushal Dave just Donated !</p>
+            <div className="flex shadow-lg p-4">
+                <img
+                  className="donor-image w-10 h-10"
+                  src="https://pbs.twimg.com/profile_images/1355996031658323969/y18eVQix_400x400.jpg"
+                />
+                <div class=" mx-auto w-full flex flex-col text-center">
+                  <p className="text-sm mx-auto ">Kushal Dave just Donated !</p>
+                  <p className="text-md">Rs. 10,000</p>
+                </div>
             </div>
-
-            <div class="mt-2 mx-auto w-full text-center">
-              <p className="text-xl">Rs. 10,000</p>
+            <div className="flex shadow-lg p-4 mt-5 pt-5">
+                <img
+                  className="donor-image w-10 h-10"
+                  src="https://pbs.twimg.com/profile_images/1355996031658323969/y18eVQix_400x400.jpg"
+                />
+                <div class=" mx-auto w-full flex flex-col text-center">
+                  <p className="text-sm mx-auto ">Kushal Dave just Donated !</p>
+                  <p className="text-md">Rs. 10,000</p>
+                </div>
             </div>
           </div>
         </div>
