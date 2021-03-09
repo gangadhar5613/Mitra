@@ -2,7 +2,7 @@ import React from 'react'
 import Loader from '../Loader';
 
 function Form (props) {
-  function handleChangingForm (step) {
+  function handleChangingForm (step) { 
     switch (step) {
       case 1:
         return <StepForm1 handleInput={props.handleInput} handleVerifyOtp={props.handleVerifyOtp} handleOtpInput={props.handleOtpInput} state={props.state} otpSent={props.otpSent} />;
