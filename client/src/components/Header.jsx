@@ -20,7 +20,7 @@ class Header extends React.Component {
               <div className="inline-block mx-2">
                 <button
                   type="button"
-                  className="focus:outline-none text-red-700 text-xl py-2.5 px-5 rounded-md bg-gradient-to-r from-white to-white transform hover:scale-110"
+                  className="focus:outline-none text-white border-white border-2 text-xl py-2.5 px-5 rounded-md bg-transparent transform hover:scale-110"
                 >
                   Sign In
                 </button>
@@ -28,7 +28,7 @@ class Header extends React.Component {
               <div className="inline-block mx-2">
                 <button
                   type="button"
-                  className="focus:outline-none text-red-700 text-xl py-2.5 px-5 rounded-md bg-white to-red-600 transform hover:scale-110"
+                  className="focus:outline-none text-white border-white border-2 text-xl py-2.5 px-5 rounded-md transform hover:scale-110"
                 >
                   Sign Up
                 </button>
