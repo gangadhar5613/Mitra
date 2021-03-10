@@ -26,11 +26,12 @@ class Chart extends React.Component{
     render(){
         return(
             <section>
+                <h2 className='text-center text-2xl mb-5 text-red-800'>Live status of all your requests</h2>
                 <div className='w-96'>
                     <Bar
                      data={this.state.chartData} 
                      width={100} 
-                     height={200}
+                     height={300}
                      options={{
                          maintainAspectRatio:false
                      }}
