@@ -16,6 +16,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       title: null,
+      bloodRequestFormAuthorized:false,
     };
   }
 
@@ -29,8 +30,8 @@ class App extends React.Component {
 
   render() {
     return (
-      <BrowserRouter>
-        <Header />
+      <BrowserRouter>   
+       <Header />        
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/register" component={Register} />
@@ -39,13 +40,10 @@ class App extends React.Component {
           <Route path="/user-dashboard" exact>
             <UserDashboard />
           </Route>
-          <Route path='/request' >
-            <BloodRequestForm />
-          </Route>
           <Route path='/bloodrequest' >
             <FundRaising />
           </Route>
-        </Switch>
+        </Switch> 
       </BrowserRouter>
     );
   }

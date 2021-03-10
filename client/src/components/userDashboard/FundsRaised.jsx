@@ -7,7 +7,7 @@ function FundsRaised(props){
         <section className='w-full px-5 my-4   container'>
             <div>
                 <table className='border-l border-r border-2 border-red-800 rounded'>
-                    <thead className='border-2  bg-red-800 text-white '>
+                    <thead className='border-2  shadow-xl bg-red-800 text-white '>
                         <tr className=''>
                             <th className='w-96  py-4 text-xl border-l border-2 border-white mx-2'>Title</th>
                             <th  className='w-96 border-l border-2 border-white text-xl'>Requested By</th>
@@ -30,7 +30,7 @@ function FundsRaised(props){
 
 function TableData(props){
     return(
-        <tr >
+        <tr className='shadow-xl' >
         <td className='border-l border-2 border-black'>
             <h3 className='cursor-pointer text-xl hover:underline  hover:text-red-700'>Emergency B+ required for small children</h3>
         </td>
