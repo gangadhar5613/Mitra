@@ -42,7 +42,7 @@ function TableData(props){
         </td>
         <td className='border-l border-2 border-black'>
            <div className='flex flex-row items-center justify-center'>
-               <i className="fas text-2xl text-blue-600  fa-hospital"></i>
+               <i className="fas text-2xl ml-5 text-blue-600  fa-hospital"></i>
                <span className='text-xl ml-2 cursor-pointer hover:text-red-700 hover:underline'>Harisha Chandrar Hospital</span>
            </div>
         </td>

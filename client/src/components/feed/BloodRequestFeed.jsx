@@ -1,5 +1,4 @@
 import React from 'react'
-import BloodRequests from '../BloodRequests'
 
 class BloodRequestFeed extends React.Component{
     constructor(props){
@@ -9,26 +8,15 @@ class BloodRequestFeed extends React.Component{
 
     render(){
         return(
-            <article class="w-full feed bg-feed transform pt-20   duration-1000 delay-300" id="dashboard">
-                <section class="heading-section text-center ">
-                    <h2 class="text-3xl font-bold py-2 text-white">Live Feed of Blood Request</h2>
-                    <h3 class="text-1xl font-medium">Our Realtime Network Activity Feed</h3>
-                </section>
-                <section class="flex flex-row justify-evenly  ">
+            <article class="w-full feed bg-feed  pt-5   " id="dashboard">
+                <section class="flex flex-row   ">
                      <section class="cards flex flex-col  flex-wrap mx-20">
                         <BloodRequestCard />
                         <BloodRequestCard />
-                   </section>
-                   <section class="filters shadow-lg bg-white h-full mt-5 p-4  ">
-                       <h2 class="text-3xl underline  my-2 font-bold text-yellow-300">Filters</h2>
-                       <div class="Activity">
-                             <ul class="text-1xl">
-                                 <li class="my-2 hover:text-red-700 font-medium text-red-700"><a href="">All Activity</a> </li>
-                                 <li class="my-2 hover:text-red-700  font-medium"><a href="">Pending Requests</a></li>
-                                 <li class="my-2 hover:text-red-700  font-medium"><a href="">Fulfilled Requests</a></li>
-                                 <li class="my-2 hover:text-red-700  font-medium"><a href="">Near Me</a></li>
-                             </ul>
-                       </div>
+                        <BloodRequestCard />
+                        <BloodRequestCard />
+                        <BloodRequestCard />
+                        <BloodRequestCard />
                    </section>
                 </section>
                 <section class="filter-options"></section>

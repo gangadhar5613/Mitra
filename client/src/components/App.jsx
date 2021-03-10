@@ -6,8 +6,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from "./Home";
 import Register from "./auth/Register";
 import Login from "./auth/Login";
-import BloodRequestFeed from "./bloodRequestFeed/BloodRequestFeed";
-import FundRaisingEvents from "./fundRaisingFeed/FundRaisingFeed";
+import Feed from './feed/Feed'
 import UserDashboard from "./userDashboard/UserDashboard";
 import FundRaising from './FunRaising'
 import BloodRequestForm from './BloodRequestForm'
@@ -36,8 +35,7 @@ class App extends React.Component {
           <Route path="/" exact component={Home} />
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
-          <Route path="/bloodrequest-feed" component={BloodRequestFeed} />
-          <Route path="/fundraising-feed" component={FundRaisingEvents} />
+          <Route path="/feed" component={Feed} />
           <Route path="/user-dashboard" exact>
             <UserDashboard />
           </Route>
