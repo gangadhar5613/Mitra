@@ -1,17 +1,35 @@
 var express = require("express");
 var router = express.Router();
+var fs = require("fs");
+var path = require("path");
 const User = require("../models/User");
 const Verification = require("../models/PhoneVerification");
 var jwt = require("../config/jwt");
 var auth = require("../middleware/auth");
 var hash = require("../utils/hash");
+var aws = require("../config/s3uploader");
+const { v4: uuidv4 } = require("uuid");
+
 var multer = require("multer");
-var upload = multer({
-	dest: "uploads/",
-	limits: { fileSize: 50 },
-	fileFilter: (req, file, cb) => {
-		console.log(file)
+const { profile } = require("console");
+var storage = multer.diskStorage({
+	destination: function (req, file, cb) {
+		cb(null, "uploads/");
 	},
+	filename: function (req, file, cb) {
+		cb(null, `${uuidv4()}.${file.originalname.split(".").pop()}`);
+	},
+});
+
+var upload = multer({
+	storage: storage,
+	fileFilter: function (req, file, cb) {
+		if (["png", "jpeg", "jpg", "webp", "pdf", "doc"].includes(file.originalname.split(".").pop())) {
+			return cb(null, true);
+		}
+		return cb(null, false);
+	},
+	limits: { fileSize: 1048576 },
 });
 
 // POST /api/v1/user/mobile To send the OTP to user mobile
@@ -47,7 +65,6 @@ router.post("/mobile", async (req, res, next) => {
 //To verify the mobile OTP : POST
 router.post("/mobile/verify", async (req, res, next) => {
 	const { sid } = req.session;
-	console.log(req.body)
   const { mobile, code } = req.body.user;
   const twilio = require("twilio")();
   try {
@@ -72,27 +89,41 @@ router.post("/mobile/verify", async (req, res, next) => {
 
 // POST /api/v1/user/register User registration after successfully mobile verification
 
-router.post("/register", async (req, res, next) => {
+router.post("/register", upload.fields([{ name: "profileImage", maxCount: 1 }]), async (req, res, next) => {
 	const { sid } = req.session;
-	const { mobile, password }  = req.body.user;
+	const { mobile, password } = req.body.user;
+	console.log(req.files)
+	const [file] = req.files.profileImage;
+	let profileImage = null;
 	try {
 		const isMobileNumberAlreadyExist = await User.findOne({ mobile });
-
 		if (isMobileNumberAlreadyExist) throw new Error("val-01"); // user already exist
 
-		const { status, valid } = await Verification.findOne({ sid, mobile }) || {};
+		const { status, valid } = (await Verification.findOne({ sid, mobile })) || {};
 		if (!valid || status !== "approved") throw new Error("auth-01"); // doesn't have sended a otp and doesn't have status of it
+		if (profileImage) {
+			const buffer = fs.readFileSync(path.join(__dirname, `../../${file.path}`));
 
-		const user = await User.create({ ...req.body.user, local: { password }, isVerified: valid });
+			const uploadParams = {
+				Bucket: "blood-app",
+				Key: file.filename,
+				Body: Uint8Array.from(buffer),
+			};
+
+			const uploadStatus = await aws.uploader(aws, uploadParams);
+			if (!uploadStatus) throw new Error("failed-01"); // Error on uploading
+			profileImage = `https://blood-app.s3.ap-south-1.amazonaws.com/${file.filename}`;
+		}
+		const user = await User.create({ ...req.body.user, local: { password }, isVerified: valid , profileImage});
 		const token = await jwt.generateToken({ userID: user.id });
 		const deleteVerificationTrace = await Verification.findOneAndDelete({ sid });
 		req.session.destroy();
 		res.json({ user: profileInfo(user, token) });
 	} catch (error) {
 		console.log(error);
-		next(error)
+		next(error);
 	}
-})
+});
 
 // POST /api/v1/user/login
 
@@ -158,6 +189,7 @@ router.put("/update/profile", auth.verifyUserLoggedIn, upload.fields([{ name: "p
 		next(error);
 	}
 });
+
 
 function profileInfo(user, token) {
 	const { firstName, lastName, middleName, email, mobile, bloodGroup, dob, profileImage, location } = user;
