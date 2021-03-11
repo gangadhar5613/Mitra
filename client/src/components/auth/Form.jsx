@@ -320,7 +320,8 @@ function StepForm4(props) {
             type="number"
             id="pincode"
             name="pincode"
-            className="pincode w-96 mt-1 block    outline-none border-2 border-red-800  h-8   shadow-lg hover:bg-red-700 focus:bg-black focus:ring-0"
+            value={props.state.pincode}
+            className="pincode w-96 mt-1 block    outline-none border-2 border-red-800  h-8   shadow-lg hover:bg-red-700 focus:ring-0"
             placeholder="Enter your pincode "
           ></input>
         </div>
@@ -368,9 +369,9 @@ function StepForm4(props) {
           >
             Address
           </label>
-          <select onChange={props.handleInput}>
+          <select name='address' className='border-2 border-red-800' onChange={props.handleInput}>
             {!props.state.location ? (
-              <option value="select">select</option>
+              <option  value="select">select</option>
             ) : (
               props.state.location.postOffices.map((val) => {
                 return <option value={val}>{val}</option>;
@@ -392,7 +393,7 @@ function StepForm4(props) {
             type="password"
             id="password"
             name="password"
-            className="password w-96 mt-1 block   outline-none border-2 border-red-800  h-8  shadow-lg hover:bg-red-700 focus:bg-black focus:ring-0"
+            className="password w-96 mt-1 block   outline-none border-2 border-red-800  h-8  shadow-lg hover:bg-red-700  focus:ring-0"
             placeholder="Enter your Password"
           ></input>
         </div>

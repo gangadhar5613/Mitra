@@ -29,7 +29,8 @@ class Register extends React.Component {
       pincode: null,
       locationFetching: '',
       location: null,
-      profileImage:null
+      profileImage: null,
+      medicalReport:null
       
     };
   }
@@ -212,7 +213,7 @@ class Register extends React.Component {
       case 'medicalReport':
         //    errors.mobile = ( this.countDigits(value) >=10 ) ? '' : 'Please enter valid 10 digit mobile number'
         this.setState({
-          mobile: value
+          medicalReport:value
         });
         break;
       case 'pincode':
@@ -232,7 +233,7 @@ class Register extends React.Component {
       case 'password':
         // errors.mobile = ( this.countDigits(value) >=10 ) ? '' : 'Please enter valid 10 digit mobile number'
         this.setState({
-          mobile: value
+          password:value
         });
         break;
 
