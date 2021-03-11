@@ -5,8 +5,12 @@ import { Carousel } from "react-responsive-carousel";
 export default class Testimonial extends Component {
   render() {
     return (
+    <>
+         <div className='text-center text-5xl mb-5 font-semibold'>
+            <h2 className='text-red-700 font-light'>Those who benifited through <span className='text-red-700 font-bold'>Mitra</span></h2>
+        </div>
       <Carousel
-        className="justify-center my-20 px-96 mx-40 items-center flex "
+        className="justify-center my-5 px-96 mx-40 items-center flex "
         showArrows={true}
         infiniteLoop={true}
         showThumbs={false}
@@ -213,6 +217,7 @@ export default class Testimonial extends Component {
           </div>
         </div>
       </Carousel>
+      </>
     );
   }
 }

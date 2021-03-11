@@ -27,7 +27,7 @@ class Chart extends React.Component{
         return(
             <section>
                 <div className='w-96'>
-                    <Bubble
+                    <Bar
                      data={this.state.chartData} 
                      width={100} 
                      height={200}
