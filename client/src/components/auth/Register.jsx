@@ -3,11 +3,12 @@ import Steps from './Steps'
 import Form from './Form'
 import Loader from '../Loader'
 import Header from '../Header'
+import buffer from "buffer";
 
 class Register extends React.Component {
   constructor(props) {
     super(props);
-   
+
     this.state = {
       step: 3,
       mobileVerify: false,
@@ -35,7 +36,7 @@ class Register extends React.Component {
       address:'',
       profileImage: null,
       medicalReport:null
-      
+
     };
   }
 
@@ -142,6 +143,20 @@ class Register extends React.Component {
 
   };
 
+  fileHandler = (event, document) => {
+    var file = event.target.files[0];
+	var reader = new FileReader();
+    reader.onload = (event) => {
+    console.log(event.target)
+    this.setState({
+		[document]: new Uint8Array(event.target.result),
+	});
+	};
+
+	reader.readAsArrayBuffer(file);
+
+  }
+
   handleInput = (event) => {
     let { name, value } = event.target;
     let errors = this.state.errors;
@@ -182,13 +197,16 @@ class Register extends React.Component {
       }
     }
 
+
+
+
     switch (name) {
       case 'firstName':
         this.setState({
           firstName:value
         });
         break;
-    
+
         case 'middleName':
           this.setState({
             middleName:value
@@ -199,7 +217,7 @@ class Register extends React.Component {
             lastName: value
           });
         break;
-      
+
       case 'mobile':
         errors.mobile = (this.countDigits(value) >= 10) ? '' : 'Please enter valid 10 digit mobile number';
         this.setState({
@@ -230,19 +248,11 @@ class Register extends React.Component {
           dob: value
         });
         break;
-      case 'profileImage':
+      case 'profileimage':
         // errors.mobile = ( this.countDigits(value) >=10 ) ? '' : 'Please enter valid 10 digit mobile number'
-        if(value.files && value.files[0]){
-          let reader = new FileReader()
-          reader.onload = (event) => {
-            console.log('hello')
-            this.setState({
-              profileImage:event.target.result
-            })
-          }
-
-          reader.readAsDataURL(value.files[0])
-        }
+        this.setState({
+          mobile: value
+        });
         break;
       case 'medicalReport':
         //    errors.mobile = ( this.countDigits(value) >=10 ) ? '' : 'Please enter valid 10 digit mobile number'
@@ -390,8 +400,8 @@ class Register extends React.Component {
 						<div className="steps w-96 h-96 ">
 							<Steps step={this.state.step} />
 						</div>
-						<div className="form flex-1">
-							<Form handleOtp={this.handleOtp} handleVerifyOtp={this.handleVerifyOtp} handleOtpInput={this.handleOtpInput} state={this.state} mobile={this.state.mobile} handleInput={this.handleInput} otpSent={this.state.otpSent} handleForm={this.handleForm} handlePrevForm={this.handlePrevForm} step={this.state.step} />
+						<div className="form   flex-1">
+							<Form handleOtp={this.handleOtp} handleVerifyOtp={this.handleVerifyOtp} handleOtpInput={this.handleOtpInput} state={this.state} mobile={this.state.mobile} handleInput={this.handleInput} otpSent={this.state.otpSent} handleForm={this.handleForm} handlePrevForm={this.handlePrevForm} step={this.state.step} fileHandler={this.fileHandler} />
 						</div>
 					</div>
 					<div className={(this.state.otpSent && !this.state.mobileResponse) || this.state.otpResponse ? "absolute  left-96 top-96" : "hidden"}>

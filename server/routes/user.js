@@ -91,9 +91,9 @@ router.post("/mobile/verify", async (req, res, next) => {
 
 router.post("/register", async (req, res, next) => {
 	const { sid } = req.session;
-	const { mobile, password } = req.body.user;
-	console.log(password);;
-	let profileImage = null;
+	const { mobile, password, profileImage } = req.body.user;
+	console.log(password);
+	// let profileImage = null;
 	try {
 		const isMobileNumberAlreadyExist = await User.findOne({ mobile });
 		if (isMobileNumberAlreadyExist) throw new Error("val-01"); // user already exist
@@ -101,12 +101,12 @@ router.post("/register", async (req, res, next) => {
 		const { status, valid } = (await Verification.findOne({ sid, mobile })) || {};
 		if (!valid || status !== "approved") throw new Error("auth-01"); // doesn't have sended a otp and doesn't have status of it
 		if (profileImage) {
-			const buffer = fs.readFileSync(path.join(__dirname, `../../${file.path}`));
+			// const buffer = fs.readFileSync(path.join(__dirname, `../../${file.path}`));
 
 			const uploadParams = {
 				Bucket: "blood-app",
 				Key: file.filename,
-				Body: Uint8Array.from(buffer),
+				Body: profileImage,
 			};
 
 			const uploadStatus = await aws.uploader(aws, uploadParams);
@@ -122,7 +122,8 @@ router.post("/register", async (req, res, next) => {
 		console.log(error);
 		next(error);
 	}
-});
+	}
+);
 
 // POST /api/v1/user/login
 

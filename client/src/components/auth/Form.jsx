@@ -2,6 +2,7 @@ import React from "react";
 import Loader from "../Loader";
 
 function Form(props) {
+  console.log(props);
   function handleChangingForm(step) {
     switch (step) {
       case 1:
@@ -19,7 +20,7 @@ function Form(props) {
         return <StepForm2 handleInput={props.handleInput} />;
         break;
       case 3:
-        return <StepForm3 state={props.state} handleInput={props.handleInput} />;
+        return <StepForm3 state={props.state} handleInput={props.handleInput} fileHandler={props.fileHandler} />;
         break;
       case 4:
         return (
@@ -200,48 +201,22 @@ function StepForm2(props) {
 
 function StepForm3(props) {
   return (
-    <form>
-      <div className="flex flex-row items-center mt-2">
-        <div className="flex flex-col mr-2">
-          <label
-            htmlFor="mobile"
-            className="text-md font-semibold text-shadow-md"
-          >
-            Profile Image
-          </label>
-          <div className='flex flex-row  items-center'>
-            <div className='bg-red-500 mr-1 p-2 inline-block rounded-full'>
-            {/* <i class="fas fa-user"></i> */}
-                <img className='w-20 h-20 rounded-full' src={(props.state.profileImage) ? props.state.profileImage : 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8cGVyc29ufGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'} alt='user' ></img>
-            </div>
-            <input
-            onChange={props.handleInput}
-            type="file"
-            id="profileImage"
-            name="profileImage"
-            className="mobile  mt-1 block   outline-none py-1   h-10  text-black border-2 border-red-500 hover:bg-red-700  focus:ring-0"
-            placeholder="Upload Profile Pic"
-          ></input>
-          </div>
-        </div>
-        <div className="flex flex-col ml-2">
-          <label
-            htmlFor="mobile"
-            className="text-md font-semibold text-shadow-md"
-          >
-            Medical / Blood Report
-          </label>
-          <input
-            onChange={props.handleInput}
-            type="file"
-            id="mobile"
-            name="mobile"
-            className="mobile  mt-1 block   outline-none py-1   h-10    border-2 border-red-500  hover:bg-red-700 focus:bg-black focus:ring-0"
-            placeholder="Enter your mobile number"
-          ></input>
-        </div>
-      </div>
-    </form>
+		<form>
+			<div className="flex flex-row items-center mt-2">
+				<div className="flex flex-col mr-2">
+					<label htmlFor="mobile" className="text-md font-semibold text-shadow-md">
+						Profile Image
+					</label>
+						<input onChange={(e) => props.fileHandler(e, "profileImage")} type="file" id="profileImage" name="profileImage" className="mobile  mt-1 block   outline-none py-1   h-10  text-black border-2 border-red-500 hover:bg-red-700 focus:bg-black focus:ring-0" placeholder="Upload Profile Pic"></input>
+				</div>
+				<div className="flex flex-col ml-2">
+					<label htmlFor="mobile" className="text-md font-semibold text-shadow-md">
+						Medical / Blood Report
+					</label>
+					<input onChange={(e) => props.handleInput(e, "medicalReport")} type="file" id="mobile" name="mobile" className="mobile  mt-1 block   outline-none py-1   h-10    border-2 border-red-500  hover:bg-red-700 focus:bg-black focus:ring-0" placeholder="Enter your mobile number"></input>
+				</div>
+			</div>
+		</form>
   );
 }
 
