@@ -110,6 +110,11 @@ body {
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-.w-800 {
-  width: 800px;
+.w-48 {
+  width: 48%;
+}
+
+input, select {
+  padding: .35rem .25rem ;
+  width: 100%;
 }

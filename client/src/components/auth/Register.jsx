@@ -30,7 +30,7 @@ class Register extends React.Component {
       locationFetching: '',
       location: null,
       profileImage:null
-      
+
     };
   }
 
@@ -341,6 +341,7 @@ class Register extends React.Component {
 
   render () {
     return (
+<<<<<<< HEAD
       <>
         <section className='flex items-center register relative flex-row w-screen container mx-auto  h-screen'>
           <section className='w-full     shadow-2xl mx-40 md:w-full   '>
@@ -367,6 +368,38 @@ class Register extends React.Component {
         </section>
       </>
     );
+=======
+		<>
+			<section className="flex items-center register relative flex-row w-screen container mx-auto  h-screen">
+				<section className="w-full bg-yellow-400    shadow-xl mx-40 md:w-full   ">
+					<div className="heading flex  flex-row justify-between">
+						<div className="flex  bg-red-500 cursor-pointer  shadow-md py-2 border-r border-gray-300 w-full items-center justify-center">
+							<button onClick={this.handleForm} id="register" className="text-xl">
+								Register
+							</button>
+						</div>
+						<div className="flex bg-red-500 cursor-pointer  shadow-md py-2  w-full items-center justify-center">
+							<button onClick={this.handleForm} id="login" className="text-xl">
+								Login
+							</button>
+						</div>
+					</div>
+					<div className="flex flex-row md:flex-shrink-0 h-96 ">
+						<div className="steps w-96 h-96 ">
+							<Steps step={this.state.step} />
+						</div>
+						<div className="form flex-1">
+							<Form handleOtp={this.handleOtp} handleVerifyOtp={this.handleVerifyOtp} handleOtpInput={this.handleOtpInput} state={this.state} mobile={this.state.mobile} handleInput={this.handleInput} otpSent={this.state.otpSent} handleForm={this.handleForm} handlePrevForm={this.handlePrevForm} step={this.state.step} />
+						</div>
+					</div>
+					<div className={(this.state.otpSent && !this.state.mobileResponse) || this.state.otpResponse ? "absolute  left-96 top-96" : "hidden"}>
+						<Loader />
+					</div>
+				</section>
+			</section>
+		</>
+	);
+>>>>>>> e79c00c (Login & Register Bug Fixes)
   }
 }
 
