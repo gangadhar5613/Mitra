@@ -9,12 +9,14 @@ import Testimonial from "./Testimonial";
 function Home(props) {
   return (
     <>
-      <Header />
-      <Hero />
-      <BloodRequests />
-      <FundRaisingEvents />
-      <Testimonial />
-      <Footer />
+      <div className='home'>
+        <Header />
+        <Hero />
+        <BloodRequests />
+        <FundRaisingEvents />
+        <Testimonial />
+        <Footer />
+      </div>
     </>
   );
 }

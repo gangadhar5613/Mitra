@@ -6,17 +6,18 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from "./Home";
 import Register from "./auth/Register";
 import Login from "./auth/Login";
-import BloodRequestFeed from "./bloodRequestFeed/BloodRequestFeed";
-import FundRaisingEvents from "./fundRaisingFeed/FundRaisingFeed";
+import Feed from './feed/Feed'
 import UserDashboard from "./userDashboard/UserDashboard";
 import FundRaising from './FunRaising'
 import BloodRequestForm from './BloodRequestForm'
+import PageNotFound from './PageNotFound'
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       title: null,
+      bloodRequestFormAuthorized:false,
     };
   }
 
@@ -30,26 +31,25 @@ class App extends React.Component {
 
   render() {
     return (
-      <BrowserRouter>
-        <Header />
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/register" component={Register} />
-          <Route path="/login" component={Login} />
-          <Route path="/bloodrequest-feed" component={BloodRequestFeed} />
-          <Route path="/fundraising-feed" component={FundRaisingEvents} />
-          <Route path="/user-dashboard" exact>
-            <UserDashboard />
-          </Route>
-          <Route path='/request' >
-            <BloodRequestForm />
-          </Route>
-          <Route path='/bloodrequest' >
-            <FundRaising />
-          </Route>
-        </Switch>
-      </BrowserRouter>
-    );
+		<BrowserRouter>
+			<Header />
+			<Switch>
+				<Route path="/" exact component={Home} />
+				<Route path="/register" component={Register} />
+				<Route path="/login" component={Login} />
+				<Route path="/feed" component={Feed} />
+				<Route path="/user/dashboard" exact>
+					<UserDashboard />
+				</Route>
+				<Route path="/bloodrequest">
+					<FundRaising />
+				</Route>
+        <Route path='*'>
+           <PageNotFound />
+        </Route>
+			</Switch>
+		</BrowserRouter>
+	);
   }
 }
 

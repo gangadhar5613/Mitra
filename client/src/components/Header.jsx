@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import logo from "../../public/images/logo-1.png";
 
 class Header extends React.Component {
   render() {

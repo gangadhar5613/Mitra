@@ -9,6 +9,7 @@ module.exports = {
 	output: {
 		path: path.resolve(__dirname, "dist"),
 		filename: "[name].bundler.js",
+		publicPath: "/",
 	},
 	module: {
 		rules: [
@@ -56,6 +57,6 @@ module.exports = {
 		},
 	},
 	externals: {
-      moment: 'moment'
-  }
+		moment: "moment",
+	},
 };

@@ -7,13 +7,16 @@ class BloodRequests extends React.Component{
 
     render(){
         return(
-            <article className='mt-8 blood-request-cards overflow-hidden   py-10  h-full'>
+            <article className='mt-8 blood-request-cards overflow-hidden relative   py-10  h-full'>
                 <section className='flex flex-row items-end justify-end mr-10'>
                     <div className='text-center  items-center justify-center flex flex-col'>
                         <h3 className='text-5xl mb-2 font-bold text-shadow-md text-red-500'>Blood Requests</h3>
                         <p className='text-2xl  text-shadow-sm'>Accept the blood request near to you and become the life savior</p>
-                        <i className="fas mt-5 ml-5 relative left-10 text-red-600 animate-pulse text-9xl fa-heartbeat"></i>
-                        <button className='text-white mt-2 ml-7 w-52 shadow-lg relative left-10 bg-red-600 px-6 py-2 rounded'>Donate</button>
+                        <q className='text-4xl text-red-700  font-semibold '>Bring a life back to power</q>
+                        <div className='flex flex-col relative  top-80'>
+                            <i className="fas mt-5 ml-5 relative left-10 text-red-800 animate-pulse text-9xl fa-heartbeat"></i>
+                            <button className='  mt-2 ml-7 w-52 shadow-lg relative left-10 bg-white text-red-700 px-6 py-2 rounded'>Donate</button>
+                        </div>
                     </div>
                 </section>
                 <section class=" text-gray-700 flex flex-row items-center  px-5   ">

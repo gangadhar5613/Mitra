@@ -1,5 +1,5 @@
 import React from 'react'
-
+import donationImg from '../../public/images/donation.png'
 class FundRaisingEvents extends React.Component{
     constructor(props){
         super(props)
@@ -7,13 +7,21 @@ class FundRaisingEvents extends React.Component{
 
     render(){
         return(
-            <article className='  blood-request-cards   py-20  h-full'>
+            <article className=' relative  blood-request-cards   py-20  h-full'>
                 <section className='flex flex-row items-end justify-end mr-10'>
                     <div className='text-center  items-center justify-center flex flex-col'>
-                        <h3 className='text-5xl mb-2 font-bold text-shadow-md text-red-500'>Fund Raising</h3>
-                        <p className='text-2xl relative left-10 w-3/4  text-shadow-sm'>Donate as much you can to the save the life of person and become a hero among all.</p>
-                        {/* <i className="fas mt-5 ml-5 relative left-10 text-red-600 animate-pulse text-9xl fa-heartbeat"></i> */}
-                        <button className='text-white mt-2 ml-7 w-52 shadow-lg relative left-10 bg-red-600 px-6 py-2 rounded'>Donate</button>
+                        <h3 className='text-5xl mb-2 font-bold text-shadow-md top-10 relative left-40 text-red-500'>Fund Raising</h3>
+                        <p className='text-2xl relative left-40 top-10 w-1/2   text-shadow-sm'>Donate as much you can to the save the life of person and become a hero among all.</p>
+                        <div className='relative top-96 left-10'>
+                          <img className='w-80 h-32' src={donationImg} alt='donation' ></img>
+                          <div>
+                          <span class="flex h-5 w-5 relative -top-3   left-72 ml-3">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-700 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
+                                </span>
+                          </div>
+                           <button className=' text-red-800  mt-2 ml-7 w-52 shadow-lg  bg-white px-6 py-2 rounded'>Donate</button>
+                        </div>
                     </div>
                 </section>
                 <section class=" text-gray-700 flex flex-row items-center  px-5   ">

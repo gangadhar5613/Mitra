@@ -12,10 +12,10 @@ function Hero(props) {
           </h2>
         </div>
         <div className="flex flex-row ">
-          <button className="bg-red-700 shadow-md text-white  text-xl animate-pulse  px-6 py-2 mx-2">
+          <button className="bg-white shadow-xl text-red-500 hover:bg-red-700 hover:text-white rounded  text-xl animate-pulse  px-6 py-2 mx-2">
             Request Blood
           </button>
-          <button className="bg-red-700 text-white shadow-md text-xl animate-pulse px-6 py-2 mx-2 ">
+          <button className="bg-white text-red-500 shadow-xl hover:bg-red-700 hover:text-white rounded text-xl animate-pulse px-6 py-2 mx-2 ">
             Raise Funds
           </button>
         </div>
