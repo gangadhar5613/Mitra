@@ -52,13 +52,13 @@ font-family: 'Varela Round', sans-serif;
 .hero-banner{
   background: url('./hero-2.png');
   background-size: cover;
- 
+
 }
 
 
 
 .blood-request-cards{
-  background: url('./wave-3.png');  
+  background: url('./wave-3.png');
   background-size: cover;
   background-repeat: no-repeat;
 
@@ -90,8 +90,12 @@ font-family: 'Varela Round', sans-serif;
   border-radius: 10px;
 }
 
-::-webkit-progress-value{ 
+::-webkit-progress-value{
   background: #ED213A;  /* fallback for old browsers */
 background: -webkit-linear-gradient(to right, #93291E, #ED213A);  /* Chrome 10-25, Safari 5.1-6 */
 background: linear-gradient(to right, #93291E, #ED213A); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.w-800 {
+  width: 800px;
 }
