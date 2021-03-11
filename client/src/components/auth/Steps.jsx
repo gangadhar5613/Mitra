@@ -20,7 +20,7 @@ function Steps(props){
             <div className='flex flex-col justify-items-center  justify-center '>
                 <div className='flex flex-row items-center'>
                 <span className={props.step >= 3 ? 'bg-red-700 shadow-lg text-white w-10 text-center flex items-center justify-center text-xl h-10 rounded-full' : 'bg-black text-white w-10 text-center flex items-center justify-center text-xl h-10 rounded-full'}>3</span>
-                   <h2 className='  ml-4 text-md'>Password</h2>
+                   <h2 className='  ml-4 text-md'>Profile Image</h2>
                 </div>
             </div>
             <div className={props.step >= 4 ? 'h-14 w-0.5 relative left-5 shadow-lg bg-red-700' : ' h-14 w-0.5 relative left-5 bg-black'}></div>

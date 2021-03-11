@@ -19,7 +19,7 @@ function Form(props) {
         return <StepForm2 handleInput={props.handleInput} />;
         break;
       case 3:
-        return <StepForm3 handleInput={props.handleInput} />;
+        return <StepForm3 state={props.state} handleInput={props.handleInput} />;
         break;
       case 4:
         return (
@@ -260,7 +260,7 @@ function StepForm2(props) {
 function StepForm3(props) {
   return (
     <form>
-      <div className="flex flex-row mt-2">
+      <div className="flex flex-row items-center mt-2">
         <div className="flex flex-col mr-2">
           <label
             htmlFor="mobile"
@@ -268,14 +268,20 @@ function StepForm3(props) {
           >
             Profile Image
           </label>
-          <input
+          <div className='flex flex-row  items-center'>
+            <div className='bg-red-500 mr-1 p-2 inline-block rounded-full'>
+            {/* <i class="fas fa-user"></i> */}
+                <img className='w-20 h-20 rounded-full' src={(props.state.profileImage) ? props.state.profileImage : 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8cGVyc29ufGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'} alt='user' ></img>
+            </div>
+            <input
             onChange={props.handleInput}
             type="file"
-            id="mobile"
-            name="mobile"
+            id="profileImage"
+            name="profileImage"
             className="mobile  mt-1 block   outline-none py-1   h-10  text-black border-2 border-red-500 hover:bg-red-700 focus:bg-black focus:ring-0"
-            placeholder="Enter your mobile number"
+            placeholder="Upload Profile Pic"
           ></input>
+          </div>
         </div>
         <div className="flex flex-col ml-2">
           <label
