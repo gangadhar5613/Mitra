@@ -10,6 +10,7 @@ import Feed from './feed/Feed'
 import UserDashboard from "./userDashboard/UserDashboard";
 import FundRaising from './FunRaising'
 import BloodRequestForm from './BloodRequestForm'
+import PageNotFound from './PageNotFound'
 
 class App extends React.Component {
   constructor(props) {
@@ -43,6 +44,9 @@ class App extends React.Component {
 				<Route path="/bloodrequest">
 					<FundRaising />
 				</Route>
+        <Route path='*'>
+           <PageNotFound />
+        </Route>
 			</Switch>
 		</BrowserRouter>
 	);
