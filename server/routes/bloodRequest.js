@@ -65,7 +65,7 @@ router.post("/:bloodID/user/:donorID/partially", async (req, res, next) => {
 		if (!donor) throw new Error("val-04"); // invalid blood request
 		if (donor.currentlyDonating) throw new Error("invalid-05"); // user is donating you can make request to this user
 		const updateBloodRequest = await BloodRequest.findByIdAndUpdate(bloodID, { status: "NOT FULFILLED", currentDonor: donorID }, {new: true, useFindAndModify: true});
-		const updateDonor = await User.findByIdAndUpdate(donorID, { currentlyDonating: bloodID });
+		const updateDonor = await User.findByIdAndUpdate(donorID, { currentlyDonating: bloodID, $pull: { sendedDonateRequest: bloodID } });
 		res.send(updateBloodRequest);
 	} catch (error) {
 		console.log(error);
@@ -87,7 +87,7 @@ router.post("/:bloodID/user/:donorID/fulfilled", async (req, res, next) => {
 		if (bloodRequest.status !== "NOT FULFILLED") throw new Error("invalid-04"); // blood request status is not valid and donor is not available
 		const donor = await User.findById(donorID);
 		if (!donor) throw new Error("val-04"); // invalid blood request
-		const updateBloodRequest = await BloodRequest.findByIdAndUpdate(bloodID, { status: null, $push: { successfulDonor: donorID }, currentDonor: null, donor: [] }, { new: true, useFindAndModify: true });
+		const updateBloodRequest = await BloodRequest.findByIdAndUpdate(bloodID, { status: null, $push: { fulfilledDonor: donorID }, currentDonor: null, donors: [] }, { new: true, useFindAndModify: true });
 		const updateDonor = await User.findByIdAndUpdate(donorID, { currentlyDonating: null, $push: { donated: bloodID }, lastDonated: new Date().toISOString() }, { new: true, useFindAndModify: true });
 		res.send(updateBloodRequest);
 	} catch (error) {

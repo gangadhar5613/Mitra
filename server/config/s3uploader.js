@@ -1,6 +1,5 @@
 const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
 
-
 module.exports = {
 	s3: null,
 	config: function ()   {
