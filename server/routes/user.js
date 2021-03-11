@@ -195,7 +195,7 @@ router.get("/", auth.verifyUserLoggedIn, async (req, res, next) => {
 	try {
 		const user = await User.findById(userID);
 		if (!user) throw new Error("invalid-02"); // user not found
-		res.json({ user: profileInfo(updatedUser, token) });
+		res.json({ user: profileInfo(user, token) });
 	} catch (error) {
 		console.log(error);
 		next(error);

@@ -7,6 +7,7 @@ import Header from '../Header'
 class Register extends React.Component {
   constructor(props) {
     super(props);
+   
     this.state = {
       step: 3,
       mobileVerify: false,
@@ -22,13 +23,16 @@ class Register extends React.Component {
       mobileOtp: [],
       otp: null,
       otpResponse: null,
-      fullname: '',
+      firstName: '',
+      middleName: '',
+      lastName:'',
       email: '',
-      bloodgroup: '',
-      dateofbirth: '',
+      bloodGroup: '',
+      dob: '',
       pincode: null,
       locationFetching: '',
       location: null,
+      address:'',
       profileImage: null,
       medicalReport:null
       
@@ -142,6 +146,19 @@ class Register extends React.Component {
     let { name, value } = event.target;
     let errors = this.state.errors;
 
+    if(name == 'profileImage'){
+      const [file] = event.target.files;
+      if (file) {
+        const reader = new FileReader();
+        const { current } = this.state.uploadedImage
+        current.file = file;
+        reader.onload = e => {
+          current.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
     if (name == 'pincode') {
       console.log(value);
       if (value.length > 6) {
@@ -166,6 +183,23 @@ class Register extends React.Component {
     }
 
     switch (name) {
+      case 'firstName':
+        this.setState({
+          firstName:value
+        });
+        break;
+    
+        case 'middleName':
+          this.setState({
+            middleName:value
+          });
+        break;
+        case 'lastName':
+          this.setState({
+            lastName: value
+          });
+        break;
+      
       case 'mobile':
         errors.mobile = (this.countDigits(value) >= 10) ? '' : 'Please enter valid 10 digit mobile number';
         this.setState({
@@ -175,7 +209,7 @@ class Register extends React.Component {
       case 'email':
         // errors.mobile = ( this.countDigits(value) >=10 ) ? '' : 'Please enter valid 10 digit mobile number'
         this.setState({
-          mobile: value
+          email:value
         });
         break;
       case 'fullname':
@@ -184,16 +218,16 @@ class Register extends React.Component {
           fullname: value
         });
         break;
-      case 'bloodgroup':
+      case 'bloodGroup':
         // errors.mobile = ( this.countDigits(value) >=10 ) ? '' : 'Please enter valid 10 digit mobile number'
         this.setState({
-          bloodgroup: value
+          bloodGroup: value
         });
         break;
-      case 'dateofbirth':
+      case 'dob':
         // errors.mobile = ( this.countDigits(value) >=10 ) ? '' : 'Please enter valid 10 digit mobile number'
         this.setState({
-          dateofbirth: value
+          dob: value
         });
         break;
       case 'profileImage':
@@ -224,10 +258,10 @@ class Register extends React.Component {
 
 
         break;
-      case 'location':
+      case 'address':
         // errors.mobile = ( this.countDigits(value) >=10 ) ? '' : 'Please enter valid 10 digit mobile number'
         this.setState({
-          mobile: value
+          address: value
         });
         break;
       case 'password':
@@ -342,32 +376,31 @@ class Register extends React.Component {
 
   render () {
     return (
-      <>
-        <section className='flex items-center register relative flex-row w-screen container mx-auto  h-screen'>
-          <section className='w-full     shadow-2xl mx-40 md:w-full   '>
-            <div className='heading flex  flex-row justify-between'>
-              <div className='flex  bg-red-500 cursor-pointer  shadow-md py-2 border-r border-gray-300 w-full items-center justify-center'>
-                <button onClick={this.handleForm} id='register' className='text-xl'>Register</button>
-              </div>
-              <div className='flex bg-red-500 cursor-pointer  shadow-md py-2  w-full items-center justify-center'>
-                <button onClick={this.handleForm} id='login' className='text-xl'>Login</button>
-              </div>
-            </div>
-            <div className='flex flex-row md:flex-shrink-0 h-96 '>
-              <div className='steps w-96 h-96 '>
-                <Steps step={this.state.step} />
-              </div>
-              <div className='form   flex-1'>
-                <Form handleOtp={this.handleOtp} handleVerifyOtp={this.handleVerifyOtp} handleOtpInput={this.handleOtpInput} state={this.state} mobile={this.state.mobile} handleInput={this.handleInput} otpSent={this.state.otpSent} handleForm={this.handleForm} handlePrevForm={this.handlePrevForm} step={this.state.step} />
-              </div>
-            </div>
-            <div className={(this.state.otpSent && !this.state.mobileResponse || this.state.otpResponse ) ? 'absolute  left-96 top-96' : 'hidden'}>
-              <Loader />
-            </div>
-          </section>
-        </section>
-      </>
-    );
+		<>
+			<section className="flex items-center register relative flex-row w-screen container mx-auto  h-screen">
+				<section className="w-full bg-yellow-400    shadow-xl mx-40 md:w-full   ">
+					<div className="heading flex  flex-row justify-between">
+						<div className="flex justify-center  bg-red-500 cursor-pointer  shadow-md py-2 border-r border-gray-300 w-full items-center ">
+							<button onClick={this.handleForm} id="register" className="text-xl">
+								Register
+							</button>
+						</div>
+					</div>
+					<div className="flex flex-row md:flex-shrink-0 h-96 ">
+						<div className="steps w-96 h-96 ">
+							<Steps step={this.state.step} />
+						</div>
+						<div className="form flex-1">
+							<Form handleOtp={this.handleOtp} handleVerifyOtp={this.handleVerifyOtp} handleOtpInput={this.handleOtpInput} state={this.state} mobile={this.state.mobile} handleInput={this.handleInput} otpSent={this.state.otpSent} handleForm={this.handleForm} handlePrevForm={this.handlePrevForm} step={this.state.step} />
+						</div>
+					</div>
+					<div className={(this.state.otpSent && !this.state.mobileResponse) || this.state.otpResponse ? "absolute  left-96 top-96" : "hidden"}>
+						<Loader />
+					</div>
+				</section>
+			</section>
+		</>
+	);
   }
 }
 

@@ -23,12 +23,15 @@ class App extends React.Component {
   }
 
   updateUser (user) {
-    this.setState({user, isLoggedIn: true})
+    this.setState({user, isLoggedIn: true,isLoading:false})
   }
 
   async componentDidMount () {
     const token = localStorage.getItem("token")
-    if (token) {
+    
+    if (token)
+    {
+      console.log(token)
       const response = await fetch("/api/v1/user", {
         method: 'GET',
         headers: {
@@ -36,6 +39,7 @@ class App extends React.Component {
         }
       });
       const { user, error } = await response.json();
+      console.log(user)
       if(error) return localStorage.clear()
       this.updateUser(user)
     } else {
@@ -48,17 +52,19 @@ class App extends React.Component {
     if(isLoading) return <BouncingLoader />
     return (
 		<BrowserRouter>
-        {this.isLoggedIn && user ? <AuthRoute user /> : <NoAuthRoute user />}
+        {(isLoggedIn ) ? <AuthRoute user={this.state.user} /> : <NoAuthRoute user={this.state.user}  />}
 		</BrowserRouter>
 	);
 }
 }
 
 
-function AuthRoute (props) {
+function AuthRoute(props)
+{
+  console.log('Authorized')
   return (
     <>
-      <Header />
+      <Header  />
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/feed" component={Feed} />
@@ -76,10 +82,12 @@ function AuthRoute (props) {
   );
 }
 
-function NoAuthRoute (props) {
+function NoAuthRoute(props)
+{
+
   return (
     <>
-      <Header />
+      <Header user = {props.state.user} />
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/register" component={Register} />
