@@ -23,8 +23,8 @@ class Update extends React.Component {
             </div>
           </div>
 
-        <div className='flex flex-col mt-4 bg-gray-100 shadow p-1 '>
-          <span className='underline'>Update:</span>  
+        <div className='flex flex-col mt-4  shadow p-1 '>
+          <span className='underline font-bold text-red-700'>Update:</span>  
           <p className=" text-sm text-gray-700 leading-8">
             The standard chunk of Lorem Ipsum used since the 1500s is reproduced
             below for those interested. 
@@ -48,26 +48,26 @@ class Update extends React.Component {
               </button>
             </div>
           </div>
-          <div className=" mt-7 bg-white border-white rounded-2xl shadow-md border-2 p-8">
+          <div className=" mt-7 bg-white supporters border-white rounded-2xl overflow-scroll overflow-y-visible shadow-md border-2 p-8">
             {/* <h4 className="font-sans text-2xl font-semibold my-7 mx-auto">
               Donation
             </h4> */}
-            <div className="flex shadow-lg p-4">
+            <div className="flex shadow-lg rounded-md p-4">
                 <img
                   className="donor-image w-10 h-10"
                   src="https://pbs.twimg.com/profile_images/1355996031658323969/y18eVQix_400x400.jpg"
                 />
-                <div class=" mx-auto w-full flex flex-col text-center">
+                <div class=" mx-auto w-full rounded flex flex-col text-center">
                   <p className="text-sm mx-auto ">Kushal Dave just Donated !</p>
                   <p className="text-md">Rs. 10,000</p>
                 </div>
             </div>
-            <div className="flex shadow-lg p-4 mt-5 pt-5">
+            <div className="flex shadow-lg rounded-md p-4 mt-5 pt-5">
                 <img
                   className="donor-image w-10 h-10"
                   src="https://pbs.twimg.com/profile_images/1355996031658323969/y18eVQix_400x400.jpg"
                 />
-                <div class=" mx-auto w-full flex flex-col text-center">
+                <div class=" mx-auto w-full flex rounded flex-col text-center">
                   <p className="text-sm mx-auto ">Kushal Dave just Donated !</p>
                   <p className="text-md">Rs. 10,000</p>
                 </div>

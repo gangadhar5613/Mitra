@@ -1,37 +1,47 @@
 import React from "react";
 
 class EventSection extends React.Component {
+  constructor(props){
+    super(props)
+    
+  }
+
+
+
   render() {
     return (
       <div className="flex w-1/2">
         <div className=" w-1/12 border-black mr-6">
           <div className="mx-auto my-8">
             <a className=" rounded-full">
-              <i class="fab fa-twitter text-4xl bg-white w-20 p-2 rounded-full shadow   ml-8 my-6"></i>
+              <i class="fab fa-twitter text-blue-500 text-4xl bg-white w-20 p-2 rounded-full shadow   ml-8 my-6"></i>
             </a>
             <a className="text-4xl ">
-              <i class="fab fa-instagram ml-8 mb-6  text-4xl bg-white w-20 p-2 rounded-full shadow "></i>
+              <i class="fab fa-instagram ml-8 mb-6 text-yellow-700  text-4xl bg-white w-20 p-2 rounded-full shadow "></i>
             </a>
             <a className="text-4xl ">
-              <i class="fab fa-facebook-f ml-8 mb-6  text-4xl bg-white w-20 p-2 rounded-full shadow "></i>
+              <i class="fab fa-facebook-f ml-8 mb-6 text-blue-900  text-4xl bg-white w-20 p-2 rounded-full shadow "></i>
             </a>
             <a className="text-4xl ">
-              <i class="fab fa-linkedin-in ml-8 mb-6  text-4xl bg-white w-20 p-2 rounded-full shadow"></i>
+              <i class="fab fa-linkedin-in ml-8 mb-6 text-blue-600  text-4xl bg-white w-20 p-2 rounded-full shadow"></i>
             </a>
           </div>
         </div>
         <div className="bg-white w-full my-8 border-white rounded-2xl shadow-md border-2 p-8">
-            {/* <div className='w-10 text-center flex items-center justify-center h-10 bg-red-600 rounded-full'>
-              <span className='text-2xl text-white animate-pulse'>B+</span>
-            </div> */}
+            <div className='flex flex-row justify-between items-center'>
+                <div className='w-10 text-center flex items-center justify-center h-10 bg-red-600 rounded-full'>
+                  <span className='text-2xl text-white animate-pulse'>B+</span>
+                </div>
+                <div className='flex flex-row items-center'>
+                    <i className="fas text-red-800 text-4xl fa-map-marker-alt"></i>
+                    <h3 className='text-2xl ml-2 mt-2 hover:underline font-bold text-blue-600'>Chandra Hospital</h3>
+                </div>
+            </div>
           <h1 className="mx-auto my-4 font-sans text-2xl  font-semibold">
             Funds Request for emergency in a hospital.
           </h1>
-          <div className=" mx-auto my-4">
-            <img
-              src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1955&q=80"
-              className="w-full"
-            />
+          <div class=" w-full my-2">
+              <img className='w-full h-48  object-cover  object-center' src={this.props.imgUrl} alt='patient' ></img>
           </div>
           <div className="mx-auto my-4">
             <h3 className="underline font-sans text-2xl font-semibold my-7">

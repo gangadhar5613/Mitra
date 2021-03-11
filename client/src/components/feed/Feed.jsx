@@ -48,7 +48,7 @@ class Feed extends React.Component{
                    <div className='flex flex-col '>
                         <div className='mt-5  w-96 border-b-2  border-yellow-500  border-dashed  ml-32'>
                             <button onClick={this.handleFeed}  id='bloodRequest' className={this.state.bloodRequestFeed ? 'bg-yellow-400 text-black    mx-2  underline px-4 py-2' : 'bg-red-700   mx-2 text-white px-4 py-2'}>Blood Requests</button>
-                            <button onClick={this.handleFeed} id='fundRaising'className={this.state.fundRaisingFeed ? 'bg-yellow-400 text-black    mx-2  underline px-4 py-2' : 'bg-red-700   mx-2 text-white px-4 py-2'}>Fund Raising</button>
+                            {/* <button onClick={this.handleFeed} id='fundRaising'className={this.state.fundRaisingFeed ? 'bg-yellow-400 text-black    mx-2  underline px-4 py-2' : 'bg-red-700   mx-2 text-white px-4 py-2'}>Fund Raising</button> */}
                         </div>
                         <div className='flex flex-row'>
                             <div className='ml-20 '>

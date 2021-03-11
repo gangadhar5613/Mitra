@@ -7,8 +7,19 @@ background-attachment: fixed;
 position: relative;
 }
 
+.card{
+  font-family: 'Laila', sans-serif;
+  font-family: 'Varela Round', sans-serif;
+}
+
 .home{
   font-family: 'Caveat', cursive;
+}
+
+.supporters{
+ overflow: hidden;
+ scroll-behavior: smooth;
+ overflow-y: scroll;
 }
 
 .header {

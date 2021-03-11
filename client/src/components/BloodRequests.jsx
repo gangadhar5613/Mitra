@@ -42,7 +42,7 @@ class BloodRequests extends React.Component{
 function BloodRequestCard(props){
     return(
         
-        <div class="p-4  md:mb-0 mb-6 flex flex-col ">
+        <div class="p-4 card md:mb-0 mb-6 flex flex-col ">
         <div class="bg-gray-300 h-56 w-60 rounded-lg shadow-md bg-cover bg-center" >
            <img src='https://images.unsplash.com/photo-1552452380-4137214f33b6?ixid=MXwxMjA3fDB8MHx0b3BpYy1mZWVkfDF8NnNNVmpUTFNrZVF8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' alt='nature'></img>
 
@@ -50,18 +50,45 @@ function BloodRequestCard(props){
 
         <div class=" w-60 bg-white inset-0 transform  hover:scale-75 transition duration-300 cursor-pointer -mt-10 shadow-lg rounded-lg overflow-hidden p-5">
         
-        <div class="header-content inline-flex ">
-            <div class="category-badge flex-1  h-4 w-4 m rounded-full m-1 bg-green-100">
-            <div class="h-2 w-2 rounded-full m-1 bg-green-500 " ></div>
+        <div class="header-content flex flex-col items-start justify-start ">
+          <div className='flex items-start'>
+                <div class="category-badge flex-1  h-8 w-8 flex items-center justify-center m rounded-full m-1 bg-red-700 text-white">
+                    <span>
+                        B+
+                    </span>
+                    </div>
+                    <div className='mx-2'>
+                        <h2 className='text-2xl text-yellow-600 animate-bounce'>Urgent</h2>
+                    </div>
+          </div>
+        </div>
+        <div class="title-post font-medium text-center">
+            <span className='text-md font-bold text-center'>Blood Donation Title</span>
+        </div>
+        <div>
+             <div className='flex flex-row justify-start items-center'>
+                 <i className="fas text-2xl mr-2 text-blue-600  fa-hospital"></i>
+                  <h3 className='font-bold text-yellow-600 hover:text-red-800 hover:underline'>Chandra Hospital</h3>
+             </div>
+             <div className='my-1'>
+                 <p className='text-sm font-light'> Lorem ipsum dolor sit amet, consectetur adipiscing elit, ultricies pharetra vel. </p>
+             </div>
+        </div>  
+        <div className='flex flex-col mt-2'>
+            <div className='flex flex-row mb-5 items-start'>
+                <img className='w-10 h-10 rounded-full' src='https://images.unsplash.com/photo-1610043809095-9c87fe936e03?ixid=MXwxMjA3fDB8MHx0b3BpYy1mZWVkfDZ8dG93SlpGc2twR2d8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' alt='user' ></img>
+                <div className='ml-2'>
+                    <h2 className=' text-xs font-light text-red-700'>N Gangadhar Reddy</h2>
+                    <div className='flex flex-row mt-1 items-center'>
+                       <i className="fas text-green-700 fa-map-marker-alt"></i>
+                       <address className='text-sm font-light'>Thehr</address>
+                    </div>
+                </div>
             </div>
-            <div class="category-title flex-1 text-sm"> Vue</div>
-        </div>
-        <div class="title-post font-medium">Mon titre</div>
-
-        <div class="summary-post text-base text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis veritatis vel suscipit ex dolore possimus iure. 
-            <button class="bg-blue-100 text-blue-500 px-2 mt-4 block rounded p-2 text-sm"><span class="">Lire plus</span></button>
-        </div>
-        
+            <div className=' flex items-center justify-center'>
+                <button className='bg-red-600 w-full text-white text-md px-4 py-1 rounded'>Donate</button>
+            </div>
+        </div>      
         </div>
     </div>
     )

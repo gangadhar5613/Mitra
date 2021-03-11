@@ -13,7 +13,6 @@ function Home(props) {
         <Header />
         <Hero />
         <BloodRequests />
-        <FundRaisingEvents />
         <Testimonial />
         <Footer />
       </div>
