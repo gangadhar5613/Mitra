@@ -74,8 +74,8 @@ router.post("/mobile/verify", async (req, res, next) => {
 		const isVerificationAvailable = await Verification.findOne({ sid });
 		if (!isVerificationAvailable) throw new Error("invalid-02");
 
-		const {to, status, valid} = await twilio.verify.services(process.env.TWILIO_SERVICE_ID).verificationChecks.create({
-			to: mobile,
+		const { to, status, valid } = await twilio.verify.services(process.env.TWILIO_SERVICE_ID).verificationChecks.create({
+			to: "+91" + mobile,
 			code,
 		});
 
@@ -89,11 +89,10 @@ router.post("/mobile/verify", async (req, res, next) => {
 
 // POST /api/v1/user/register User registration after successfully mobile verification
 
-router.post("/register", upload.fields([{ name: "profileImage", maxCount: 1 }]), async (req, res, next) => {
+router.post("/register", async (req, res, next) => {
 	const { sid } = req.session;
 	const { mobile, password } = req.body.user;
-	console.log(req.files)
-	const [file] = req.files.profileImage;
+	console.log(password);;
 	let profileImage = null;
 	try {
 		const isMobileNumberAlreadyExist = await User.findOne({ mobile });
@@ -114,7 +113,7 @@ router.post("/register", upload.fields([{ name: "profileImage", maxCount: 1 }]),
 			if (!uploadStatus) throw new Error("failed-01"); // Error on uploading
 			profileImage = `https://blood-app.s3.ap-south-1.amazonaws.com/${file.filename}`;
 		}
-		const user = await User.create({ ...req.body.user, local: { password }, isVerified: valid , profileImage});
+		const user = await User.create({ ...req.body.user, local: { password }, isVerified: valid, profileImage });
 		const token = await jwt.generateToken({ userID: user.id });
 		const deleteVerificationTrace = await Verification.findOneAndDelete({ sid });
 		req.session.destroy();

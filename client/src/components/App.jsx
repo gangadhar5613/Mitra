@@ -30,22 +30,22 @@ class App extends React.Component {
 
   render() {
     return (
-      <BrowserRouter>   
-       <Header />        
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/register" component={Register} />
-          <Route path="/login" component={Login} />
-          <Route path="/feed" component={Feed} />
-          <Route path="/user-dashboard" exact>
-            <UserDashboard />
-          </Route>
-          <Route path='/bloodrequest' >
-            <FundRaising />
-          </Route>
-        </Switch> 
-      </BrowserRouter>
-    );
+		<BrowserRouter>
+			<Header />
+			<Switch>
+				<Route path="/" exact component={Home} />
+				<Route path="/register" component={Register} />
+				<Route path="/login" component={Login} />
+				<Route path="/feed" component={Feed} />
+				<Route path="/user/dashboard" exact>
+					<UserDashboard />
+				</Route>
+				<Route path="/bloodrequest">
+					<FundRaising />
+				</Route>
+			</Switch>
+		</BrowserRouter>
+	);
   }
 }
 
