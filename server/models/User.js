@@ -7,11 +7,11 @@ const userSchema = new Schema(
 		firstName: { type: String, required: true, trim: true, minlength: 2 },
 		lastName: { type: String, required: true, trim: true, minlength: 2 },
 		middleName: { type: String, trim: true, minlength: 2 },
-		email: { type: String, match: /@/ },
+		email: { type: String, match: /@/, unique: true },
 		mobile: { type: String, required: true, unique: true },
 		bloodGroup: { type: String, required: true },
 		dob: { type: String, required: true },
-		requestAccepted: [{ type: Schema.Types.ObjectId, ref: "BloodRequest" }],
+		sendedDonateRequest: [{ type: Schema.Types.ObjectId, ref: "BloodRequest" }],
 		profileImage: { type: String, default: null },
 		location: {
 			state: {
@@ -44,6 +44,7 @@ const userSchema = new Schema(
 				lowercase: true,
 			},
 		},
+		donated: [{ type: Schema.Types.ObjectId, ref: "BloodRequest" }], // List Used Successful Donated
 		raisedRequests: [{ type: Schema.Types.ObjectId, ref: "BloodRequest" }],
 		isVerified: { type: Boolean, default: false, required: true },
 		isProfileVerified: { type: Boolean, default: false },
@@ -57,15 +58,17 @@ const userSchema = new Schema(
 				required: true,
 			},
 		},
-		lastDonated: { type: String },
+		lastDonated: { type: String, default: null },
 		accountType: { type: String, required: true, default: "user" },
+		currentlyDonating: { type: Schema.Types.ObjectId, ref: "BloodRequest", default: null },
 	},
 	{ timestamps: true }
 );
 
 
 
-userSchema.pre("save", async (next) => {
+userSchema.pre("save", async function (next) {
+	console.log(this);
 	try {
 		if (this.local.password) {
 			this.local.password = await bcrypt.hash(this.local.password, 12);

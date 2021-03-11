@@ -52,16 +52,18 @@ const bloodRequestSchema = new Schema(
 			requestedType: { type: String, required: true },
 		},
 		deadline: { type: String },
-    donor: [{type: Schema.Types.ObjectId, ref: "User" }],
-		acceptedDonor: [{ type: Schema.Types.ObjectId, ref: "User" }],
+		donors: [{ type: Schema.Types.ObjectId, ref: "User" }],
+		fulfilledDonor: [{ type: Schema.Types.ObjectId, ref: "User" }], // List all successful Donor
 		updates: [{ type: Schema.Types.ObjectId, ref: "Update" }],
 		isRequestedFulfilled: { type: Boolean, default: false },
 		feed: [
 			{
-				message: { type: String, required: true, minlength: 10          },
+				message: { type: String, required: true, minlength: 10 },
 				medicalReports: [{ type: String }],
 			},
 		],
+		status: { type: String, required: true, default: "OPEN" },
+		currentDonor: {   type: Schema.Types.ObjectId, ref: "User", default: null   }, // DONOR is accepted
 	},
 	{ timestamps: true }
 );
