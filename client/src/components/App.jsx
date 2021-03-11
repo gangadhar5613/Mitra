@@ -8,49 +8,89 @@ import Register from "./auth/Register";
 import Login from "./auth/Login";
 import Feed from './feed/Feed'
 import UserDashboard from "./userDashboard/UserDashboard";
-import FundRaising from './FunRaising'
-import BloodRequestForm from './BloodRequestForm'
-import PageNotFound from './PageNotFound'
-
+import FundRaising from './FunRaising';
+import BloodRequestForm from './BloodRequestForm';
+import BouncingLoader from "./BouncingLoader";
+import PageNotFound from "./PageNotFound";
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: null,
-      bloodRequestFormAuthorized:false,
+      user: null,
+      isLoggedIn: false,
+      isLoading: true,
     };
   }
 
-  async componentDidMount() {
-    const response = await fetch("/api/v1");
-    const { title } = await response.json();
-    this.setState({
-      title,
-    });
+  updateUser (user) {
+    this.setState({user, isLoggedIn: true})
   }
 
-  render() {
+  async componentDidMount () {
+    const token = localStorage.getItem("token")
+    if (token) {
+      const response = await fetch("/api/v1/user", {
+        method: 'GET',
+        headers: {
+        Authorization: token
+        }
+      });
+      const { user, error } = await response.json();
+      if(error) return localStorage.clear()
+      this.updateUser(user)
+    } else {
+      this.setState({isLoading: false})
+    }
+  }
+
+  render () {
+    const { isLoggedIn, user, isLoading } = this.state;
+    if(isLoading) return <BouncingLoader />
     return (
 		<BrowserRouter>
-			<Header />
-			<Switch>
-				<Route path="/" exact component={Home} />
-				<Route path="/register" component={Register} />
-				<Route path="/login" component={Login} />
-				<Route path="/feed" component={Feed} />
-				<Route path="/user/dashboard" exact>
-					<UserDashboard />
-				</Route>
-				<Route path="/bloodrequest">
-					<FundRaising />
-				</Route>
-        <Route path='*'>
-           <PageNotFound />
-        </Route>
-			</Switch>
+        {this.isLoggedIn && user ? <AuthRoute user /> : <NoAuthRoute user />}
 		</BrowserRouter>
 	);
-  }
+}
+}
+
+
+function AuthRoute (props) {
+  return (
+    <>
+      <Header />
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/feed" component={Feed} />
+        <Route path="/user/dashboard" exact>
+          <UserDashboard />
+        </Route>
+        <Route path="/bloodrequest">
+          <BloodRequestForm />
+        </Route>
+        <Route path="*">
+          <Home />
+        </Route>
+      </Switch>
+    </>
+  );
+}
+
+function NoAuthRoute (props) {
+  return (
+    <>
+      <Header />
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/register" component={Register} />
+        <Route path="/login" component={Login} />
+        <Route path="/feed" component={Feed} />
+        <Route path='*'>
+          <PageNotFound />
+        </Route>
+			</Switch>
+    </>
+  );
 }
 
 export default App;

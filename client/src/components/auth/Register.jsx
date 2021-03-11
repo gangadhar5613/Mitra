@@ -8,7 +8,7 @@ class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      step: 1,
+      step: 2,
       mobileVerify: false,
       otpVerified: false,
       otpSent: false,

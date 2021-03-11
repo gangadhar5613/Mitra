@@ -1,14 +1,14 @@
 import React from "react";
 
-
 function Hero(props) {
   return (
     <section className="h-screen container mx-auto flex hero hero-section">
       <div className="flex flex-col w-1/2 ml-20   items-center  justify-center h-full">
         <div className="mb-20 ml-10">
           <h2 className="text-4xl  leading-10  text-center">
-           <span className='text-5xl italic text-yellow-400'>"</span> A online platform to raise blood request and to raise medical
-            emergency funds.<span className=' pt-10 text-5xl text-yellow-400'>"</span>
+            <span className="text-5xl italic text-yellow-400">"</span> A online
+            platform to raise blood request and to raise medical emergency
+            funds.<span className=" pt-10 text-5xl text-yellow-400">"</span>
           </h2>
         </div>
         <div className="flex flex-row ">
@@ -20,11 +20,7 @@ function Hero(props) {
           </button>
         </div>
       </div>
-      <div className='hero-banner w-full h-full relative -left-20 top-10 '  >
-
-        
-            
-      </div>
+      <div className="hero-banner w-full h-full relative -left-20 top-10 "></div>
     </section>
   );
 }

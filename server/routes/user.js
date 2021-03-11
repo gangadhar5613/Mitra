@@ -75,7 +75,7 @@ router.post("/mobile/verify", async (req, res, next) => {
 		if (!isVerificationAvailable) throw new Error("invalid-02");
 
 		const { to, status, valid } = await twilio.verify.services(process.env.TWILIO_SERVICE_ID).verificationChecks.create({
-			to: "+91" + mobile,
+			to: mobile,
 			code,
 		});
 
@@ -182,6 +182,19 @@ router.put("/update/profile", auth.verifyUserLoggedIn, upload.fields([{ name: "p
 		const user = await User.findById(userID);
 		if (!user) throw new Error("invalid-02"); // user not found
 		const updatedUser = await User.findByIdAndUpdate(userID, { profileImage }, { new: true });
+		res.json({ user: profileInfo(updatedUser, token) });
+	} catch (error) {
+		console.log(error);
+		next(error);
+	}
+});
+
+router.get("/", auth.verifyUserLoggedIn, async (req, res, next) => {
+	const token = req.headers.authorization;
+	const { userID } = req;
+	try {
+		const user = await User.findById(userID);
+		if (!user) throw new Error("invalid-02"); // user not found
 		res.json({ user: profileInfo(updatedUser, token) });
 	} catch (error) {
 		console.log(error);
