@@ -29,7 +29,7 @@ class BloodRequestFeed extends React.Component{
 
 function BloodRequestCard(props){
     return(
-        <div class="blood-request-card bg-white mx-1 px-5 my-5 shadow-2xl p-2 w-full">
+        <div class="blood-request-card border-2 border-red-500 rounded bg-white mx-1 px-5 my-5 shadow-2xl p-2 w-full">
         <a href="">
             <div class="flex flex-row items-center part-1">
                 <div class="blood-drop-img bg-red-700 text-center mx-2 flex items-center justify-center w-10 h-10 rounded-full">
