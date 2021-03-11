@@ -189,6 +189,19 @@ router.put("/update/profile", auth.verifyUserLoggedIn, upload.fields([{ name: "p
 	}
 });
 
+router.get("/", auth.verifyUserLoggedIn, async (req, res, next) => {
+	const token = req.headers.authorization;
+	const { userID } = req;
+	try {
+		const user = await User.findById(userID);
+		if (!user) throw new Error("invalid-02"); // user not found
+		res.json({ user: profileInfo(updatedUser, token) });
+	} catch (error) {
+		console.log(error);
+		next(error);
+	}
+});
+
 
 function profileInfo(user, token) {
 	const { firstName, lastName, middleName, email, mobile, bloodGroup, dob, profileImage, location } = user;
