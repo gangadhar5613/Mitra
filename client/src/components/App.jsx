@@ -11,7 +11,7 @@ import UserDashboard from "./userDashboard/UserDashboard";
 import FundRaising from './FunRaising';
 import BloodRequestForm from './BloodRequestForm';
 import BouncingLoader from "./BouncingLoader";
-
+import PageNotFound from "./PageNotFound";
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -59,7 +59,7 @@ function AuthRoute (props) {
   return (
     <>
       <Header />
-      <switch>
+      <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/feed" component={Feed} />
         <Route path="/user/dashboard" exact>
@@ -71,21 +71,25 @@ function AuthRoute (props) {
         <Route path="*">
           <Home />
         </Route>
-      </switch>
+      </Switch>
     </>
   );
 }
 
 function NoAuthRoute (props) {
   return (
-		<>
-			<Header />
-			<switch>
-				<Route path="/" exact component={Home} />
-				<Route path="/register" component={Register} />
-				<Route path="/login" component={Login} />
-			</switch>
-		</>
+    <>
+      <Header />
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/register" component={Register} />
+        <Route path="/login" component={Login} />
+        <Route path="/feed" component={Feed} />
+        <Route path='*'>
+          <PageNotFound />
+        </Route>
+			</Switch>
+    </>
   );
 }
 
