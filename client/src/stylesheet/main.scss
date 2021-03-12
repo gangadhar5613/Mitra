@@ -60,6 +60,13 @@ body {
   background-size: cover;
 }
 
+.active{
+  
+  color:orange;
+  font-size: larger;
+  
+}
+
 .blood-request-cards {
   background: url("./wave-3.png");
   background-size: cover;
@@ -117,4 +124,14 @@ body {
 input, select {
   padding: .35rem .25rem ;
   width: 100%;
+}
+
+.overlay{
+
+  position:absolute;
+  left: 45%;
+  width: 400px;
+  z-index: 20;
+  
+  
 }
