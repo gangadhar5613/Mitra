@@ -3,6 +3,7 @@ import feedImg from '../../../public/images/feed.png'
 import BloodRequestFeed from './BloodRequestFeed'
 import FundRaisingFeed from './FundRaisingFeed'
 import Filters from './Filters'
+import { Link } from 'react-router-dom'
 
 class Feed extends React.Component{
     constructor(props){
@@ -30,7 +31,13 @@ class Feed extends React.Component{
     }
 
     render(){
-        return(
+        return (
+            <>
+                    <div className='fixed cursor-pointer  z-20  bottom-10 bg-red-600 w-15 flex items-center justify-center h-15 rounded-full right-40'>
+                        <Link to='/bloodrequest/create'>
+                           <button className='text-7xl outline-none cursor-pointer  text-white  font-bold'>+</button>
+                        </Link>
+                    </div>
             <section className='py-20 container relative mx-auto'>
                    <div className='text-center relative flex flex-row items-center justify-center  font-semibold'>
                        <div>
@@ -60,8 +67,9 @@ class Feed extends React.Component{
                                 <Filters />
                             </div>
                         </div>
-                   </div>
-            </section>
+                </div>
+                </section>
+        </>
         )
     }
 }

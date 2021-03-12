@@ -10,9 +10,8 @@ function Home(props) {
   return (
     <>
       <div className='home'>
-        <Header />
         <Hero />
-        <BloodRequests />
+        <BloodRequests handleBloodRequest={props.handleBloodRequest} />
         <Testimonial />
         <Footer />
       </div>

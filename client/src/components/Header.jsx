@@ -1,8 +1,19 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link,NavLink } from "react-router-dom";
 import logo from "../../public/images/logo-1.png";
 
 class Header extends React.Component {
+  constructor(props){
+    super(props)
+
+  }
+
+  handleLogout = (event) => {
+    event.preventDefault();
+    localStorage.clear();
+  }
+
+
   render() {
     return (
       <div className="shadow-xl font-family bg-white header">
@@ -14,37 +25,61 @@ class Header extends React.Component {
           </div>
           <nav className="mr-16 flex justify-around items-center">
             <div className="mr-6">
-              <Link to="/">
-                <a className="mx-4 text-xl font-bold text-white">Home</a>
-              </Link>
-              <Link to="/about">
-                <a className="mx-4 text-xl font-bold text-white">About</a>
-              </Link>
-              <Link to="/faqs">
-                <a className="mx-4 text-xl font-bold text-white">FAQs</a>
-              </Link>
+              <NavLink activeClassName='active' to="/">
+                <a className="mx-4 text-md font-bold text-white">Home</a>
+              </NavLink>
+              <NavLink activeClassName='active' to="/about">
+                <a className="mx-4 text-md font-bold text-white">About</a>
+              </NavLink>
+              <NavLink activeClassName='active' to="/faqs">
+                <a className="mx-4 text-md font-bold text-white">FAQs</a>
+              </NavLink>
+              <NavLink activeClassName='active' to="/feed">
+                <a className="mx-4 text-md font-bold text-white">Feed</a>
+              </NavLink>
             </div>
-            <div className="flex items-center">
+            <div className={this.props.user ? 'hidden' : "flex items-center"}>
               <div className="inline-block mx-2">
-                <Link to="/login">
+                <NavLink activeClassName='active' to="/login">
                   <button
                     type="button"
-                    className="focus:outline-none text-red-700 text-xl py-2 px-4 rounded-md bg-gradient-to-r from-white to-white transform hover:scale-110"
+                    className="focus:outline-none text-red-700 text-md py-2 px-4 rounded-md bg-gradient-to-r from-white to-white transform hover:scale-110"
                   >
                     Sign In
                   </button>
-                </Link>
+                </NavLink>
               </div>
               <div className="inline-block mx-2">
-                <Link to="/register">
+                <NavLink activeClassName='active' to="/register">
                   <button
                     type="button"
-                    className="focus:outline-none text-red-700 text-xl py-2 px-4 rounded-md bg-white to-red-600 transform hover:scale-110"
+                    className="focus:outline-none text-red-700 text-md py-2 px-4 rounded-md bg-white to-red-600 transform hover:scale-110"
                   >
                     Sign Up
                   </button>
-                </Link>
+                </NavLink>
               </div>
+            </div>
+            <div className={this.props.user ? 'flex items-center' : 'hidden'}>
+                <div>
+                    <NavLink activeClassName='active' to="/user/dashboard">
+                          <button
+                            type="button"
+                            className="focus:outline-none text-red-700 text-md py-2 px-4 rounded-md bg-white to-red-600 transform hover:scale-110"
+                          >
+                            Dashboard
+                          </button>
+                        </NavLink>
+                 </div>
+                <div className="inline-block mx-2">
+                  <button
+                    onClick={this.handleLogout}
+                        type="button"
+                        className="focus:outline-none text-red-700 text-md py-2 px-4 rounded-md bg-white to-red-600 transform hover:scale-110"
+                      >
+                        Logout
+                      </button>
+                 </div>
             </div>
           </nav>
         </header>

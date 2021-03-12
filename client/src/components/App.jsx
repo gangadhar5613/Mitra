@@ -52,7 +52,7 @@ class App extends React.Component {
     if(isLoading) return <BouncingLoader />
     return (
 		<BrowserRouter>
-        {(isLoggedIn ) ? <AuthRoute user={this.state.user} /> : <NoAuthRoute user={this.state.user}  />}
+        {(isLoggedIn ) ? <AuthRoute    user={this.state.user} /> : <NoAuthRoute user={this.state.user}  />}
 		</BrowserRouter>
 	);
 }
@@ -61,17 +61,18 @@ class App extends React.Component {
 
 function AuthRoute(props)
 {
-  console.log('Authorized')
   return (
     <>
-      <Header  />
+      <Header user={props.user} />
       <Switch>
-        <Route path="/" exact component={Home} />
+        <Route path="/" exact >
+          <Home handleBloodRequest={props.handleBloodRequest} />
+        </Route>
         <Route path="/feed" component={Feed} />
         <Route path="/user/dashboard" exact>
-          <UserDashboard />
+          <UserDashboard user={props.user} handleBloodRequest={props.handleBloodRequest} />
         </Route>
-        <Route path="/bloodrequest">
+        <Route path='/bloodrequest/create' exact >
           <BloodRequestForm />
         </Route>
         <Route path="*">
@@ -87,7 +88,7 @@ function NoAuthRoute(props)
 
   return (
     <>
-      <Header user = {props.state.user} />
+      <Header user = {props.user} />
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/register" component={Register} />
