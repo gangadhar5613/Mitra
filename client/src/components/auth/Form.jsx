@@ -2,7 +2,6 @@ import React from "react";
 import Loader from "../Loader";
 
 function Form(props) {
-  console.log(props);
   function handleChangingForm(step) {
     switch (step) {
       case 1:
@@ -182,7 +181,7 @@ function StepForm2(props) {
 					<label htmlFor="bloodGroup" className="text-md font-semibold text-shadow-md">
 						Blood Group
 					</label>
-					<select onChange={props.handleInput} className="block   outline-none border-2 border-red-800  shadow-lg hover:bg-red-700  focus:ring-0" name="bloodGroup" id="bloodGroup">
+					<select onChange={props.handleInput} className=" outline-none border-2 border-red-800  shadow-lg hover:bg-red-700  focus:ring-0" name="bloodGroup" id="bloodGroup">
 						<option>A+</option>
 						<option>A-</option>
 						<option>B+</option>
@@ -202,126 +201,74 @@ function StepForm2(props) {
 function StepForm3(props) {
   return (
 		<form>
-			<div className="flex flex-row items-center mt-2">
-				<div className="flex flex-col mr-2">
-					<label htmlFor="mobile" className="text-md font-semibold text-shadow-md">
+			<div className="flex flex-wrap justify-between p-4">
+				<div className="w-48 my-2">
+					<label htmlFor="profileImage" className="text-md font-semibold text-shadow-md">
 						Profile Image
 					</label>
-						<input onChange={(e) => props.fileHandler(e, "profileImage")} type="file" id="profileImage" name="profileImage" className="mobile  mt-1 block   outline-none py-1   h-10  text-black border-2 border-red-500 hover:bg-red-700 focus:bg-black focus:ring-0" placeholder="Upload Profile Pic"></input>
+					<input onChange={(e) => props.fileHandler(e, "profileImage")} type="file" id="profileImage" name="profileImage" className="block   outline-none  text-black border-2 border-red-500 hover:bg-red-700 focus:bg-black focus:ring-0"></input>
 				</div>
-				<div className="flex flex-col ml-2">
-					<label htmlFor="mobile" className="text-md font-semibold text-shadow-md">
+				<div className="w-48 my-2">
+					<label htmlFor="medicalReport" className="text-md font-semibold text-shadow-md">
 						Medical / Blood Report
 					</label>
-					<input onChange={(e) => props.handleInput(e, "medicalReport")} type="file" id="mobile" name="mobile" className="mobile  mt-1 block   outline-none py-1   h-10    border-2 border-red-500  hover:bg-red-700 focus:bg-black focus:ring-0" placeholder="Enter your mobile number"></input>
+					<input onChange={(e) => props.fileHandler(e, "medicalReport")} type="file" id="medicalReport" name="medicalReport" className="block   outline-none   border-2 border-red-500  hover:bg-red-700 focus:bg-black focus:ring-0"></input>
 				</div>
 			</div>
 		</form>
   );
 }
 
-function StepForm4(props) {
+function StepForm4 (props) {
   return (
     <form>
-      <div className="flex flex-row mt-2">
-        <div className="flex flex-col mr-2">
-          <label
-            htmlFor="pincode"
-            className="text-md font-semibold text-shadow-md"
-          >
+      <div className="flex flex-wrap justify-between p-4">
+        <div className="w-48 my-2">
+          <label htmlFor="pincode" className="text-md font-semibold text-shadow-md">
             Pincode
-          </label>
-          <input
-            onChange={props.handleInput}
-            type="number"
-            id="pincode"
-            name="pincode"
-            value={props.state.pincode}
-            className="pincode w-96 mt-1 block    outline-none border-2 border-red-800  h-8   shadow-lg hover:bg-red-700 focus:ring-0"
-            placeholder="Enter your pincode "
-          ></input>
+					</label>
+          <input onChange={props.handleInput} type="number" id="pincode" name="pincode" value={props.state.pincode} className="mt-1 block    outline-none border-2 border-red-800     shadow-lg hover:bg-red-700 focus:ring-0" placeholder="Enter your pincode "></input>
         </div>
-        <div className="flex flex-col ml-2">
-          <label
-            htmlFor="state"
-            className="text-md font-semibold text-shadow-md"
-          >
+        <div className="w-48 my-2">
+          <label htmlFor="state" className="text-md font-semibold text-shadow-md">
             State
-          </label>
-          <input
-            readOnly={true}
-            onChange={props.handleInput}
-            type="text"
-            id="state"
-            name="state"
-            value={props.state.location ? props.state.location.state : ""}
-            className="state w-96 mt-1 block   outline-none border-2 border-red-800  h-8   shadow-lg hover:bg-red-700 focus:bg-black focus:ring-0"
-            placeholder="Enter your state"
-          ></input>
+					</label>
+          <input readOnly={true} onChange={props.handleInput} type="text" id="state" name="state" value={props.state.location ? props.state.location.state : ""} className=" mt-1 block   outline-none border-2 border-red-800     shadow-lg hover:bg-red-700 focus:bg-black focus:ring-0" placeholder="Enter your state"></input>
         </div>
-      </div>
-      <div className="flex flex-row mt-2">
-        <div className="flex flex-col mr-2">
-          <label
-            htmlFor="district"
-            className="text-md font-semibold text-shadow-md"
-          >
+        <div className="w-48 my-2">
+          <label htmlFor="district" className="text-md font-semibold text-shadow-md">
             District
-          </label>
-          <input
-            onChange={props.handleInput}
-            type="text"
-            id="district"
-            name="district"
-            value={props.state.location ? props.state.location.district : ""}
-            className="district w-96 mt-1 block   outline-none border-2 border-red-800  h-8  shadow-lg hover:bg-red-700 focus:bg-black focus:ring-0"
-            placeholder="Enter your district"
-          ></input>
+					</label>
+          <input onChange={props.handleInput} type="text" id="district" name="district" value={props.state.location ? props.state.location.district : ""} className="mt-1 block   outline-none border-2 border-red-800    shadow-lg hover:bg-red-700 focus:bg-black focus:ring-0" placeholder="Enter your district"></input>
         </div>
-        <div className="flex flex-col ml-2">
-          <label
-            htmlFor="address"
-            className="text-md font-semibold text-shadow-md"
-          >
-            Address
-          </label>
-          <select name='address' className='border-2 border-red-800' onChange={props.handleInput}>
+        <div className="w-48 my-2">
+          <label htmlFor="postOffice" className="text-md font-semibold text-shadow-md">
+            Post Office
+					</label>
+          <select name="postOffice" id="postOffice" className="border-2 border-red-800" onChange={props.handleInput}>
             {!props.state.location ? (
-              <option  value="select">select</option>
+              <option value="select">select</option>
             ) : (
-              props.state.location.postOffices.map((val) => {
+              props.state.location.postOffices.map((val, index) => {
                 return <option value={val}>{val}</option>;
               })
             )}
           </select>
         </div>
-      </div>
-      <div className="flex flex-row mt-2">
-        <div className="flex flex-col ml-2">
-          <label
-            htmlFor="password"
-            className="text-md font-semibold text-shadow-md"
-          >
+        <div className="w-48 my-2">
+          <label htmlFor="address" className="text-md font-semibold text-shadow-md">
+            Address
+					</label>
+          <input onChange={props.handleInput} type="text" id="address" name="address" value={props.state.location ? props.state.location.address : ""} className="mt-1 block   outline-none border-2 border-red-800    shadow-lg hover:bg-red-700 focus:bg-black focus:ring-0" placeholder="Enter your address"></input>
+        </div>
+        <div className="w-48 my-2">
+          <label htmlFor="password" className="text-md font-semibold text-shadow-md">
             Password
-          </label>
-          <input
-            onChange={props.handleInput}
-            type="password"
-            id="password"
-            name="password"
-            className="password w-96 mt-1 block   outline-none border-2 border-red-800  h-8  shadow-lg hover:bg-red-700  focus:ring-0"
-            placeholder="Enter your Password"
-          ></input>
+					</label>
+          <input onChange={props.handleInput} type="password" id="password" name="password" className="mt-1 block   outline-none border-2 border-red-800    shadow-lg hover:bg-red-700  focus:ring-0" placeholder="Enter your Password"></input>
         </div>
       </div>
-      <div
-        className={
-          props.state.locationFetching == null ||
-          props.state.locationFetching == "yes"
-            ? ""
-            : "hidden"
-        }
-      >
+      <div className={props.state.locationFetching == null || props.state.locationFetching == "yes" ? "" : "hidden"}>
         <Loader />
       </div>
     </form>

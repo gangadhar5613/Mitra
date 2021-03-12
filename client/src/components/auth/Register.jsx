@@ -4,39 +4,43 @@ import Form from './Form'
 import Loader from '../Loader'
 import Header from '../Header'
 import buffer from "buffer";
+import { Redirect } from 'react-router';
 
 class Register extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      step: 3,
+      step: 1,
       mobileVerify: false,
       otpVerified: false,
       otpSent: false,
-      mobileVerifiedSuccessfull:true,
-      mobile: '',
+      mobileVerifiedSuccessfull: true,
+      mobile: "",
       mobileResponse: null,
-      authForm: 'register',
+      authForm: "register",
       errors: {
-        mobile: ''
+        mobile: "",
       },
       mobileOtp: [],
       otp: null,
       otpResponse: null,
-      firstName: '',
-      middleName: '',
-      lastName:'',
-      email: '',
-      bloodGroup: '',
-      dob: '',
+      firstName: "",
+      middleName: "",
+      lastName: "",
+      email: "",
+      bloodGroup: "",
+      dob: "",
       pincode: null,
-      locationFetching: '',
+      locationFetching: "",
       location: null,
-      address:'',
+      address: "",
       profileImage: null,
-      medicalReport:null
-
+      medicalReport: null,
+      user: null,
+      lat: null,
+      lng: null,
+      isLoggedIn: false
     };
   }
 
@@ -145,34 +149,24 @@ class Register extends React.Component {
 
   fileHandler = (event, document) => {
     var file = event.target.files[0];
-	var reader = new FileReader();
+    var reader = new FileReader();
     reader.onload = (event) => {
-    console.log(event.target)
-    this.setState({
-		[document]: new Uint8Array(event.target.result),
-	});
-	};
+      console.log(event.target, file);
+      this.setState({
+			[document]: {
+				data: new Uint8Array(event.target.result),
+        type: file.type.split("/").pop()
+			},
+		});
+    };
 
-	reader.readAsArrayBuffer(file);
+    reader.readAsArrayBuffer(file);
 
-  }
+  };
 
   handleInput = (event) => {
     let { name, value } = event.target;
     let errors = this.state.errors;
-
-    if(name == 'profileImage'){
-      const [file] = event.target.files;
-      if (file) {
-        const reader = new FileReader();
-        const { current } = this.state.uploadedImage
-        current.file = file;
-        reader.onload = e => {
-          current.src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      }
-    }
 
     if (name == 'pincode') {
       console.log(value);
@@ -188,12 +182,17 @@ class Register extends React.Component {
         }
       };
       if (this.countDigits(value) == 6) {
-        fetch(`/api/v1/location/pincode`, { method: 'POST', headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) })
+        fetch(`/api/v1/location/pincode`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) })
           .then((res) => res.json())
-          .then((data) => this.setState({
-            location: data,
-            locationFetching: 'no'
-          }));
+          .then((data) =>
+            this.setState({
+              location: data,
+              state: data.state,
+              district: data.district,
+              postOffice: data.postOffices[0],
+              locationFetching: "no",
+            })
+          );
       }
     }
 
@@ -203,19 +202,19 @@ class Register extends React.Component {
     switch (name) {
       case 'firstName':
         this.setState({
-          firstName:value
+          firstName: value
         });
         break;
 
-        case 'middleName':
-          this.setState({
-            middleName:value
-          });
+      case 'middleName':
+        this.setState({
+          middleName: value
+        });
         break;
-        case 'lastName':
-          this.setState({
-            lastName: value
-          });
+      case 'lastName':
+        this.setState({
+          lastName: value
+        });
         break;
 
       case 'mobile':
@@ -227,7 +226,7 @@ class Register extends React.Component {
       case 'email':
         // errors.mobile = ( this.countDigits(value) >=10 ) ? '' : 'Please enter valid 10 digit mobile number'
         this.setState({
-          email:value
+          email: value
         });
         break;
       case 'fullname':
@@ -257,7 +256,7 @@ class Register extends React.Component {
       case 'medicalReport':
         //    errors.mobile = ( this.countDigits(value) >=10 ) ? '' : 'Please enter valid 10 digit mobile number'
         this.setState({
-          medicalReport:value
+          medicalReport: value
         });
         break;
       case 'pincode':
@@ -277,7 +276,7 @@ class Register extends React.Component {
       case 'password':
         // errors.mobile = ( this.countDigits(value) >=10 ) ? '' : 'Please enter valid 10 digit mobile number'
         this.setState({
-          password:value
+          password: value
         });
         break;
 
@@ -311,28 +310,62 @@ class Register extends React.Component {
   fetchingLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        console.log('location')
+        this.setState({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        });
       }, () => {
-        console.log("not supported")
-      })
+        console.log("not supported");
+      });
     }
 
   };
 
-  handleUserSubmit = () => {
-    let user = {
-      "user": {
-        fullname: this.state.fullname,
-        email: this.state.email,
-        mobile: this.state.mobile,
-        bloodgroup: this.state.bloodgroup,
-        dob: this.state.dateofbirth,
-        isVerified: true,
-        medicalReport: '/localhost',
-
+  handleUserSubmit = async () => {
+    const { firstName, lastName, dob, email, bloodGroup, state, district, postOffice, address, pincode, password, mobile, medicalReport, lat, lng, profileImage } = this.state;
+    let data = {
+      user: {
+        firstName,
+        lastName,
+        dob,
+        email,
+        bloodGroup,
+        password,
+        mobile,
+        medicalReport,
+        location: {
+          state,
+          district,
+          postOffice,
+          address,
+          pincode,
+          lat,
+          lng,
+        },
+        medicalReport,
+        profileImage
       }
     };
+    console.log("Adsdsa");
+    const response = await fetch("/api/v1/user/register", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+
+    const { user, error } = await response.json();
+    if (user) {
+      localStorage.setItem("token", user.token);
+      this.setState({
+        isLoggedIn: true
+      });
+    }
+    console.log(user, error);
+
   };
+
 
   handlePrevForm = (event) => {
     this.setState((prevState) => {
@@ -377,40 +410,40 @@ class Register extends React.Component {
         authForm: 'login'
       });
     }
-
   };
 
-  // componentDidMount() {
-  //   this.fetchingLocation();
-  // }
+  componentDidMount () {
+    this.fetchingLocation();
+  }
 
   render () {
+    if (this.state.isLoggedIn) return <Redirect to="/" />;
     return (
-		<>
-			<section className="flex items-center register relative flex-row w-screen container mx-auto  h-screen">
-				<section className="w-full bg-yellow-400    shadow-xl mx-40 md:w-full   ">
-					<div className="heading flex  flex-row justify-between">
-						<div className="flex justify-center  bg-red-500 cursor-pointer  shadow-md py-2 border-r border-gray-300 w-full items-center ">
-							<button onClick={this.handleForm} id="register" className="text-xl">
-								Register
+      <>
+        <section className="flex items-center register relative flex-row w-screen container mx-auto  h-screen">
+          <section className="w-full bg-yellow-400    shadow-xl mx-40 md:w-full   ">
+            <div className="heading flex  flex-row justify-between">
+              <div className="flex justify-center  bg-red-500 cursor-pointer  shadow-md py-2 border-r border-gray-300 w-full items-center ">
+                <button onClick={this.handleForm} id="register" className="text-xl">
+                  Register
 							</button>
-						</div>
-					</div>
-					<div className="flex flex-row md:flex-shrink-0 h-96 ">
-						<div className="steps w-96 h-96 ">
-							<Steps step={this.state.step} />
-						</div>
-						<div className="form   flex-1">
-							<Form handleOtp={this.handleOtp} handleVerifyOtp={this.handleVerifyOtp} handleOtpInput={this.handleOtpInput} state={this.state} mobile={this.state.mobile} handleInput={this.handleInput} otpSent={this.state.otpSent} handleForm={this.handleForm} handlePrevForm={this.handlePrevForm} step={this.state.step} fileHandler={this.fileHandler} />
-						</div>
-					</div>
-					<div className={(this.state.otpSent && !this.state.mobileResponse) || this.state.otpResponse ? "absolute  left-96 top-96" : "hidden"}>
-						<Loader />
-					</div>
-				</section>
-			</section>
-		</>
-	);
+              </div>
+            </div>
+            <div className="flex flex-row md:flex-shrink-0 h-96 ">
+              <div className="steps w-96 h-96 ">
+                <Steps step={this.state.step} />
+              </div>
+              <div className="form   flex-1">
+                <Form handleOtp={this.handleOtp} handleVerifyOtp={this.handleVerifyOtp} handleOtpInput={this.handleOtpInput} state={this.state} mobile={this.state.mobile} handleInput={this.handleInput} otpSent={this.state.otpSent} handleForm={this.handleForm} handlePrevForm={this.handlePrevForm} step={this.state.step} fileHandler={this.fileHandler} handleUserSubmit={this.handleUserSubmit} />
+              </div>
+            </div>
+            <div className={(this.state.otpSent && !this.state.mobileResponse) || this.state.otpResponse ? "absolute  left-96 top-96" : "hidden"}>
+              <Loader />
+            </div>
+          </section>
+        </section>
+      </>
+    );
   }
 }
 

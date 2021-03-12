@@ -19,7 +19,12 @@ const userSchema = new Schema(
 				required: true,
 				lowercase: true,
 			},
-			city: {
+			district: {
+				type: String,
+				required: true,
+				lowercase: true,
+			},
+			postOffice: {
 				type: String,
 				required: true,
 				lowercase: true,
@@ -49,7 +54,7 @@ const userSchema = new Schema(
 		isVerified: { type: Boolean, default: false, required: true },
 		isProfileVerified: { type: Boolean, default: false },
 		fundsDonated: [{ type: Schema.Types.ObjectId, ref: "Donation" }],
-		medicalReport: { type: String, required: true },
+		medicalReport: { type: String },
 		local: {
 			password: {
 				type: String,

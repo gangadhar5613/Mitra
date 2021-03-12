@@ -66,7 +66,8 @@ router.post("/mobile", async (req, res, next) => {
 router.post("/mobile/verify", async (req, res, next) => {
 	const { sid } = req.session;
   const { mobile, code } = req.body.user;
-  const twilio = require("twilio")();
+	const twilio = require("twilio")();
+	console.log(mobile, code);
   try {
     const isMobileNumberAlreadyExist = await User.findOne({ mobile });
 		if (isMobileNumberAlreadyExist) throw new Error("val-01");
@@ -95,23 +96,23 @@ router.post("/register", async (req, res, next) => {
 	console.log(password);
 	// let profileImage = null;
 	try {
-		const isMobileNumberAlreadyExist = await User.findOne({ mobile });
+		const isMobileNumberAlreadyExist = await User.findOne({ mobile: "+91" + mobile });
 		if (isMobileNumberAlreadyExist) throw new Error("val-01"); // user already exist
 
-		const { status, valid } = (await Verification.findOne({ sid, mobile })) || {};
+		const { status, valid } = await Verification.findOne({ mobile: "+91" + mobile });
 		if (!valid || status !== "approved") throw new Error("auth-01"); // doesn't have sended a otp and doesn't have status of it
 		if (profileImage) {
 			// const buffer = fs.readFileSync(path.join(__dirname, `../../${file.path}`));
-
+			const fileName = `${uuidv4()}.${profileImage.type}`;
 			const uploadParams = {
 				Bucket: "blood-app",
-				Key: file.filename,
-				Body: profileImage,
+				Key: fileName,
+				Body: profileImage.data,
 			};
 
 			const uploadStatus = await aws.uploader(aws, uploadParams);
 			if (!uploadStatus) throw new Error("failed-01"); // Error on uploading
-			profileImage = `https://blood-app.s3.ap-south-1.amazonaws.com/${file.filename}`;
+			profileImage = `https://blood-app.s3.ap-south-1.amazonaws.com/${fileName}`;
 		}
 		const user = await User.create({ ...req.body.user, local: { password }, isVerified: valid, profileImage });
 		const token = await jwt.generateToken({ userID: user.id });

@@ -28,7 +28,7 @@ class App extends React.Component {
 
   async componentDidMount () {
     const token = localStorage.getItem("token")
-    
+
     if (token)
     {
       console.log(token)
@@ -83,9 +83,7 @@ function AuthRoute(props)
   );
 }
 
-function NoAuthRoute(props)
-{
-
+function NoAuthRoute(props){
   return (
     <>
       <Header user = {props.user} />
@@ -98,8 +96,8 @@ function NoAuthRoute(props)
           <PageNotFound />
         </Route>
 			</Switch>
-    </>
-  );
+		</>
+	);
 }
 
 export default App;
