@@ -13,10 +13,10 @@ class Update extends React.Component {
               className="w-full h-32 pt-2 pl-2 border-red-700 rounded-lg border-2 bg-gray-100"
               placeholder="Request Update"
             ></textarea>
-            <div class="inline-block mr-2 mt-2 w-full">
+            <div className="inline-block mr-2 mt-2 w-full">
               <button
                 type="button"
-                class=" mx-auto block focus:outline-none text-white text-lg py-2.5 px-5 rounded-md bg-red-700 hover:bg-blue-600 hover:shadow-lg"
+                className=" mx-auto block focus:outline-none text-white text-lg py-2.5 px-5 rounded-md bg-red-700 hover:bg-blue-600 hover:shadow-lg"
               >
                 Submit
               </button>
@@ -24,10 +24,10 @@ class Update extends React.Component {
           </div>
 
         <div className='flex flex-col mt-4  shadow p-1 '>
-          <span className='underline font-bold text-red-700'>Update:</span>  
+          <span className='underline font-bold text-red-700'>Update:</span>
           <p className=" text-sm text-gray-700 leading-8">
             The standard chunk of Lorem Ipsum used since the 1500s is reproduced
-            below for those interested. 
+            below for those interested.
           </p>
         </div>
         </div>
@@ -39,10 +39,10 @@ class Update extends React.Component {
               <i className="fab mx-2 text-5xl cursor-pointer text-yellow-700 fa-cc-paypal"></i>
               <i className="fab mx-2 text-5xl cursor-pointer text-yellow-700 fa-google-pay"></i>
             </div>
-            <div class="inline-block mr-2 mt-2 w-full">
+            <div className="inline-block mr-2 mt-2 w-full">
               <button
                 type="button"
-                class=" mx-auto block focus:outline-none text-white text-lg py-2.5 px-5 rounded-md bg-red-700 hover:bg-blue-600 hover:shadow-lg"
+                className=" mx-auto block focus:outline-none text-white text-lg py-2.5 px-5 rounded-md bg-red-700 hover:bg-blue-600 hover:shadow-lg"
               >
                 Donate Now
               </button>
@@ -57,7 +57,7 @@ class Update extends React.Component {
                   className="donor-image w-10 h-10"
                   src="https://pbs.twimg.com/profile_images/1355996031658323969/y18eVQix_400x400.jpg"
                 />
-                <div class=" mx-auto w-full rounded flex flex-col text-center">
+                <div className=" mx-auto w-full rounded flex flex-col text-center">
                   <p className="text-sm mx-auto ">Kushal Dave just Donated !</p>
                   <p className="text-md">Rs. 10,000</p>
                 </div>
@@ -67,7 +67,7 @@ class Update extends React.Component {
                   className="donor-image w-10 h-10"
                   src="https://pbs.twimg.com/profile_images/1355996031658323969/y18eVQix_400x400.jpg"
                 />
-                <div class=" mx-auto w-full flex rounded flex-col text-center">
+                <div className=" mx-auto w-full flex rounded flex-col text-center">
                   <p className="text-sm mx-auto ">Kushal Dave just Donated !</p>
                   <p className="text-md">Rs. 10,000</p>
                 </div>

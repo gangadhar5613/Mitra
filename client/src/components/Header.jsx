@@ -4,13 +4,13 @@ import logo from "../../public/images/logo-1.png";
 
 class Header extends React.Component {
   constructor(props){
-    super(props)
-
+    super(props);
   }
 
   handleLogout = (event) => {
     event.preventDefault();
     localStorage.clear();
+		this.props.updateUser(null, false, true);
   }
 
 
@@ -26,16 +26,16 @@ class Header extends React.Component {
           <nav className="mr-16 flex justify-around items-center">
             <div className="mr-6">
               <NavLink activeClassName='active' to="/">
-                <a className="mx-4 text-md font-bold text-white">Home</a>
+                <span className="mx-4 text-md font-bold text-white">Home</span>
               </NavLink>
               <NavLink activeClassName='active' to="/about">
-                <a className="mx-4 text-md font-bold text-white">About</a>
+                <span className="mx-4 text-md font-bold text-white">About</span>
               </NavLink>
               <NavLink activeClassName='active' to="/faqs">
-                <a className="mx-4 text-md font-bold text-white">FAQs</a>
+                <span className="mx-4 text-md font-bold text-white">FAQs</span>
               </NavLink>
               <NavLink activeClassName='active' to="/feed">
-                <a className="mx-4 text-md font-bold text-white">Feed</a>
+                <span className="mx-4 text-md font-bold text-white">Feed</span>
               </NavLink>
             </div>
             <div className={this.props.user ? 'hidden' : "flex items-center"}>

@@ -6,7 +6,7 @@ const userSchema = new Schema(
 	{
 		firstName: { type: String, required: true, trim: true, minlength: 2 },
 		lastName: { type: String, required: true, trim: true, minlength: 2 },
-		middleName: { type: String, trim: true, minlength: 2 },
+		middleName: { type: String, trim: true, minlength: 1 },
 		email: { type: String, match: /@/, unique: true },
 		mobile: { type: String, required: true, unique: true },
 		bloodGroup: { type: String, required: true },
@@ -54,7 +54,7 @@ const userSchema = new Schema(
 		isVerified: { type: Boolean, default: false, required: true },
 		isProfileVerified: { type: Boolean, default: false },
 		fundsDonated: [{ type: Schema.Types.ObjectId, ref: "Donation" }],
-		medicalReport: { type: String },
+		medicalReport: { type: String, required: true },
 		local: {
 			password: {
 				type: String,
@@ -69,8 +69,6 @@ const userSchema = new Schema(
 	},
 	{ timestamps: true }
 );
-
-
 
 userSchema.pre("save", async function (next) {
 	console.log(this);
