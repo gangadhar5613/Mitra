@@ -34,7 +34,7 @@ const bloodRequestSchema = new Schema(
 				type: Number,
 				required: true,
 			},
-			address: {
+			hospital: {
 				type: String,
 				required: true,
 				lowercase: true,
@@ -63,7 +63,7 @@ const bloodRequestSchema = new Schema(
 			},
 		],
 		status: { type: String, required: true, default: "OPEN" },
-		currentDonor: {   type: Schema.Types.ObjectId, ref: "User", default: null   }, // DONOR is accepted
+		currentDonor: { type: Schema.Types.ObjectId, ref: "User", default: null }, // DONOR is accepted
 	},
 	{ timestamps: true }
 );
