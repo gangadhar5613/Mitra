@@ -6,7 +6,7 @@ const userSchema = new Schema(
 	{
 		firstName: { type: String, required: true, trim: true, minlength: 2 },
 		lastName: { type: String, required: true, trim: true, minlength: 2 },
-		middleName: { type: String, trim: true, minlength: 2 },
+		middleName: { type: String, trim: true, minlength: 1 },
 		email: { type: String, match: /@/, unique: true },
 		mobile: { type: String, required: true, unique: true },
 		bloodGroup: { type: String, required: true },
@@ -19,7 +19,12 @@ const userSchema = new Schema(
 				required: true,
 				lowercase: true,
 			},
-			city: {
+			district: {
+				type: String,
+				required: true,
+				lowercase: true,
+			},
+			postOffice: {
 				type: String,
 				required: true,
 				lowercase: true,
@@ -64,8 +69,6 @@ const userSchema = new Schema(
 	},
 	{ timestamps: true }
 );
-
-
 
 userSchema.pre("save", async function (next) {
 	console.log(this);
