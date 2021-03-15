@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function About() {
   return (
@@ -11,6 +12,9 @@ function About() {
         </h2>
       </section>
       <section>
+        <h2 className="text-center font-bold text-6xl my-8 text-red-700 italic">
+          What We Do ?
+        </h2>
         <div class=" py-8 flex flex-wrap justify-center items-center gap-3 ">
           <div class="backdrop w-10/12 md:w-1/4 bg-red-500 bg-opacity-10 rounded p-3 border border-gray-300 shadow-lg">
             <div class="w-full mb-3 pb-3 border-b border-1 border-white">
@@ -18,7 +22,7 @@ function About() {
             </div>
             <div>
               <img
-                src="https://i.postimg.cc/SxLx0fHV/bg01.jpg"
+                src="https://images.unsplash.com/photo-1536856136534-bb679c52a9aa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
                 alt="image1"
                 class="w-full h-48 object-cover mb-2"
               />
@@ -27,7 +31,7 @@ function About() {
                 your local area and can save live.
               </p>
               <button class="backdrop bg-white bg-opacity-0 border border-white px-3 py-1.5 rounded focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-40 hover:bg-opacity-10 text-lg">
-                Detail
+                <Link to="/feed">Donate</Link>
               </button>
             </div>
           </div>
@@ -37,7 +41,7 @@ function About() {
             </div>
             <div>
               <img
-                src="https://i.postimg.cc/SxLx0fHV/bg01.jpg"
+                src="https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
                 alt="image1"
                 class="w-full h-48 object-cover mb-2"
               />
@@ -45,20 +49,25 @@ function About() {
                 If you are in urgent need of blood you can request blood in your
                 local areas with the help of our website.
               </p>
-              <button class="backdrop bg-white bg-opacity-0 border border-white px-3 py-1.5 rounded focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-40 hover:bg-opacity-10 text-lg">
-                Detail
+              <button class="backdrop bg-white bg-opacity-0 border border-white px-3 py-1.5 rounded focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-40  hover:border-black text-lg">
+                <Link to="/bloodrequest/create">Request</Link>
               </button>
             </div>
           </div>
         </div>
       </section>
-      <section className="pt-36 flex">
+      <div>
+        <h2 className="text-center font-bold text-6xl my-8 text-red-700 italic">
+          Our Team
+        </h2>
+      </div>
+      <section className="mt-8 flex">
         <div class="w-screen h-screen flex justify-center items-center">
           <div class="container mx-auto max-w-sm rounded-lg overflow-hidden shadow-lg my-2 bg-white">
             <div>
               <img
                 class="w-full"
-                src="https://images.unsplash.com/photo-1615773146406-277d9d3e7c2f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
+                src="https://ca.slack-edge.com/T0178QF9AHW-U0194RLM1KK-09db917269f4-512"
                 alt="Profile image"
               />
             </div>
@@ -121,7 +130,7 @@ function About() {
             <div>
               <img
                 class="w-full"
-                src="https://images.unsplash.com/photo-1615773146406-277d9d3e7c2f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
+                src="https://ca.slack-edge.com/T0178QF9AHW-U018BEPAD0F-2734dcdc0aa4-512"
                 alt="Profile image"
               />
             </div>
@@ -184,7 +193,7 @@ function About() {
             <div>
               <img
                 class="w-full"
-                src="https://images.unsplash.com/photo-1615773146406-277d9d3e7c2f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
+                src="https://ca.slack-edge.com/T0178QF9AHW-U0193MK840K-30547218cc5c-512"
                 alt="Profile image"
               />
             </div>

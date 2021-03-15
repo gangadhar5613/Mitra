@@ -13,7 +13,7 @@ import BloodRequestForm from "./BloodRequestForm";
 import BouncingLoader from "./BouncingLoader";
 import PageNotFound from "./PageNotFound";
 import About from "./About";
-import FAQ from "./FAQ";
+import FAQs from "./FAQs";
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -110,7 +110,7 @@ function NoAuthRoute(props) {
           <About />
         </Route>
         <Route path="/faqs" exact>
-          <FAQ />
+          <FAQs />
         </Route>
         <Route path="*">
           <PageNotFound />
