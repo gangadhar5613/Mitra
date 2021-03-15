@@ -26,13 +26,17 @@ class FAQs extends React.Component {
     };
   }
   toggleVisible = () => {
-    this.setState({
-      isAnsVisible: !this.state.isAnsVisible,
-    });
+    this.setState((prevState) =>
+    {
+      return {
+        isAnsVisible:!prevState.isAnsVisible
+      }
+    })
   };
   render() {
     return (
       <div className="pt-8">
+        <h3 className='text-center text-4xl  text-yellow-700 pt-20'>FAQs</h3>
         <div className="App">
           {data.map((item) => (
             <div className="wrap">
@@ -44,8 +48,8 @@ class FAQs extends React.Component {
                 <i
                   className={
                     this.state.isAnsVisible === true
-                      ? "far fa-hand-point-up"
-                      : "far fa-hand-point-down"
+                      ? "far cursor-pointer fa-hand-point-up"
+                      : "far cursor-pointer fa-hand-point-down"
                   }
                 ></i>
               </div>

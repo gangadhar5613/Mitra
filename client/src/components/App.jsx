@@ -81,13 +81,17 @@ function AuthRoute(props) {
         </Route>
         <Route path="/bloodrequest/create" exact>
           <BloodRequestForm />
+		</Route>
+		<Route path="/about" exact>
+          <About />
+        </Route>
+		<Route path="/faqs" exact>
+          <FAQs />
         </Route>
         <Route path="*">
           <Redirect to="/" />
         </Route>
-        <Route path="/about" exact>
-          <About />
-        </Route>
+
       </Switch>
     </>
   );
