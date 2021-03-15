@@ -126,6 +126,12 @@ input, select {
   width: 100%;
 }
 
+textarea {
+  display: block;
+  padding: .35rem .25rem ;
+  width: 100%;
+}
+
 .overlay{
   position:absolute;
   left: 45%;

@@ -7,7 +7,7 @@ class BloodRequestForm extends React.Component {
 		super(props);
 		this.state = {
 			step: 1,
-			bloodType: "Whole Blood",
+			requestedType: "Whole Blood",
 			bloodGroup: "A+",
 			title: "Accident",
 			hospital: "",
@@ -64,7 +64,6 @@ class BloodRequestForm extends React.Component {
 	};
 
   handleEvent = (event, file, document) => {
-    console.log(event, file, document)
     this.state[document].push({
       data: Array.from(new Uint8Array(event.target.result)),
       type: file.type.split("/").pop(),
@@ -140,9 +139,9 @@ class BloodRequestForm extends React.Component {
 		}
 
 		switch (name) {
-			case "bloodType":
+			case "requestedType":
 				this.setState({
-					bloodType: value,
+					requestedType: value,
 				});
 				break;
 			case "bloodGroup":
@@ -166,23 +165,25 @@ class BloodRequestForm extends React.Component {
 						lat: this.state.lat,
 						lng: this.state.lng,
 					},
-				};
-				fetch(`/api/v1/location/search`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(location) })
-					.then((res) => res.json())
-					.then((data) =>
-						this.setState({
-							suggestedHospitalsList: data.predictions,
-						})
-					);
+        };
+
+        if (value.length > 3) {
+          fetch(`/api/v1/location/search`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(location) })
+            .then((res) => res.json())
+            .then((data) =>
+              this.setState({
+                suggestedHospitalsList: data.predictions,
+              })
+            );
+        }
 
 				break;
 			case "message":
 				this.setState({
-					description: value,
+					message: value,
 				});
 				break;
 			case "hospital":
-				console.log("hello");
 				this.setState({
 					hospital: value,
 				});
@@ -203,19 +204,53 @@ class BloodRequestForm extends React.Component {
 		}
 	};
 
-	handleHospitalSelect = () => {};
+  formHandler = async (e) => {
+    e.preventDefault();
+		const { title, state, city, lat, lng, hospital, pincode, images, bloodGroup, requestedType, message, medicalReports } = this.state;
+		const body = {
+			title,
+			location: {
+				state,
+				city,
+				lat,
+				lng,
+				hospital,
+				pincode,
+			},
+			images,
+			requestedFor: {
+				bloodGroup,
+				requestedType
+			},
+			feed: {
+				message,
+				medicalReports
+			}
+		};
+
+		console.log(body)
+
+		const response = await fetch("/api/v1/blood/create", {
+			method: "POST",
+			headers: { "Content-Type": "application/json", Authorization: localStorage.getItem("token") },
+			body: JSON.stringify({ blood: body }),
+		});
+
+		const { err, request } = await response.json();
+		console.log(request)
+  }
 
 	render() {
 		return (
-			<section className="pt-20  container  h-screen w-full mx-auto flex items-center  justify-center">
-				<div className=" shadow-2xl flex justify-center relative left-20 p-10 w-full flex-1   bg-red-600  ">
+			<section className="pt-20 container h-screen w-full mx-auto flex items-center  justify-center">
+				<div className="shadow-2xl flex justify-center relative left-20 p-10 w-full flex-1   bg-red-600  ">
 					<form className="flex flex-col">
 						<div className="text-center py-5">
 							<h2 className="text-2xl text-yellow-200 font-bold">Blood Request Form</h2>
 						</div>
 						<div className={this.state.step == 1 ? "flex flex-col" : "hidden"}>
 							<label className="text-xl font-semibold mb-1 text-white">Do you need whole blood or platelets?</label>
-							<select onChange={this.handleInput} name="bloodType" value={this.state.bloodType} className="py-1 my-3 border-2 border-yellow-500 outline-none" placeholder="Choose request type">
+							<select onChange={this.handleInput} name="requestedType" value={this.state.requestedType} className="py-1 my-3 border-2 border-yellow-500 outline-none" placeholder="Choose request type">
 								<option>Whole Blood</option>
 								<option>Platelets</option>
 								<option>Double Red Cell</option>
@@ -299,8 +334,8 @@ class BloodRequestForm extends React.Component {
 									<option>{this.state.hospital}</option>
 									{!this.state.suggestedHospitalsList
 										? null
-										: this.state.suggestedHospitalsList.map((hospital) => {
-												return <option>{hospital.description}</option>;
+										: this.state.suggestedHospitalsList.map((hospital, index) => {
+												return <option key={index}>{hospital.description}</option>;
 										  })}
 								</select>
 							</div>
@@ -316,22 +351,29 @@ class BloodRequestForm extends React.Component {
 								<label htmlFor="medicalReports" className="text-xl font-semibold mb-1 text-white">
 									Please Upload medical report which is attested by hospital
 								</label>
-                <input onChange={this.fileHandler} name="medicalReports" multiple={true} id="medicalReports" required className="py-1 my-3 order-2 border-yellow-500 outline-none" type="file" name="hospital" placeholder="Search hospital name and select"></input>
+								<input onChange={this.fileHandler} name="medicalReports" multiple={true} id="medicalReports" required className="py-1 my-3 order-2 border-yellow-500 outline-none" type="file" placeholder="Search hospital name and select"></input>
 							</div>
 							<div>
 								<label className="text-xl font-semibold mb-1 text-white" htmlFor="message">
 									Write a message (current status) to donor about the requirement briefly
 								</label>
-								<textarea onChange={this.handleInput} rows="10" cols="20" name="message" id="message" value={this.state.message} required className="py-1 my-3 border-2 border-yellow-500 outline-none" placeholder="Explain donors why you need blood and how urgent" name="description"></textarea>
+								<textarea onChange={this.handleInput} rows="10" cols="20" name="message" id="message" value={this.state.message} required className="py-1 my-3 border-2 border-yellow-500 outline-none" placeholder="Explain donors why you need blood and how urgent" name="message"></textarea>
 							</div>
 						</div>
 						<div className="flex flex-row my-2 justify-between items-center">
 							<button onClick={this.handleBackStep} id="1" className={this.state.step > 1 ? "bg-yellow-500 text-white  px-6 py-2" : "hidden"}>
 								<i className="fas text-3xl text-white fa-arrow-left"></i>
 							</button>
-							<button onClick={this.handleStep} id="1" className="bg-yellow-500 text-white px-6 py-2">
-								{this.state.step == 6 ? "Submit" : <i className="fas text-3xl text-white fa-arrow-right"></i>}
-							</button>
+              {this.state.step == 7 ?
+              (
+								<button onClick={this.formHandler} id="1" className="bg-yellow-500 text-white px-6 py-2">
+									Submit
+								</button>
+							) :  (
+								<button onClick={this.handleStep} id="1" className="bg-yellow-500 text-white px-6 py-2">
+									<i className="fas text-3xl text-white fa-arrow-right"></i>
+								</button>
+							) }
 						</div>
 						<div className="text-center  my-3">
 							<span className="text-2xl text-white font-light">{this.state.step}/7</span>

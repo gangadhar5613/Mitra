@@ -21,11 +21,6 @@ const bloodRequestSchema = new Schema(
 				required: true,
 				lowercase: true,
 			},
-			city: {
-				type: String,
-				required: true,
-				lowercase: true,
-			},
 			lat: {
 				type: Number,
 				required: true,
@@ -58,8 +53,9 @@ const bloodRequestSchema = new Schema(
 		isRequestedFulfilled: { type: Boolean, default: false },
 		feed: [
 			{
-				message: { type: String, required: true, minlength: 10 },
-				medicalReports: [{ type: String }],
+				type: Schema.Types.ObjectId,
+				ref: "BloodRequestFeed",
+				required: true,
 			},
 		],
 		status: { type: String, required: true, default: "OPEN" },
