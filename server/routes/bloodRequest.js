@@ -2,23 +2,63 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const BloodRequest = require("../models/BloodRequest");
+const BloodRequestFeed = require("../models/BloodRequestFeed");
+var s3 = require("../config/s3uploader");
+const { v4: uuidv4 } = require("uuid");
 
 // POST /api/v1/blood/create - Creating New Blood Request
 
 router.post("/create", async (req, res, next) => {
 	const { userID } = req;
-	const { title, location, feed, images, requestedFor } = req.body.blood;
+	const { title, location, images, requestedFor, feed } = req.body.blood;
+	const imagesArr = [];
+	const medicalReportsArr = [];
+
 	try {
 		const isRequestedTypeIsValid = ["Whole Blood", "Platelets", "AB Plasma", "Double Red Cell", "Cord Blood"].includes(requestedFor?.requestedType);
 		if (!isRequestedTypeIsValid) throw new Error("invalid-06"); // invalid data passed
 		const isRequestedBloodGroupIsValid = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-", "OH+"].includes(requestedFor?.bloodGroup);
 		if (!isRequestedTypeIsValid) throw new Error("invalid-06"); // invalid data passed
-		const bloodRequest = await BloodRequest.create({ title, location, images, requestedFor, status: "OPEN" });
-		bloodRequest.feed.push(feed);
-		await bloodRequest.save();
+
+		console.log(images, feed);
+		if (images.length > 0) {
+			for (const image of images) {
+				if (["png", "jpg", "jpeg", "webp"].includes(image.type)) {
+					const fileName = `${uuidv4()}.${image.type}`;
+					const uploadParams = {
+						Bucket: "blood-app",
+						Key: fileName,
+						Body: new Uint8Array(image.data),
+					};
+
+					const uploadStatus = await s3.uploader(uploadParams);
+					if (!uploadStatus) throw new Error("failed-01"); // Error on uploading
+					imagesArr.push(`https://blood-app.s3.ap-south-1.amazonaws.com/${fileName}`);
+				}
+			}
+		}
+
+		if (feed.medicalReports.length > 0) {
+			for (const image of feed.medicalReports) {
+				if (["png", "jpg", "jpeg", "webp"].includes(image.type)) {
+					const fileName = `${uuidv4()}.${image.type}`;
+					const uploadParams = {
+						Bucket: "blood-app",
+						Key: fileName,
+						Body: new Uint8Array(image.data),
+					};
+
+					const uploadStatus = await s3.uploader(uploadParams);
+					if (!uploadStatus) throw new Error("failed-01"); // Error on uploading
+					medicalReportsArr.push(`https://blood-app.s3.ap-south-1.amazonaws.com/${fileName}`);
+				}
+			}
+		}
+
+		const bloodFeed = await BloodRequestFeed.create({ message: feed.message, medicalReports: medicalReportsArr });
+		const bloodRequest = await BloodRequest.create({ title, location, images: imagesArr, requestedFor, status: "OPEN", feed: [bloodFeed.id] });
 		const user = await User.findByIdAndUpdate(userID, { $push: { raisedRequests: bloodRequest.id } }, { useFindAndModify: true, new: true });
-		console.log(user);
-		res.json(bloodRequest);
+		res.json({ request: bloodRequest });
 	} catch (error) {
 		console.log(error);
 		next(error);

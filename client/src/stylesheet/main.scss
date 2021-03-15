@@ -61,8 +61,10 @@ body {
 }
 
 .active{
+
+  color:orange;
   font-size: larger;
-  color: orange;
+
 }
 
 .blood-request-cards {
@@ -124,39 +126,15 @@ input, select {
   width: 100%;
 }
 
-.overlay{
+textarea {
+  display: block;
+  padding: .35rem .25rem;
+  width: 100%;
+}
 
+.overlay{
   position:absolute;
   left: 45%;
   width: 400px;
   z-index: 20;
-  
-  
-}
-.ans {
-  display: none;
-}
-.ans.visible {
-  display: block;
-  color: white;
-  border: 2px solid white;
-  background-color: rgb(206, 52, 70);
-  padding: 3rem;
-}
-
-.App {
-  text-align: center;
-  font-size: 2rem;
-  max-width: 900px;
-  margin: 3rem auto;
-}
-
-.wrap {
-  padding: 2rem;
-}
-.ques {
-  color: white;
-  border: 2px solid white;
-  background-color: darkred;
-  padding: 2rem;
 }
