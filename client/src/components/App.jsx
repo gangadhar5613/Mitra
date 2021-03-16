@@ -1,17 +1,19 @@
 import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 
 import Home from "./Home";
 import Register from "./auth/Register";
 import Login from "./auth/Login";
-import Feed from './feed/Feed'
+import Feed from "./feed/Feed";
 import UserDashboard from "./userDashboard/UserDashboard";
-import FundRaising from './FunRaising';
-import BloodRequestForm from './BloodRequestForm';
+import FundRaising from "./FunRaising";
+import BloodRequestForm from "./BloodRequestForm";
 import BouncingLoader from "./BouncingLoader";
 import PageNotFound from "./PageNotFound";
+import About from "./About";
+import FAQs from "./FAQs";
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -22,81 +24,102 @@ class App extends React.Component {
     };
   }
 
-  updateUser (user) {
-    this.setState({user, isLoggedIn: true,isLoading:false})
-  }
+  updateUser = (user, isLoggedIn, isLoading) => {
+    this.setState({ user, isLoggedIn, isLoading });
+  };
 
-  async componentDidMount () {
-    const token = localStorage.getItem("token")
-    
-    if (token)
-    {
-      console.log(token)
+  async componentDidMount() {
+    console.log("App Mounting");
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      console.log(token);
       const response = await fetch("/api/v1/user", {
-        method: 'GET',
+        method: "GET",
         headers: {
-        Authorization: token
-        }
+          Authorization: token,
+        },
       });
       const { user, error } = await response.json();
-      console.log(user)
-      if(error) return localStorage.clear()
-      this.updateUser(user)
+      console.log(user);
+      if (error) return localStorage.clear();
+      this.updateUser(user, true, false);
     } else {
-      this.setState({isLoading: false})
+      this.setState({ isLoading: false });
     }
   }
 
-  render () {
+  render() {
     const { isLoggedIn, user, isLoading } = this.state;
-    if(isLoading) return <BouncingLoader />
+    if (isLoading) return <BouncingLoader />;
     return (
-		<BrowserRouter>
-        {(isLoggedIn ) ? <AuthRoute user={this.state.user} /> : <NoAuthRoute user={this.state.user}  />}
-		</BrowserRouter>
-	);
-}
+      <BrowserRouter>
+        {isLoggedIn ? (
+          <AuthRoute user={this.state.user} updateUser={this.updateUser} />
+        ) : (
+          <NoAuthRoute user={this.state.user} updateUser={this.updateUser} />
+        )}
+      </BrowserRouter>
+    );
+  }
 }
 
-
-function AuthRoute(props)
-{
-  console.log('Authorized')
+function AuthRoute(props) {
   return (
     <>
-      <Header  />
+      <Header user={props.user} updateUser={props.updateUser} />
       <Switch>
-        <Route path="/" exact component={Home} />
+        <Route path="/" exact>
+          <Home handleBloodRequest={props.handleBloodRequest} />
+        </Route>
         <Route path="/feed" component={Feed} />
         <Route path="/user/dashboard" exact>
-          <UserDashboard />
+          <UserDashboard
+            user={props.user}
+            handleBloodRequest={props.handleBloodRequest}
+          />
         </Route>
-        <Route path="/bloodrequest">
+        <Route path="/bloodrequest/create" exact>
           <BloodRequestForm />
+		</Route>
+		<Route path="/about" exact>
+          <About />
+        </Route>
+		<Route path="/faqs" exact>
+          <FAQs />
         </Route>
         <Route path="*">
-          <Home />
+          <Redirect to="/" />
         </Route>
+
       </Switch>
     </>
   );
 }
 
-function NoAuthRoute(props)
-{
-
+function NoAuthRoute(props) {
   return (
     <>
-      <Header user = {props.state.user} />
+      <Header user={props.user} />
       <Switch>
         <Route path="/" exact component={Home} />
-        <Route path="/register" component={Register} />
-        <Route path="/login" component={Login} />
+        <Route path="/register">
+          <Register updateUser={props.updateUser} />
+        </Route>
+        <Route path="/login">
+          <Login updateUser={props.updateUser} />
+        </Route>
         <Route path="/feed" component={Feed} />
-        <Route path='*'>
+        <Route path="/about" exact>
+          <About />
+        </Route>
+        <Route path="/faqs" exact>
+          <FAQs />
+        </Route>
+        <Route path="*">
           <PageNotFound />
         </Route>
-			</Switch>
+      </Switch>
     </>
   );
 }

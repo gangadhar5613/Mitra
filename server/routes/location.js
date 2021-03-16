@@ -50,7 +50,7 @@ router.post("/pincode", async (req, res, next) => {
 		const response = await axios.request(options);
 		const locations = await response.data;
 
-		res.json(pincodeMap(locations));
+		res.json({ data: pincodeMap(locations) });
 	} catch (error) {
 		next({
 			message: "pincode not found",

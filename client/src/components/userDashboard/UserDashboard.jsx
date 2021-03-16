@@ -4,12 +4,15 @@ import Chart from '../Chart'
 import img from '../../../public/images/user.png'
 import BloodDonated from './BloodDonated';
 import FundsRaised from './FundsRaised'
+import BloodRequestForm from '../BloodRequestForm'
+import { Link } from 'react-router-dom';
+import DonorsAccepted from './DonorsAccepted'
 
 class UserDashboard extends React.Component{
     constructor(props){
         super(props)
         this.state={
-            status:'1',
+            status:'5',
         }
     }
 
@@ -28,6 +31,9 @@ class UserDashboard extends React.Component{
                 break;
             case '4':
                 return <FundsRaised />
+                break;
+            case '5':
+                return <DonorsAccepted />
                 break;
             default:
                 return <OverAllStatus />
@@ -49,15 +55,22 @@ class UserDashboard extends React.Component{
     render(){
         return(
           <>
-            <main className='h-screen dashboard container py-20 mx-auto  '>
-                  <h3 className='text-3xl font-semibold text-center'>Dashboard</h3>
-                  <section className='mt-2 mx-20'>
+            <main className='h-screen dashboard  container py-20 mx-auto  '>
+                    <h3 className='text-3xl font-semibold text-center'>Dashboard</h3>
+                    <div className='flex flex-row items-center justify-between'>
+                        <h2 className=' mt-5 justify-end shadow-lg p-1 rounded-md border-l-2 border-r-2 border-red-700 inline-block items-center mx-20 text-xl font-semibold'>Welcome<span className='text-2xl font-bold mx-2 hover:underline text-red-500'>{ this.props.user.fullName}</span></h2>
+                        <Link to='/bloodrequest/create'>
+                           <button onClick={this.props.handleBloodRequest} className='  mx-20 bg-red-600  shadow-lg hover:scale-110 text-white rounded-md px-4 py-1'>Create Blood Request</button>
+                        </Link>
+                    </div>
+                  <section className='mt-1 mx-20'>
                       <div className='container  '>
                          <div className='flex flex-row  border-l-4 border-r-4 rounded-md   border-red-500  justify-around py-4 items-center  shadow-md'>
                              <button onClick={this.handleStep} id='1' className={this.state.status == '1' ? ' shadow  px-6 text-xl bg-red-800  text-white rounded    hover:scale-110 focus:outline-none py-2' : 'shadow bg-yellow-500 rounded hover:scale-110  px-6 text-xl py-2'}>Overall Status</button>
                              <button onClick={this.handleStep} id='2' className={this.state.status == '2' ? ' shadow  px-6 text-xl bg-red-800  text-white rounded    hover:scale-110 focus:outline-none py-2' : 'shadow bg-yellow-500 rounded hover:scale-110  px-6 text-xl py-2'}>Blood Requests Raised</button>
                              <button onClick={this.handleStep} id='3' className={this.state.status == '3' ? ' shadow  px-6 text-xl bg-red-800  text-white rounded    hover:scale-110 focus:outline-none py-2' : 'shadow bg-yellow-500 rounded hover:scale-110  px-6 text-xl py-2'}>Blood Donated</button>
                              <button onClick={this.handleStep} id='4' className={this.state.status == '4' ? ' shadow  px-6 text-xl bg-red-800  text-white rounded    hover:scale-110 focus:outline-none py-2' : 'shadow bg-yellow-500 rounded hover:scale-110  px-6 text-xl py-2'}>Funds Raised</button>
+                             <button onClick={this.handleStep} id='5' className={this.state.status == '5' ? ' shadow  px-6 text-xl bg-red-800  text-white rounded    hover:scale-110 focus:outline-none py-2' : 'shadow bg-yellow-500 rounded hover:scale-110  px-6 text-xl py-2'}>Donors List</button>
                          </div>
                       </div>
                       <div className='border-r-2 my-5 border-l-2 border-b-2 border-dashed border-red-600  w-full'>
@@ -65,7 +78,7 @@ class UserDashboard extends React.Component{
                               this.renderStatus()
                           }
                       </div>
-                  </section>
+                    </section>
             </main>
           </>
         )
