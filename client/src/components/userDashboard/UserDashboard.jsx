@@ -26,19 +26,19 @@ class UserDashboard extends React.Component {
   renderStatus = () => {
     let step = this.state.status;
     switch (step) {
-      case '1':
+      case 1:
         return <OverAllStatus />;
         break;
-      case '2':
+      case 2:
         return <BloodRequestsRaised />;
         break;
-      case '3':
+      case 3:
         return <BloodDonated />;
         break;
-      case '4':
+      case 4:
         return <FundsRaised />;
         break;
-      case '5':
+      case 5:
         return <DonorsAccepted />;
         break;
       default:
