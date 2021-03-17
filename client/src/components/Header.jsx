@@ -71,13 +71,13 @@ class Header extends React.Component {
                 </NavLink>
               </div>
               <div className="inline-block mx-2">
-                <button
+                <Link to="/"
                   onClick={this.handleLogout}
                   type="button"
                   className="focus:outline-none text-red-700 text-md py-2 px-4 rounded-md bg-white to-red-600 transform hover:scale-110"
                 >
                   Logout
-                </button>
+                </Link>
               </div>
             </div>
           </nav>

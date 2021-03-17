@@ -40,10 +40,14 @@ class App extends React.Component {
           Authorization: token,
         },
       });
-      const { user, error } = await response.json();
-      console.log(user);
-      if (error) return localStorage.clear();
-      this.updateUser(user, true, false);
+      const { user, err } = await response.json();
+      console.log(user, err);
+      if (err) {
+        localStorage.clear();
+        this.updateUser(null, false, false)
+      } else {
+        this.updateUser(user, true, false);
+      };
     } else {
       this.setState({ isLoading: false });
     }
@@ -99,28 +103,28 @@ function AuthRoute(props) {
 
 function NoAuthRoute(props) {
   return (
-    <>
-      <Header user={props.user} />
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/register">
-          <Register updateUser={props.updateUser} />
-        </Route>
-        <Route path="/login">
-          <Login updateUser={props.updateUser} />
-        </Route>
-        <Route path="/feed" component={Feed} />
-        <Route path="/about" exact>
-          <About />
-        </Route>
-        <Route path="/faqs" exact>
-          <FAQs />
-        </Route>
-        <Route path="*">
-          <PageNotFound />
-        </Route>
-      </Switch>
-    </>
+		<>
+			<Header user={props.user} />
+			<Switch>
+				<Route path="/" exact component={Home} />
+				<Route path="/register">
+					<Register updateUser={props.updateUser} user={props.user} />
+				</Route>
+				<Route path="/login">
+					<Login updateUser={props.updateUser} user={props.user} />
+				</Route>
+				<Route path="/feed" component={Feed} />
+				<Route path="/about" exact>
+					<About />
+				</Route>
+				<Route path="/faqs" exact>
+					<FAQs />
+				</Route>
+				<Route path="*">
+					<PageNotFound />
+				</Route>
+			</Switch>
+		</>
   );
 }
 

@@ -326,34 +326,33 @@ class Register extends React.Component {
 	};
 
   handleUserSubmit = async () => {
+		const { firstName, lastName, middleName, dob, email, bloodGroup, state, district, postOffice, address, pincode, password, mobile, medicalReport, lat, lng, profileImage } = this.state;
+		if (!this.state.mobileVerifiedSuccessful) {
+			return;
+		}
 
-    const { firstName, lastName, middleName, dob, email, bloodGroup, state, district, postOffice, address, pincode, password, mobile, medicalReport, lat, lng, profileImage } = this.state;
-    if (!this.state.mobileVerifiedSuccessful) {
-      return;
-    }
+		if (!(firstName && lastName && email && dob && bloodGroup)) {
+			return this.setState({
+				step: 2,
+			});
+		}
 
-    if (!(firstName && lastName && email && dob && bloodGroup)) {
-      return this.setState({
-        step: 2
-      })
-    }
+		if (!medicalReport) {
+			return this.setState({
+				step: 3,
+			});
+		}
 
-    if (!(medicalReport)) {
-        return this.setState({
-        step: 3,
-      });
-    }
-
-    if (!(state && district && postOffice && address && pincode && password)) {
-      return this.setState({
-        step: 4,
-      });
-    }
+		if (!(state && district && postOffice && address && pincode && password)) {
+			return this.setState({
+				step: 4,
+			});
+		}
 
 		let data = {
 			user: {
 				firstName,
-        lastName,
+				lastName,
 				dob,
 				email,
 				bloodGroup,
@@ -386,15 +385,17 @@ class Register extends React.Component {
 			body: JSON.stringify(data),
 		});
 
-		const { user, error } = await response.json();
-		if (user) {
-			localStorage.setItem("token", user.token);
-			this.setState({
-				isLoggedIn: true,
-			});
+		const { user, err } = await response.json();
+		console.log(user, err);
+		if (err) {
+			localStorage.clear();
+			this.props.updateUser(null, false, false);
+		} else {
+			localStorage.setItem("token", user.token)
+			this.props.updateUser(user, true, false);
 		}
-		console.log(user, error);
-	};
+		console.log(user, err);
+  };;
 
 	componentDidMount() {
 		this.fetchingLocation();
