@@ -1,15 +1,15 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+var createError = require("http-errors");
+var express = require("express");
+var path = require("path");
+var cookieParser = require("cookie-parser");
+var logger = require("morgan");
 var session = require("express-session");
-const MongoStore = require("connect-mongo").default;
+const MongoStore = require("connect-mongo");
 var db = require("./server/db/config");
 var auth = require("./server/middleware/auth");
 
-var indexRouter = require('./server/routes/index');
-var userRouter = require('./server/routes/user');
+var indexRouter = require("./server/routes/index");
+var userRouter = require("./server/routes/user");
 var organizationRouter = require("./server/routes/organization");
 var locationRouter = require("./server/routes/location");
 var bloodRequestRouter = require("./server/routes/bloodRequest");
@@ -49,13 +49,13 @@ app.use("/api/v1/blood", auth.verifyUserLoggedIn, bloodRequestRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  next(createError(404));
+	next(createError(404));
 });
 
 // error handler
 app.use(function (err, req, res, next) {
 	console.log(err);
-  res.json({ err });
+	res.json({ err });
 });
 
 module.exports = app;

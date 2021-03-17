@@ -4,6 +4,7 @@ var fs = require("fs");
 var path = require("path");
 const User = require("../models/User");
 const Verification = require("../models/PhoneVerification");
+const Donation = require("../models/Donation");
 var jwt = require("../config/jwt");
 var auth = require("../middleware/auth");
 var hash = require("../utils/hash");
@@ -71,7 +72,7 @@ router.post("/mobile/verify", async (req, res, next) => {
 router.post("/register", async (req, res, next) => {
 	const { sid } = req.session;
 	let { mobile, password, profileImage, medicalReport } = req.body.user;
-	console.log(medicalReport);
+
 	try {
 		const isMobileNumberAlreadyExist = await User.findOne({ mobile: "+91" + mobile });
 		if (isMobileNumberAlreadyExist) throw new Error("val-01"); // user already exist
@@ -114,7 +115,7 @@ router.post("/register", async (req, res, next) => {
 		console.log(error);
 		next(error);
 	}
-	}
+}
 );
 
 // POST /api/v1/user/login
@@ -123,11 +124,11 @@ router.post("/login", async (req, res, next) => {
 	const { email, mobile, password } = req.body.user;
 	try {
 		const [user] = await User.find({}).or([{ email }, { mobile }]);
-		console.log(user)
 		if(!user) throw new Error("invalid-02") // user not found
 		const passwordCheck = await user.verifyPassword(password);
 		if (passwordCheck) {
 			const token = await jwt.generateToken({ userID: user.id });
+			console.log({ user: profileInfo(user, token) });
 			res.json({ user: profileInfo(user, token) });
 		} else {
 			throw new Error("auth-03"); // password and username failed
@@ -174,7 +175,7 @@ router.put("/update", auth.verifyUserLoggedIn, async (req, res, next) => {
 		}
 
 		const updatedUser = await User.findByIdAndUpdate(userID, { location: location ?? user.location, email: email ?? user.email, mobile: mobile ?? user.mobile, local: { password: password ?? user.local?.password }, profileImage: profileImage ?? null }, { new: true });
-		res.json({ user: profileInfo(updatedUser, token) });
+		res.json({ user: profileInfo(updatedUser, token, true) });
 	} catch (error) {
 		console.log(error);
 		next(error);
@@ -187,16 +188,60 @@ router.get("/", auth.verifyUserLoggedIn, async (req, res, next) => {
 	try {
 		const user = await User.findById(userID);
 		if (!user) throw new Error("invalid-02"); // user not found
-		res.json({ user: profileInfo(user, token) });
+		res.json({ user: profileInfo(user, token, true) });
 	} catch (error) {
 		console.log(error);
 		next(error);
 	}
 });
 
-function profileInfo(user, token) {
-	const { firstName, lastName, middleName, email, mobile, bloodGroup, dob, profileImage, location } = user;
-	return {
+router.get("/blood/request", auth.verifyUserLoggedIn, async (req, res, next) => {
+	const { userID } = req;
+	try {
+		const { raisedRequests } = await User.findById(userID).populate("raisedRequests");
+		res.json({ raisedRequests });
+	} catch (error) {
+		console.log(error);
+		next(error);
+	}
+});
+
+router.get("/blood/donated", auth.verifyUserLoggedIn, async (req, res, next) => {
+	const { userID } = req;
+	try {
+		const { donated } = await User.findById(userID).populate("donated");
+		res.json({ donated });
+	} catch (error) {
+		console.log(error);
+		next(error);
+	}
+});
+
+router.get("/donate/request", auth.verifyUserLoggedIn, async (req, res, next) => {
+	const { userID } = req;
+	try {
+		const { sendedDonateRequest } = await User.findById(userID).populate("sendedDonateRequest");
+		res.json({ sendedDonateRequest });
+	} catch (error) {
+		console.log(error);
+		next(error);
+	}
+});
+
+router.get("/funds/donated", auth.verifyUserLoggedIn, async (req, res, next) => {
+	const { userID } = req;
+	try {
+		const { fundsDonated } = await User.findById(userID).populate("fundsDonated");
+		res.json({ fundsDonated });
+	} catch (error) {
+		console.log(error);
+		next(error);
+	}
+});
+
+function profileInfo(user, token, isAuth = false) {
+	const { firstName, lastName, middleName, email, mobile, bloodGroup, dob, profileImage, location, medicalReport, lastDonated, currentlyDonating } = user;
+	const profile = {
 		fullName: `${firstName} ${lastName}`,
 		email,
 		mobile,
@@ -206,6 +251,7 @@ function profileInfo(user, token) {
 		...location,
 		token,
 	};
+	return profile;
 }
 
 module.exports = router;

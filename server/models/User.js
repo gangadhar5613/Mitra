@@ -71,7 +71,6 @@ const userSchema = new Schema(
 );
 
 userSchema.pre("save", async function (next) {
-	console.log(this);
 	try {
 		if (this.local.password) {
 			this.local.password = await bcrypt.hash(this.local.password, 12);
