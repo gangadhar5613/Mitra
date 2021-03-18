@@ -7,19 +7,19 @@ body {
   position: relative;
 }
 
-.card{
-  font-family: 'Laila', sans-serif;
-  font-family: 'Varela Round', sans-serif;
+.card {
+  font-family: "Laila", sans-serif;
+  font-family: "Varela Round", sans-serif;
 }
 
-.home{
-  font-family: 'Caveat', cursive;
+.home {
+  font-family: "Caveat", cursive;
 }
 
-.supporters{
- overflow: hidden;
- scroll-behavior: smooth;
- overflow-y: scroll;
+.supporters {
+  overflow: hidden;
+  scroll-behavior: smooth;
+  overflow-y: scroll;
 }
 
 .header {
@@ -33,8 +33,6 @@ body {
   font-family: "Varela Round", sans-serif;
   z-index: 10;
 }
-
-
 
 .footer {
   background-color: #7f1d1d;
@@ -60,11 +58,9 @@ body {
   background-size: cover;
 }
 
-.active{
-
-  color:orange;
+.active {
+  color: orange;
   font-size: larger;
-
 }
 
 .blood-request-cards {
@@ -121,20 +117,48 @@ body {
   width: 48%;
 }
 
-input, select {
-  padding: .35rem .25rem ;
+input,
+select {
+  padding: 0.35rem 0.25rem;
   width: 100%;
 }
 
 textarea {
   display: block;
-  padding: .35rem .25rem;
+  padding: 0.35rem 0.25rem;
   width: 100%;
 }
 
-.overlay{
-  position:absolute;
+.overlay {
+  position: absolute;
   left: 45%;
   width: 400px;
   z-index: 20;
+}
+.ans {
+  display: none;
+}
+.ans.visible {
+  display: block;
+  color: white;
+  border: 2px solid white;
+  background-color: rgb(206, 52, 70);
+  padding: 3rem;
+}
+
+.App {
+  text-align: center;
+  font-size: 2rem;
+  max-width: 900px;
+  margin: 3rem auto;
+}
+
+.wrap {
+  padding: 2rem;
+}
+.ques {
+  color: white;
+  border: 2px solid white;
+  background-color: darkred;
+  padding: 2rem;
 }
