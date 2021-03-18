@@ -46,7 +46,6 @@ router.post("/mobile/verify", async (req, res, next) => {
 	const { sid } = req.session;
   const { mobile, code } = req.body.user;
 	const twilio = require("twilio")();
-	console.log(mobile, code);
   try {
     const isMobileNumberAlreadyExist = await User.findOne({ mobile });
 		if (isMobileNumberAlreadyExist) throw new Error("val-01");
@@ -110,7 +109,7 @@ router.post("/register", async (req, res, next) => {
 		const token = await jwt.generateToken({ userID: user.id });
 		const deleteVerificationTrace = await Verification.findOneAndDelete({ sid });
 		req.session.destroy();
-		res.json({ user: profileInfo(user, token) });
+		res.json({ user: profileInfo(user, token, true) });
 	} catch (error) {
 		console.log(error);
 		next(error);
@@ -128,8 +127,7 @@ router.post("/login", async (req, res, next) => {
 		const passwordCheck = await user.verifyPassword(password);
 		if (passwordCheck) {
 			const token = await jwt.generateToken({ userID: user.id });
-			console.log({ user: profileInfo(user, token) });
-			res.json({ user: profileInfo(user, token) });
+			res.json({ user: profileInfo(user, token, true) });
 		} else {
 			throw new Error("auth-03"); // password and username failed
 		}
@@ -195,11 +193,23 @@ router.get("/", auth.verifyUserLoggedIn, async (req, res, next) => {
 	}
 });
 
+router.get("/:id", async (req, res, next) => {
+	const { id } = req.params;
+	try {
+		const user = await User.findById(id);
+		if (!user) throw new Error("invalid-02"); // user not found
+		res.json({ user: profileInfo(user) });
+	} catch (error) {
+		console.log(error);
+		next(error);
+	}
+});
+
 router.get("/blood/request", auth.verifyUserLoggedIn, async (req, res, next) => {
 	const { userID } = req;
 	try {
 		const { raisedRequests } = await User.findById(userID).populate("raisedRequests");
-		res.json({ raisedRequests });
+		res.json(raisedRequests);
 	} catch (error) {
 		console.log(error);
 		next(error);
@@ -210,7 +220,7 @@ router.get("/blood/donated", auth.verifyUserLoggedIn, async (req, res, next) => 
 	const { userID } = req;
 	try {
 		const { donated } = await User.findById(userID).populate("donated");
-		res.json({ donated });
+		res.json(donated);
 	} catch (error) {
 		console.log(error);
 		next(error);
@@ -221,7 +231,7 @@ router.get("/donate/request", auth.verifyUserLoggedIn, async (req, res, next) =>
 	const { userID } = req;
 	try {
 		const { sendedDonateRequest } = await User.findById(userID).populate("sendedDonateRequest");
-		res.json({ sendedDonateRequest });
+		res.json(sendedDonateRequest);
 	} catch (error) {
 		console.log(error);
 		next(error);
@@ -232,25 +242,26 @@ router.get("/funds/donated", auth.verifyUserLoggedIn, async (req, res, next) => 
 	const { userID } = req;
 	try {
 		const { fundsDonated } = await User.findById(userID).populate("fundsDonated");
-		res.json({ fundsDonated });
+		res.json(fundsDonated);
 	} catch (error) {
 		console.log(error);
 		next(error);
 	}
 });
 
-function profileInfo(user, token, isAuth = false) {
-	const { firstName, lastName, middleName, email, mobile, bloodGroup, dob, profileImage, location, medicalReport, lastDonated, currentlyDonating } = user;
-	const profile = {
+function profileInfo(user, token, isAuth) {
+	const { firstName, lastName, email, mobile, bloodGroup, dob, profileImage, location, medicalReport, lastDonated, currentlyDonating, sendedDonateRequest, donated, raisedRequests } = user;
+	let profile = {
 		fullName: `${firstName} ${lastName}`,
-		email,
-		mobile,
 		bloodGroup,
-		dob,
 		profileImage,
-		...location,
-		token,
+		lastDonated,
+		donated,
+		raisedRequests,
 	};
+	if (isAuth) {
+		profile = { ...profile, ...location, dob, medicalReport, email, mobile, token, sendedDonateRequest, lastDonated, currentlyDonating };
+	}
 	return profile;
 }
 

@@ -33,13 +33,14 @@ function Form (props) {
 	}
 
 
-	function handlerDifferentBtn () {
-		console.log(step, !mobileVerifiedSuccessful, typeof mobile)
+	function handlerDifferentBtn() {
 		if (step == 1) {
 			if (!mobileVerifiedSuccessful && !otpSent) {
-				return <button onClick={props.handleOtp} className="bg-red-700 text-white px-6 py-2 text-left">
-					Send OTP
-				</button>;
+				return (
+					<button onClick={props.handleOtp} className="bg-red-700 text-white px-6 py-2 text-left">
+						Send OTP
+					</button>
+				);
 			} else {
 				return (
 					<button onClick={props.handleVerifyOtp} className="bg-red-700 text-white px-6 py-2">
@@ -62,10 +63,10 @@ function Form (props) {
 						Back
 					</button>
 					<button onClick={props.handleNextForm} className="bg-red-700 text-white px-6 py-2">
-							Next
+						Next
 					</button>
 				</>
-			)
+			);
 		}
 		if (step == 4) {
 			return (
@@ -127,9 +128,8 @@ function StepForm1 (props) {
 	);
 }
 
-function StepForm2 (props) {
-	console.log
-  return (
+function StepForm2(props) {
+	return (
 		<form>
 			<div className="flex flex-wrap justify-between p-4">
 				<div className="w-48 my-2">
@@ -180,7 +180,7 @@ function StepForm2 (props) {
 				</div>
 			</div>
 		</form>
-  );
+	);
 }
 
 function StepForm3(props) {
@@ -204,9 +204,8 @@ function StepForm3(props) {
   );
 }
 
-function StepForm4 (props) {
-	console.log(props.state.postOffices)
-  return (
+function StepForm4(props) {
+	return (
 		<form>
 			<div className="flex flex-wrap justify-between p-4">
 				<div className="w-48 my-2">
@@ -214,7 +213,7 @@ function StepForm4 (props) {
 						Pincode
 					</label>
 					<input onChange={props.handleInput} type="number" id="pincode" name="pincode" value={props.state.pincode} className="mt-1 block    outline-none border-2 border-red-800     shadow-lg hover:bg-red-700 focus:ring-0" placeholder="Enter your pincode " required></input>
-					<span>{ props.state.errors.pincode ? "Invalid PinCode": ""}</span>
+					<span>{props.state.errors.pincode ? "Invalid PinCode" : ""}</span>
 				</div>
 				<div className="w-48 my-2">
 					<label htmlFor="state" className="text-md font-semibold text-shadow-md">
@@ -233,15 +232,13 @@ function StepForm4 (props) {
 						Post Office
 					</label>
 					<select name="postOffice" id="postOffice" className="border-2 border-red-800" onChange={props.handleInput} value={props.state.postOffice}>
-						{
-							props.state.postOffices.map((val, index) => {
-								return (
-									<option value={val} key={index}>
-										{val}
-									</option>
-								);
-							})
-						}
+						{props.state.postOffices.map((val, index) => {
+							return (
+								<option value={val} key={index}>
+									{val}
+								</option>
+							);
+						})}
 					</select>
 				</div>
 				<div className="w-48 my-2">
@@ -261,7 +258,7 @@ function StepForm4 (props) {
 				<Loader />
 			</div>
 		</form>
-  );
+	);
 }
 
 export default Form;

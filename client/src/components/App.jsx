@@ -29,11 +29,9 @@ class App extends React.Component {
 	};
 
 	async componentDidMount() {
-		console.log("App Mounting");
 		const token = localStorage.getItem("token");
 
 		if (token) {
-			console.log(token);
 			const response = await fetch("/api/v1/user", {
 				method: "GET",
 				headers: {
@@ -41,7 +39,6 @@ class App extends React.Component {
 				},
 			});
 			const { user, err } = await response.json();
-			console.log(user, err);
 			if (err) {
 				localStorage.clear();
 				this.updateUser(null, false, false);

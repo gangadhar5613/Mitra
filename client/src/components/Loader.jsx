@@ -1,11 +1,13 @@
 import React from 'react'
 
 function Loader (){
-    return(
-        <div>
-          <i className="fas absolute left-4 top-10 text-5xl text-red-600 animate-spin fa-spinner"></i>
+    return (
+      <div className="absolute top-0 bottom-0 left-0 right-0">
+        <div className="flex justify-center items-center h-screen">
+			    <i className="fas text-5xl text-red-600 animate-spin fa-spinner"></i>
         </div>
-    )
+		</div>
+	);
 }
 
 export default Loader

@@ -386,15 +386,13 @@ class Register extends React.Component {
 		});
 
 		const { user, err } = await response.json();
-		console.log(user, err);
 		if (err) {
 			localStorage.clear();
 			this.props.updateUser(null, false, false);
 		} else {
-			localStorage.setItem("token", user.token)
+			localStorage.setItem("token", user.token);
 			this.props.updateUser(user, true, false);
 		}
-		console.log(user, err);
   };;
 
 	componentDidMount() {

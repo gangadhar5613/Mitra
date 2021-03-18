@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "client": "webpack serve",
-    "server": "nodemon ./bin/www"
+    "server": "nodemon ./bin/www",
+    "build": "webpack"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.8.0",

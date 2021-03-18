@@ -27,7 +27,7 @@ class BloodRequestForm extends React.Component {
 			postOffice: "",
 			postOffices: [],
 			images: [],
-      errors: {}
+			errors: {},
 		};
 	}
 
@@ -165,17 +165,17 @@ class BloodRequestForm extends React.Component {
 						lat: this.state.lat,
 						lng: this.state.lng,
 					},
-        };
+				};
 
-        if (value.length > 3) {
-          fetch(`/api/v1/location/search`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(location) })
-            .then((res) => res.json())
-            .then((data) =>
-              this.setState({
-                suggestedHospitalsList: data.predictions,
-              })
-            );
-        }
+				if (value.length > 3) {
+					fetch(`/api/v1/location/search`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(location) })
+						.then((res) => res.json())
+						.then((data) =>
+							this.setState({
+								suggestedHospitalsList: data.predictions,
+							})
+						);
+				}
 
 				break;
 			case "message":
@@ -194,7 +194,6 @@ class BloodRequestForm extends React.Component {
 				});
 				break;
 			case "postOffice":
-				// errors.mobile = ( this.countDigits(value) >=10 ) ? '' : 'Please enter valid 10 digit mobile number'
 				this.setState({
 					postOffice: value,
 				});
@@ -205,7 +204,7 @@ class BloodRequestForm extends React.Component {
 	};
 
   formHandler = async (e) => {
-    e.preventDefault();
+		e.preventDefault();
 		const { title, state, city, lat, lng, hospital, pincode, images, bloodGroup, requestedType, message, medicalReports } = this.state;
 		const body = {
 			title,
@@ -220,15 +219,13 @@ class BloodRequestForm extends React.Component {
 			images,
 			requestedFor: {
 				bloodGroup,
-				requestedType
+				requestedType,
 			},
 			feed: {
 				message,
-				medicalReports
-			}
+				medicalReports,
+			},
 		};
-
-		console.log(body)
 
 		const response = await fetch("/api/v1/blood/create", {
 			method: "POST",
@@ -237,7 +234,8 @@ class BloodRequestForm extends React.Component {
 		});
 
 		const { err, request } = await response.json();
-		console.log(request)
+		console.log(err, request);;
+		alert("created request");;
   }
 
 	render() {
@@ -336,7 +334,7 @@ class BloodRequestForm extends React.Component {
 										? null
 										: this.state.suggestedHospitalsList.map((hospital, index) => {
 												return <option key={index}>{hospital.description}</option>;
-										  })}
+										})}
 								</select>
 							</div>
 						</div>

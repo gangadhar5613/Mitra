@@ -56,6 +56,9 @@ module.exports = {
 			"/api": "http://localhost:3000",
 		},
 	},
+	performance: {
+		hints: false,
+	},
 	externals: {
 		moment: "moment",
 	},
